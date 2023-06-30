@@ -7,10 +7,10 @@ let socket
 function Chat() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(['dummy']);
 
     useEffect(() => {
-        socket = io('http://localhost:3001');
+        socket = io(`${ENDPOINT}`);
     // socket.on('message', (message) => {
     //   setMessages((messages) => [...messages, message]);
     // });
