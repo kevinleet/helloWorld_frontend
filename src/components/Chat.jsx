@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+const ENDPOINT = 'http://localhost:3001'
+let socket
 
 function Chat() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages((messages) => [...messages, message]);
-    });
+    useEffect(() => {
+        socket = io('http://localhost:3001');
+    // socket.on('message', (message) => {
+    //   setMessages((messages) => [...messages, message]);
+    // });
   }, []);
 
   const handleSubmit = (event) => {
