@@ -1,15 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Chat from './components/Chat'
+import "./App.css";
+import Chat from "./components/Chat";
+import React, { useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import MainPage from "./components/MainPage";
+
+export const UserContext = React.createContext(null);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const initialState = {
+    email: "",
+    displayname: "",
+    id: "",
+  };
+  const [user, setUser] = useState(initialState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  }, [isLoggedIn]);
 
   return (
-    <Chat></Chat>
-  )
+    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
+      <div className="flex justify-center items-center min-w-[1200px] min-h-[700px] border border-slate-900 rounded-lg bg-slate-900">
+        <Routes>
+          <Route path="*" element={<h1>404</h1>} />
+          <Route exact path="/" element={<MainPage />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<SignUp />} />
+        </Routes>
+      </div>
+
+      <div className="flex justify-center items-center space-x-2 mt-10">
+        <p>For Development Use Only:</p>
+        <button
+          onClick={() => setIsLoggedIn(!isLoggedIn)}
+          className="border p-1"
+        >
+          isLoggedIn: {isLoggedIn ? "true" : "false"}
+        </button>
+        <p className="border p-1">
+          User: {user.id ? user.displayname : "null"}
+        </p>
+      </div>
+    </UserContext.Provider>
+  );
 }
 
-export default App
+export default App;
