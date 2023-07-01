@@ -1,16 +1,66 @@
 import { UserContext } from "../App";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import bcrypt from "bcryptjs";
+import { BASE_URL } from "../globals";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
+  const initialState = {
+    email: "",
+    displayname: "",
+    password: "",
+    confirmpassword: "",
+  };
+  const [formState, setFormState] = useState(initialState);
 
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/");
     }
   }, [isLoggedIn]);
+
+  const handleChange = (e) => {
+    setFormState({ ...formState, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formState.password === formState.confirmpassword) {
+      try {
+        await createUser();
+        alert("Account created. Please sign in!");
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("Passwords do not match.");
+    }
+  };
+
+  const createUser = async () => {
+    let hashedPassword = await hashPassword();
+    console.log(hashedPassword);
+
+    let user = await axios.post(`${BASE_URL}/users/create`, {
+      email: formState.email,
+      displayname: formState.displayname,
+      password: hashedPassword,
+    });
+  };
+
+  const hashPassword = async () => {
+    const saltRounds = 10;
+
+    const hashedPassword = await bcrypt.hash(formState.password, saltRounds);
+
+    console.log(hashedPassword);
+    return hashedPassword;
+  };
   return (
     <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-700 bg-slate-800 max-w-2xl rounded-lg">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -23,7 +73,7 @@ const SignUp = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="email"
@@ -38,6 +88,8 @@ const SignUp = () => {
                 type="email"
                 autoComplete="email"
                 required
+                onChange={handleChange}
+                value={formState.email}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
               />
             </div>
@@ -57,6 +109,8 @@ const SignUp = () => {
                 type="displayname"
                 autoComplete="displayname"
                 required
+                onChange={handleChange}
+                value={formState.displayname}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
               />
             </div>
@@ -79,6 +133,8 @@ const SignUp = () => {
                 type="password"
                 autoComplete="current-password"
                 required
+                onChange={handleChange}
+                value={formState.password}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
               />
             </div>
@@ -101,6 +157,8 @@ const SignUp = () => {
                 type="password"
                 autoComplete="current-password"
                 required
+                onChange={handleChange}
+                value={formState.confirmpassword}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
               />
             </div>

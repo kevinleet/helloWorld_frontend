@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../globals";
+import bcrypt from "bcryptjs";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,27 +27,37 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let users = await getUsers();
-    let validUser = users.find(
-      (user) =>
-        user.email == formState.email && user.password == formState.password
-    );
-    if (validUser) {
+    let foundUser = await getUser();
+    let validPassword;
+    if (foundUser) {
+      validPassword = await bcrypt.compare(
+        formState.password,
+        foundUser.password
+      );
+    }
+
+    if (foundUser && validPassword) {
       setIsLoggedIn(true);
       setUser({
         ...User,
-        email: validUser.email,
-        displayname: validUser.displayname,
-        id: validUser._id,
+        email: foundUser.email,
+        displayname: foundUser.displayname,
+        id: foundUser._id,
       });
     } else {
       alert("Login Failed! Please try again.");
     }
   };
 
-  const getUsers = async () => {
-    let response = await axios.get(`${BASE_URL}/users`);
-    return response.data;
+  const getUser = async () => {
+    try {
+      const response = await axios.post(`${BASE_URL}/users/get/email`, {
+        email: formState.email,
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
