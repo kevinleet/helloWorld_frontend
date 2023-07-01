@@ -5,6 +5,9 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import MainPage from "./components/MainPage";
+import AddFriend from "./components/Main/AddFriend"
+import ChatWindow from "./components/Main/ChatWindow"
+import Profile from "./components/Main/Profile"
 
 export const UserContext = React.createContext(null);
 
@@ -35,6 +38,9 @@ function App() {
           <Route exact path="/" element={<MainPage />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
+          <Route exact path="/addfriend" element={<AddFriend />} />
+          <Route exact path="/chat" element={<ChatWindow />} />
+          <Route exact path="/profile" element={<Profile />} />
         </Routes>
       </div>
 
