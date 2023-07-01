@@ -10,6 +10,7 @@ export const UserContext = React.createContext(null);
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentChat, setCurrentChat] = useState('')
   const initialState = {
     email: "",
     displayname: "",
@@ -27,7 +28,7 @@ function App() {
   }, [isLoggedIn]);
 
   return (
-    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
+    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser, currentChat, setCurrentChat }}>
       <div className="flex justify-center items-center min-w-[1200px] min-h-[700px] border border-slate-900 rounded-lg bg-slate-900">
         <Routes>
           <Route path="*" element={<h1>404</h1>} />
