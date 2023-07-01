@@ -15,20 +15,20 @@ const SearchFriends = ({ formState, handleChange }) => {
         <div>
             <div className="search-bar">
                 <form onSubmit={handleSubmit}>
-                    <input type="text" id='search' onChange={handleChange} value={formState.search} placeholder='Search Friends'/>
+                    {/* <input type="text" id='search' onChange={handleChange} value={formState.search} placeholder='Search Friends'/> */}
                     <button type='submit' className='submit-button'>Search</button>
                 </form>
             </div>
 
-            { search ? <div className="search-result">
+            {/* { search ? <div className="search-result"> */}
 
-            </div> : null }
+            {/* </div> : null } */}
 
-            <ul className="friends-list">
+            {/* <ul className="friends-list">
                 {props.friend.results.map((friend) => (
                    <FriendCard key={friend.id} icon={friend.icon} displayName={friend.displayName}/> 
                 ))}
-            </ul>
+            </ul> */}
         </div>
     )
 }
