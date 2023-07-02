@@ -1,5 +1,7 @@
+import KevinTest from "./KevinTest";
+
 const MainBar = () => {
-  return <h1>MainBar</h1>;
+  return <KevinTest />;
 };
 
 export default MainBar;

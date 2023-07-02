@@ -1,5 +1,5 @@
 import { UserContext } from "../../App";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../globals";

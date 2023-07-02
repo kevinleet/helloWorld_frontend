@@ -9,6 +9,8 @@ import AddFriend from "./components/Main/AddFriend";
 import ChatWindow from "./components/Main/ChatWindow";
 import Profile from "./components/Main/Profile";
 import LoginPage from "./components/Login/LoginPage";
+import { BASE_URL } from "./globals";
+import axios from "axios";
 
 export const UserContext = React.createContext(null);
 
@@ -16,11 +18,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentChat, setCurrentChat] = useState("");
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  const navigate = useNavigate();
 
   return (
     <UserContext.Provider

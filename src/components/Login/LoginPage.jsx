@@ -11,8 +11,6 @@ const LoginPage = () => {
       ) : (
         <SignUp setLoginPage={setLoginPage} />
       )}
-      {/* <Login />
-      <SignUp /> */}
     </>
   );
 };
