@@ -1,6 +1,6 @@
 import "./App.css";
 import Chat from "./components/Chat";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
@@ -15,13 +15,12 @@ export const UserContext = React.createContext(null);
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentChat, setCurrentChat] = useState("");
-  const initialState = {
-    email: "",
-    displayname: "",
-    id: "",
-  };
-  const [user, setUser] = useState(initialState);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <UserContext.Provider
@@ -56,7 +55,7 @@ function App() {
           isLoggedIn: {isLoggedIn ? "true" : "false"}
         </button>
         <p className="border p-1">
-          User: {user.id ? user.displayname : "null"}
+          User: {user?._id ? user?.displayname : "null"}
         </p>
       </div>
     </UserContext.Provider>
