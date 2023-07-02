@@ -1,7 +1,11 @@
-import KevinTest from "./KevinTest";
+import AddFriend from "./AddFriend";
 
 const MainBar = () => {
-  return <KevinTest />;
+  return (
+    <div className="w-full">
+      <AddFriend />
+    </div>
+  );
 };
 
 export default MainBar;

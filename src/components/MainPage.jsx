@@ -31,7 +31,7 @@ const MainPage = () => {
           <SideBar />
         </div>
 
-        <div className="flex justify-center items-center border border-blue-500 w-6/12">
+        <div className="flex justify-center border border-blue-500 w-6/12">
           <MainBar />
         </div>
       </div>
