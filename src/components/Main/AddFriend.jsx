@@ -1,8 +1,12 @@
 import { UsersContext } from "../MainPage";
+import { UserContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
+import { BASE_URL } from "../../globals";
+import axios from "axios";
 
 const AddFriend = () => {
   const { users, setUsers } = useContext(UsersContext);
+  const { user, setUser } = useContext(UserContext);
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [input, setInput] = useState("");
 
@@ -20,8 +24,10 @@ const AddFriend = () => {
 
   useEffect(() => {
     if (users) {
-      const filteredResults = users.filter((user) =>
-        user.displayname.toLowerCase().includes(input.toLowerCase())
+      const filteredResults = users.filter(
+        (usersUser) =>
+          usersUser.displayname.toLowerCase().includes(input.toLowerCase()) &&
+          usersUser.displayname != user.displayname
       );
       setFilteredUsers(filteredResults);
     }
@@ -30,6 +36,29 @@ const AddFriend = () => {
   const handleChange = (e) => {
     setInput(e.target.value);
   };
+
+  const handleClick = (e) => {
+    sendRequest(e.currentTarget.id);
+  };
+
+  const sendRequest = async (recipient) => {
+    let sender = user._id;
+    console.log(sender, recipient);
+    try {
+      let response = await axios.post(`${BASE_URL}/requests/create`, {
+        sender: sender,
+        recipient: recipient,
+      });
+      setUser((prevUser) => ({
+        ...prevUser,
+        outgoingrequests: [...prevUser.outgoingrequests, recipient],
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("user", user);
 
   return (
     <div className="flex justify-center items-center flex-col p-5">
@@ -44,16 +73,29 @@ const AddFriend = () => {
       </div>
       <div className="mt-5">
         {filteredUsers
-          ? filteredUsers.map((user) => (
+          ? filteredUsers.map((filteredUser) => (
               <div
-                key={user._id}
-                className="flex flex-row justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl"
+                key={filteredUser._id}
+                className="flex flex-row justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl "
               >
-                <div className="mx-5">{user.displayname}</div>
-
-                <button className="mx-5 p-2 border border-black rounded-lg bg-green-500 text-sm">
-                  Send Friend Request
-                </button>
+                <div className="mx-5">{filteredUser.displayname}</div>
+                {user.outgoingrequests.includes(filteredUser._id) ? (
+                  <button
+                    id={filteredUser._id}
+                    onClick={handleClick}
+                    className="mx-5 p-2 border border-black rounded-lg bg-yellow-500 text-sm hover-"
+                  >
+                    Request Pending
+                  </button>
+                ) : (
+                  <button
+                    id={filteredUser._id}
+                    onClick={handleClick}
+                    className="mx-5 p-2 border border-black rounded-lg bg-green-500 text-sm hover-"
+                  >
+                    Send Friend Request
+                  </button>
+                )}
               </div>
             ))
           : null}
