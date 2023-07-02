@@ -1,13 +1,10 @@
-import { UserContext } from "../App";
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
-import { BASE_URL } from "../globals";
+import { BASE_URL } from "../../globals";
 
-const SignUp = () => {
-  const navigate = useNavigate();
-  const { isLoggedIn } = useContext(UserContext);
+const SignUp = ({ setLoginPage }) => {
   const initialState = {
     email: "",
     displayname: "",
@@ -15,12 +12,6 @@ const SignUp = () => {
     confirmpassword: "",
   };
   const [formState, setFormState] = useState(initialState);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    }
-  }, [isLoggedIn]);
 
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.id]: e.target.value });
@@ -33,7 +24,7 @@ const SignUp = () => {
       try {
         await createUser();
         alert("Account created. Please sign in!");
-        navigate("/login");
+        setLoginPage(true);
       } catch (error) {
         console.log(error);
       }
@@ -61,6 +52,11 @@ const SignUp = () => {
     console.log(hashedPassword);
     return hashedPassword;
   };
+
+  const handleClick = () => {
+    setLoginPage(true);
+  };
+
   return (
     <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-700 bg-slate-800 max-w-2xl rounded-lg">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -175,7 +171,7 @@ const SignUp = () => {
         </form>
         <p className="mt-10 text-center text-sm text-gray-500">
           <Link
-            to="/login"
+            onClick={handleClick}
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Go Back to Log In

@@ -1,5 +1,11 @@
+import AddFriend from "./AddFriend";
+
 const MainBar = () => {
-  return <h1>MainBar</h1>;
+  return (
+    <div className="w-full">
+      <AddFriend />
+    </div>
+  );
 };
 
 export default MainBar;

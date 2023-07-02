@@ -1,25 +1,17 @@
-import { UserContext } from "../App";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "../globals";
+import { BASE_URL } from "../../globals";
 import bcrypt from "bcryptjs";
 
-const Login = () => {
-  const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, User, setUser } = useContext(UserContext);
+const Login = ({ setLoginPage }) => {
+  const { isLoggedIn, setIsLoggedIn, user, setUser } = useContext(UserContext);
   const initialState = {
     email: "",
     password: "",
   };
   const [formState, setFormState] = useState(initialState);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    }
-  }, [isLoggedIn]);
 
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.id]: e.target.value });
@@ -38,15 +30,14 @@ const Login = () => {
 
     if (foundUser && validPassword) {
       setIsLoggedIn(true);
-      setUser({
-        ...User,
-        email: foundUser.email,
-        displayname: foundUser.displayname,
-        id: foundUser._id,
-      });
+      setUser(foundUser);
     } else {
       alert("Login Failed! Please try again.");
     }
+  };
+
+  const handleClick = () => {
+    setLoginPage(false);
   };
 
   const getUser = async () => {
@@ -131,7 +122,7 @@ const Login = () => {
         <p className="mt-10 text-center text-sm text-gray-500">
           New to helloWorld?{" "}
           <Link
-            to="/signup"
+            onClick={handleClick}
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Sign up here!
