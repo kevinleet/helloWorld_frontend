@@ -16,11 +16,12 @@ const ChatWindow = () => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [room, setRoom] = useState("");
 
-  const { isLoggedIn, setIsLoggedIn, user, setUser } = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } =
+    useContext(UserContext);
 
   useEffect(() => {
     socket = io(`${ENDPOINT}`);
-    socket.emit("setup", user);
+    socket.emit("setup", currentUser);
     socket.on("connected", () => setSocketConnected(true));
     //socket.on("connection", () => setSocketConnected(true));
 
@@ -37,7 +38,7 @@ const ChatWindow = () => {
     if (event.key === "Enter" && newMessage) {
       try {
         const { data } = await axios.post(`${BASE_URL}/messages`, {
-          sender: user._id,
+          sender: currentUser._id,
           content: newMessage,
           chat: "64a1f7e06fa2a665b03b0918",
         });

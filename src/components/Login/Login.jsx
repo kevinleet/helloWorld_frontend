@@ -6,7 +6,8 @@ import { BASE_URL } from "../../globals";
 import bcrypt from "bcryptjs";
 
 const Login = ({ setLoginPage }) => {
-  const { isLoggedIn, setIsLoggedIn, user, setUser } = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } =
+    useContext(UserContext);
   const initialState = {
     email: "",
     password: "",
@@ -30,7 +31,7 @@ const Login = ({ setLoginPage }) => {
 
     if (foundUser && validPassword) {
       setIsLoggedIn(true);
-      setUser(foundUser);
+      setCurrentUser(foundUser);
     } else {
       alert("Login Failed! Please try again.");
     }
