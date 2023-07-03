@@ -6,7 +6,7 @@ import axios from "axios";
 
 const AddFriend = () => {
   const { users, setUsers } = useContext(UsersContext);
-  const { user, setUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [input, setInput] = useState("");
 
@@ -25,9 +25,9 @@ const AddFriend = () => {
   useEffect(() => {
     if (users) {
       const filteredResults = users.filter(
-        (usersUser) =>
-          usersUser.displayname.toLowerCase().includes(input.toLowerCase()) &&
-          usersUser.displayname != user.displayname
+        (user) =>
+          user.displayname.toLowerCase().includes(input.toLowerCase()) &&
+          user.displayname != currentUser.displayname
       );
       setFilteredUsers(filteredResults);
     }
@@ -42,7 +42,7 @@ const AddFriend = () => {
   };
 
   const sendRequest = async (recipient) => {
-    let sender = user._id;
+    let sender = currentUser._id;
     console.log(sender, recipient);
     try {
       let response = await axios.post(`${BASE_URL}/requests/create`, {
@@ -58,7 +58,7 @@ const AddFriend = () => {
     }
   };
 
-  console.log("user", user);
+  // console.log("user", user);
 
   return (
     <div className="flex justify-center items-center flex-col p-5">

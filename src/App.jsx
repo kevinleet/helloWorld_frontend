@@ -17,7 +17,7 @@ export const UserContext = React.createContext(null);
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentChat, setCurrentChat] = useState("");
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const navigate = useNavigate();
 
@@ -26,8 +26,8 @@ function App() {
       value={{
         isLoggedIn,
         setIsLoggedIn,
-        user,
-        setUser,
+        currentUser,
+        setCurrentUser,
         currentChat,
         setCurrentChat,
       }}
@@ -54,7 +54,7 @@ function App() {
           isLoggedIn: {isLoggedIn ? "true" : "false"}
         </button>
         <p className="border p-1">
-          User: {user?._id ? user?.displayname : "null"}
+          User: {currentUser?._id ? currentUser?.displayname : "null"}
         </p>
       </div>
     </UserContext.Provider>
