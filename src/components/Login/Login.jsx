@@ -5,7 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "../../globals";
 import bcrypt from "bcryptjs";
 
-const Login = ({ setLoginPage }) => {
+const Login = () => {
   const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } =
     useContext(UserContext);
   const initialState = {
@@ -35,10 +35,6 @@ const Login = ({ setLoginPage }) => {
     } else {
       alert("Login Failed! Please try again.");
     }
-  };
-
-  const handleClick = () => {
-    setLoginPage(false);
   };
 
   const getUser = async () => {
@@ -123,7 +119,7 @@ const Login = ({ setLoginPage }) => {
         <p className="mt-10 text-center text-sm text-gray-500">
           New to helloWorld?{" "}
           <Link
-            onClick={handleClick}
+            to="/signup"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Sign up here!
