@@ -1,6 +1,5 @@
 const ChatItem = (props) => {
   console.log(props);
-  const lastMessage = props.messages[props.messages.length - 1];
   return (
     <ul className="text-white border mt-3" id={props.users} key={props.users}>
       <h3>
@@ -9,7 +8,7 @@ const ChatItem = (props) => {
         ))}
       </h3>
       <br />
-      <h5>{lastMessage}</h5>
+      <h5>{props.latestMessage}</h5>
     </ul>
   );
 };
