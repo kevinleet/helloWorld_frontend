@@ -1,18 +1,19 @@
 // import SearchFriends from "./SearchFriends"
 import ChatItem from "./ChatItem";
-import { UserContext } from "../../App"
+import { UserContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../../globals";
 import axios from "axios";
 
 const ChatList = () => {
-  const [chats, setChats] = useState([])
-  const { currentUser, setCurrentUser } = useContext(UserContext)
-
+  const [chats, setChats] = useState([]);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
   useEffect(() => {
     const getAllChats = async () => {
-      let response = await axios.get(`${BASE_URL}/chats/userchats/${currentUser._id}`);
+      let response = await axios.get(
+        `${BASE_URL}/chats/userchats/${currentUser._id}`
+      );
       setChats(response.data);
       console.log("output", response.data);
     };
