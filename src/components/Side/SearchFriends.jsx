@@ -1,28 +1,28 @@
-import { UserContext } from "../../App"
-import { useNavigate, useEffect, useState } from "react"
+import { UserContext } from "../../App";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import FriendCard from "./FriendCard"
 
-const SearchFriends = ({ formState, handleChange }) => {
+const SearchFriends = () => {
 
-    // let navigate = useNavigate()
-    
-    const handleSubmit = (e) =>{
-        e.preventDefault()
-        // navigate('')
-    }
+    // const [ friends, setFriends ] = useContext(UserContext)
+    // const { user, setUser } = useContext(UserContext)
+
+
+
 
     return (
         <div>
             <div className="search-bar">
-                <form onSubmit={handleSubmit}>
-                    {/* <input type="text" id='search' onChange={handleChange} value={formState.search} placeholder='Search Friends'/> */}
+                <form>
+                    <input type="text" id='search' placeholder='Search Friends'/>
                     <button type='submit' className='submit-button'>Search</button>
                 </form>
             </div>
 
-            {/* { search ? <div className="search-result"> */}
+            {/* { search ? <div className="search-result"> 
 
-            {/* </div> : null } */}
+            </div> : null } */}
 
             {/* <ul className="friends-list">
                 {props.friend.results.map((friend) => (

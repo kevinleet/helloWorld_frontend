@@ -1,15 +1,19 @@
 import SearchFriends from "./SearchFriends"
+import Chat from "./Chat"
 import { UserContext } from "../../App"
 import { useContext, useEffect, useState } from "react"
 
-const ChatList = () => {
-   const { currentChat, setCurrentChat } = useContext(UserContext)
+const ChatList = (props) => {
+
 
    return(
      <div className="chat-list">
-        <SearchFriends />
+      {/* <ul>
+            {props.chat.map((chat) => (
+              <Chat key={chat.users} users={chat.users} messages={chat.messages} />
+            ))}
+        </ul> */}
 
-        {/* function that shows each available chat */}
 
     </div>
    )
