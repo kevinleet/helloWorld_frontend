@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
-import MainPage from "./components/MainPage";
+import MainPage from "./components/Home";
 import AddFriend from "./components/Main/AddFriend";
 import ChatWindow from "./components/Main/ChatWindow";
 import Profile from "./components/Main/Profile";

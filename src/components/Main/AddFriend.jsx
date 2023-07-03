@@ -1,4 +1,4 @@
-import { UsersContext } from "../MainPage";
+import { UsersContext } from "../Home";
 import { UserContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../../globals";
@@ -10,17 +10,16 @@ const AddFriend = () => {
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [input, setInput] = useState("");
 
-  //   useEffect(() => {
-  //     if (users && input.length == 0) {
-  //       setFilteredUsers(null);
-  //       console.log("test");
-  //     } else if (users) {
-  //       const filteredResults = users.filter((user) =>
-  //         user.displayname.toLowerCase().includes(input.toLowerCase())
-  //       );
-  //       setFilteredUsers(filteredResults);
-  //     }
-  //   }, [input, users]);
+  // useEffect(() => {
+  //   if (users && input.length == 0) {
+  //     setFilteredUsers(null);
+  //   } else if (users) {
+  //     const filteredResults = users.filter((user) =>
+  //       user.displayname.toLowerCase().includes(input.toLowerCase())
+  //     );
+  //     setFilteredUsers(filteredResults);
+  //   }
+  // }, [input, users]);
 
   useEffect(() => {
     try {
