@@ -38,16 +38,11 @@ function App() {
     >
       <div className="flex justify-center items-center min-w-[1200px] min-h-[700px] border border-slate-900 rounded-lg bg-slate-900">
           {isLoggedIn ? <MainPage /> : <LoginPage />}
-        <Routes>
-          {/* <Route path="*" element={<h1>404</h1>} /> */}
-          <Route exact path="/login" element={<LoginPage />} />
-          <Route exact path="/signup" element={<SignUp />} />
-          <Route exact path="/home" element={<MainPage />} />
-          <Route exact path="/home/chat" element={<ChatWindow />} />
-          <Route exact path="/home/addfriend" element={<AddFriend />} />
-          <Route exact path="/home/profile" element={<Profile />} />
-          {/* <Route exact path="/home/chat/:id" element={<ChatWindow />} /> */}
-        </Routes>
+          <Routes>
+              <Route exact path="/login" element={<LoginPage />} />
+              <Route exact path="/signup" element={<SignUp />} />
+              <Route exact path="/home" element={<MainPage />} />
+          </Routes>
       </div>
 
       <div className="flex justify-center items-center space-x-2 mt-10">
