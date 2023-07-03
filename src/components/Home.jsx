@@ -31,9 +31,9 @@ const MainPage = () => {
         <SideBar />
 
         <div className="flex justify-center border border-blue-500 w-8/12">
-          <ChakraProvider>
-            <Outlet />
-          </ChakraProvider>
+          {/* <ChakraProvider> */}
+          <Outlet />
+          {/* </ChakraProvider> */}
         </div>
       </div>
     </UsersContext.Provider>
