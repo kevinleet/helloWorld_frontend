@@ -42,9 +42,8 @@ const ChatWindow = () => {
           chat: "64a1f7e06fa2a665b03b0918",
         });
         setNewMessage("");
-        socket.emit("new message", data);
+        await socket.emit("new message", data);
         setmessages([...messages, data]);
-        console.log(messages);
       } catch (error) {
         console.log(error.message);
       }
@@ -53,7 +52,9 @@ const ChatWindow = () => {
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
+      console.log(newMessageRecieved);
       setmessages([...messages, newMessageRecieved]);
+      console.log(messages);
     });
   });
 
@@ -84,7 +85,9 @@ const ChatWindow = () => {
       >
         <div>
           {messages
-            ? messages.map((message) => <h3>{message.content}</h3>)
+            ? messages.map((message) => (
+                <h3 key={message._id}>{message.content}</h3>
+              ))
             : null}
         </div>
         <FormControl onKeyDown={sendMessage}>
