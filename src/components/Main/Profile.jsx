@@ -1,5 +1,5 @@
 const Profile = () => {
-    return <h1>Profile MainBar</h1>
-}
+  return <h1 className="text-white text-4xl">Profile MainBar</h1>;
+};
 
-export default Profile
+export default Profile;

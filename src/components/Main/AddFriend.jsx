@@ -23,13 +23,19 @@ const AddFriend = () => {
   //   }, [input, users]);
 
   useEffect(() => {
-    if (users) {
-      const filteredResults = users.filter(
-        (user) =>
-          user.displayname.toLowerCase().includes(input.toLowerCase()) &&
-          user.displayname != currentUser.displayname
-      );
-      setFilteredUsers(filteredResults);
+    try {
+      if (users) {
+        console.log(users);
+        console.log(currentUser);
+        const filteredResults = users.filter(
+          (user) =>
+            user.displayname.toLowerCase().includes(input.toLowerCase()) &&
+            user.displayname != currentUser.displayname
+        );
+        setFilteredUsers(filteredResults);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, [input, users]);
 
@@ -43,15 +49,15 @@ const AddFriend = () => {
 
   const sendRequest = async (recipient) => {
     let sender = currentUser._id;
-    console.log(sender, recipient);
+    // console.log(sender, recipient);
     try {
       let response = await axios.post(`${BASE_URL}/requests/create`, {
         sender: sender,
         recipient: recipient,
       });
-      setUser((prevUser) => ({
-        ...prevUser,
-        outgoingrequests: [...prevUser.outgoingrequests, recipient],
+      setCurrentUser((prevCurrentUser) => ({
+        ...prevCurrentUser,
+        outgoingrequests: [...prevCurrentUser.outgoingrequests, recipient],
       }));
     } catch (error) {
       console.log(error);
@@ -78,8 +84,10 @@ const AddFriend = () => {
                 key={filteredUser._id}
                 className="flex flex-row justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl "
               >
-                <div className="mx-5">{filteredUser.displayname}</div>
-                {user.outgoingrequests.includes(filteredUser._id) ? (
+                <div className="mx-5 text-white">
+                  {filteredUser.displayname}
+                </div>
+                {currentUser.outgoingrequests.includes(filteredUser._id) ? (
                   <button
                     id={filteredUser._id}
                     onClick={handleClick}

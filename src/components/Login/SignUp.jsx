@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { BASE_URL } from "../../globals";
 
-const SignUp = ({ setLoginPage }) => {
+const SignUp = () => {
   const initialState = {
     email: "",
     displayname: "",
@@ -12,6 +12,8 @@ const SignUp = ({ setLoginPage }) => {
     confirmpassword: "",
   };
   const [formState, setFormState] = useState(initialState);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.id]: e.target.value });
@@ -24,7 +26,7 @@ const SignUp = ({ setLoginPage }) => {
       try {
         await createUser();
         alert("Account created. Please sign in!");
-        setLoginPage(true);
+        navigate("/login");
       } catch (error) {
         console.log(error);
       }
@@ -51,10 +53,6 @@ const SignUp = ({ setLoginPage }) => {
 
     console.log(hashedPassword);
     return hashedPassword;
-  };
-
-  const handleClick = () => {
-    setLoginPage(true);
   };
 
   return (
@@ -171,7 +169,7 @@ const SignUp = ({ setLoginPage }) => {
         </form>
         <p className="mt-10 text-center text-sm text-gray-500">
           <Link
-            onClick={handleClick}
+            to="/login"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Go Back to Log In
