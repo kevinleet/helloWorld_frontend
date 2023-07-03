@@ -1,14 +1,8 @@
+import MainBar from '../Main/MainBar'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
 const NavBar = () => {
-  
-  const [chatIsActive, setChatStatus] = useState(false)
-  const [addFriendIsActive, setAddFriendStatus] = useState(false)
-  const [profileIsActive, setProfileStatus] = useState(false)
-
-  const [activePage, setActivePage] = useState(null)
-
+  const [activePage, setActivePage] = useState('chat')
   let navigate = useNavigate()
 
   const handleSelection = (page) => {
@@ -19,7 +13,6 @@ const NavBar = () => {
   function handleLogOut() {
     console.log('The user has been logged out')
   }
-
 
   return (
     <div className="flex flex-col justify-end items-center border border-red-500 w-1/12">
