@@ -1,16 +1,83 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
+  
+  const [chatIsActive, setChatStatus] = useState(false)
+  const [addFriendIsActive, setAddFriendStatus] = useState(false)
+  const [profileIsActive, setProfileStatus] = useState(false)
+
+  const [activePage, setActivePage] = useState(null)
+
+  let navigate = useNavigate()
+
+  const handleSelection = (page) => {
+    setActivePage(page)
+    navigate(`/home/${page}`)
+  }
+
+  function handleLogOut() {
+    console.log('The user has been logged out')
+  }
+
+
   return (
-    <div className="flex flex-col justify-end items-center border border-red-500 w-2/12">
+    <div className="flex flex-col justify-end items-center border border-red-500 w-1/12">
       <div className="h-2/3 flex flex-col justify-between items-center mb-6">
         <div className="flex flex-col justify-center items-center">
-          <Link to="/chat" className="mb-4 px-4 py-4 bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Chat Window</Link>
-          <Link to="/addfriend" className="px-4 py-4 bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add Friend</Link>
+          <Link to='/home/chat' 
+            className={`
+              mb-4 p-6 
+              ${activePage === 'chat' ? 'bg-indigo-300' : 'bg-indigo-600'} 
+              bg-indigo-600 rounded-md shadow-sm 
+              hover:bg-indigo-500 
+              focus-visible:outline 
+              focus-visible:outline-2 
+              focus-visible:outline-offset-2 
+              focus-visible:outline-indigo-600`} 
+            onClick={() => handleSelection('chat')}>
+              <img src="src/assets/chat.png" className='w-8'/>
+          </Link>
+          <Link to='/home/addfriend' 
+            className={`
+              mb-4 p-6 
+              ${activePage === 'addfriend' ? 'bg-indigo-300' : 'bg-indigo-600'} 
+              bg-indigo-600 rounded-md shadow-sm 
+              hover:bg-indigo-500 
+              focus-visible:outline 
+              focus-visible:outline-2 
+              focus-visible:outline-offset-2 
+              focus-visible:outline-indigo-600`} 
+              onClick={() => handleSelection('addfriend')}>
+                <img src="src/assets/group.png" className='w-8'/>
+          </Link>        
         </div>
         <div className="flex flex-col justify-center items-center">
-          <Link to="/login" className="mb-4 px-4 py-4 bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log Out</Link>
-          <Link to="/profile" className="px-4 py-4 bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Profile</Link>
+          <Link to="/login" 
+            className="
+            mb-4 p-6 
+            bg-indigo-600 rounded-md shadow-sm 
+            hover:bg-indigo-500 
+            focus-visible:outline 
+            focus-visible:outline-2 
+            focus-visible:outline-offset-2 
+            focus-visible:outline-indigo-600"
+              onClick={() => handleLogOut()}>
+              <img src="src/assets/log-out.png" className='w-8'/>
+          </Link>
+          <Link to='/home/profile' 
+            className={`
+              mb-4 p-6 
+              ${activePage === 'profile' ? 'bg-indigo-300' : 'bg-indigo-600'} 
+              bg-indigo-600 rounded-md shadow-sm 
+              hover:bg-indigo-500 
+              focus-visible:outline 
+              focus-visible:outline-2 
+              focus-visible:outline-offset-2 
+              focus-visible:outline-indigo-600`} 
+              onClick={() => handleSelection('profile')}>
+                <img src="src/assets/user.png" className='w-8'/>
+          </Link>        
         </div>
       </div>
       

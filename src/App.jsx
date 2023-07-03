@@ -21,6 +21,10 @@ function App() {
 
   const navigate = useNavigate();
 
+  /* useEffect(() => {
+    isLoggedIn ? <MainPage /> : <LoginPage />
+  }, []) */
+
   return (
     <UserContext.Provider
       value={{
@@ -33,22 +37,23 @@ function App() {
       }}
     >
       <div className="flex justify-center items-center min-w-[1200px] min-h-[700px] border border-slate-900 rounded-lg bg-slate-900">
-        {isLoggedIn ? <MainPage /> : <LoginPage />}
-        {/* <Routes>
-          <Route path="*" element={<h1>404</h1>} />
-          <Route exact path="/" element={<MainPage />} />
-          <Route exact path="/login" element={<Login />} />
+          {isLoggedIn ? <MainPage /> : <LoginPage />}
+        <Routes>
+          {/* <Route path="*" element={<h1>404</h1>} /> */}
+          <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/signup" element={<SignUp />} />
-          <Route exact path="/addfriend" element={<AddFriend />} />
-          <Route exact path="/chat" element={<ChatWindow />} />
-          <Route exact path="/profile" element={<Profile />} />
-        </Routes> */}
+          <Route exact path="/home" element={<MainPage />} />
+          <Route exact path="/home/chat" element={<ChatWindow />} />
+          <Route exact path="/home/addfriend" element={<AddFriend />} />
+          <Route exact path="/home/profile" element={<Profile />} />
+          {/* <Route exact path="/home/chat/:id" element={<ChatWindow />} /> */}
+        </Routes>
       </div>
 
       <div className="flex justify-center items-center space-x-2 mt-10">
         <p>For Development Use Only:</p>
         <button
-          onClick={() => setIsLoggedIn(!isLoggedIn)}
+          onClick={() => {setIsLoggedIn(!isLoggedIn)}}
           className="border p-1"
         >
           isLoggedIn: {isLoggedIn ? "true" : "false"}
