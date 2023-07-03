@@ -10,17 +10,19 @@ const ChatList = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
   useEffect(() => {
-    try {
+    if (currentUser) {
       const getAllChats = async () => {
-        let response = await axios.get(
-          `${BASE_URL}/chats/userchats/${currentUser._id}`
-        );
-        setChats(response.data);
-        console.log("output", response.data);
+        try {
+          let response = await axios.get(
+            `${BASE_URL}/chats/userchats/${currentUser._id}`
+          );
+          setChats(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+        // console.log("output", response.data);
       };
       getAllChats();
-    } catch (error) {
-      console.log(error);
     }
   }, []);
 
