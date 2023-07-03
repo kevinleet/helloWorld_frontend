@@ -18,7 +18,7 @@ const ChatList = () => {
         setChats(response.data);
         console.log("output", response.data);
       };
-      // getAllChats();
+      getAllChats();
     } catch (error) {
       console.log(error);
     }

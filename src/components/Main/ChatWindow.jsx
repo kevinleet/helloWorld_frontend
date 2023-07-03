@@ -84,7 +84,7 @@ const ChatWindow = () => {
         bg="#E8E8E8"
         overflowY="hidden"
       >
-        <div>
+        <div className="h-80 border border-black">
           {messages
             ? messages.map((message) => (
                 <h3 key={message._id}>{message.content}</h3>
