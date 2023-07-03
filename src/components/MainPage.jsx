@@ -27,11 +27,11 @@ const MainPage = () => {
         <NavBar />
         {/* </div> */}
 
-        <div className="flex justify-center items-center border border-green-500 w-4/12">
+        <div className="flex justify-center items-center border border-green-500 w-3/12">
           <SideBar />
         </div>
 
-        <div className="flex justify-center border border-blue-500 w-6/12">
+        <div className="flex justify-center border border-blue-500 w-8/12">
           <MainBar />
         </div>
       </div>
