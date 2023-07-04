@@ -15,7 +15,7 @@ const AddFriend = () => {
         const filteredResults = users.filter(
           (user) =>
             user.displayname.toLowerCase().includes(input.toLowerCase()) &&
-            user.displayname != currentUser.displayname
+            user.displayname != currentUser?.displayname
         );
         setFilteredUsers(filteredResults);
       }
@@ -47,21 +47,25 @@ const AddFriend = () => {
     }
   };
 
-  const handleAcceptRequest = (e) => {
-    acceptRequest(e.currentTarget.id);
+  const handleAcceptRequest = async (e) => {
+    const sender = users.find((user) => user._id === e.currentTarget.id);
+    // const friend = users.find((user) => user._id === sender);
+    if (sender) {
+      acceptRequest(sender);
+    }
   };
 
   const acceptRequest = async (sender) => {
     try {
       let response = await axios.post(`${BASE_URL}/requests/accept`, {
-        sender: sender,
+        sender: sender._id,
         recipient: currentUser._id,
       });
       setCurrentUser((prevCurrentUser) => ({
         ...prevCurrentUser,
         friends: [...prevCurrentUser.friends, sender],
         incomingrequests: prevCurrentUser.incomingrequests.filter(
-          (user) => user._id !== sender
+          (user) => user._id !== sender._id
         ),
       }));
     } catch (error) {
@@ -85,7 +89,7 @@ const AddFriend = () => {
               <button
                 id={sender._id}
                 onClick={handleAcceptRequest}
-                className="mx-5 p-2 border border-black rounded-lg bg-green-500 text-sm"
+                className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-sm"
               >
                 Accept Friend Request
               </button>
@@ -114,10 +118,13 @@ const AddFriend = () => {
                   {filteredUser.displayname}
                 </div>
 
-                {currentUser?.friends?.includes(filteredUser._id) ? (
+                {currentUser?.friends?.filter(
+                  (friend) => friend._id == filteredUser._id
+                ).length > 0 ? (
                   <button
                     id={filteredUser._id}
                     className="mx-5 p-2 border border-black rounded-lg bg-purple-500 text-sm"
+                    disabled
                   >
                     Currently Friends
                   </button>
@@ -140,14 +147,16 @@ const AddFriend = () => {
                 ).length > 0 ? (
                   <button
                     id={filteredUser._id}
-                    className="mx-5 p-2 border border-black rounded-lg bg-green-500 text-sm"
+                    className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-sm"
                     onClick={handleAcceptRequest}
                   >
                     Accept Friend Request
                   </button>
                 ) : null}
 
-                {!currentUser?.friends?.includes(filteredUser._id) &&
+                {!currentUser?.friends?.filter(
+                  (friend) => friend._id == filteredUser._id
+                ).length > 0 &&
                 !currentUser?.outgoingrequests?.filter(
                   (recipient) => recipient._id == filteredUser._id
                 ).length > 0 &&
@@ -165,7 +174,7 @@ const AddFriend = () => {
                     className={
                       currentUser?.outgoingrequests?.includes(filteredUser._id)
                         ? "mx-5 p-2 border border-black rounded-lg bg-yellow-500 text-sm"
-                        : "mx-5 p-2 border border-black rounded-lg bg-blue-500 text-sm"
+                        : "mx-5 p-2 border border-black rounded-lg bg-blue-500 hover:bg-blue-400 text-sm"
                     }
                   >
                     {currentUser?.outgoingrequests?.includes(
