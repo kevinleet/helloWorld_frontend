@@ -24,14 +24,12 @@ function App() {
     const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(isLoggedIn);
 
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-
     const setCurrentUserFromStorage = async () => {
       if (isLoggedIn) {
         let currentUser = await getUser();
         setCurrentUser(currentUser);
+      } else {
+        navigate("/login");
       }
     };
 
