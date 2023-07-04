@@ -44,18 +44,20 @@ function App() {
     getAllUsers();
   }, []);
 
-  useEffect(() => {
-    if (isLoggedIn && currentUser) {
+  const checkAuthentication = () => {
+    const storedUser = sessionStorage.getItem("currentUser");
+    if (isLoggedIn && currentUser && storedUser) {
       navigate("/home");
     } else {
       navigate("/login");
     }
-  }, [isLoggedIn, currentUser]);
+  };
 
   const handleClearSessionStorage = () => {
     sessionStorage.clear();
     setIsLoggedIn(false);
     setCurrentUser(null);
+    checkAuthentication();
   };
 
   const getUser = async () => {
@@ -87,7 +89,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route path="home/*" element={<Home />}>
-            <Route index element={<ChatWindow />} />
+            <Route index element={<h1>Landing Page</h1>} />
             <Route exact path="chat" element={<ChatWindow />} />
             <Route exact path="addfriend" element={<AddFriend />} />
             <Route exact path="profile" element={<Profile />} />
@@ -101,6 +103,7 @@ function App() {
         <button
           onClick={() => {
             setIsLoggedIn(!isLoggedIn);
+            checkAuthentication();
           }}
           className="border p-1"
         >

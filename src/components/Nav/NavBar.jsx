@@ -37,7 +37,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("chat")}
           >
-            <img src="src/assets/chat.png" className="w-8" />
+            <img src="/src/assets/chat.png" className="w-8" />
           </Link>
           <Link
             to="/home/addfriend"
@@ -52,7 +52,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("addfriend")}
           >
-            <img src="src/assets/group.png" className="w-8" />
+            <img src="/src/assets/group.png" className="w-8" />
           </Link>
         </div>
         <div className="flex flex-col justify-center items-center">
@@ -68,7 +68,7 @@ const NavBar = () => {
             focus-visible:outline-indigo-600"
             onClick={() => handleLogOut()}
           >
-            <img src="src/assets/log-out.png" className="w-8" />
+            <img src="/src/assets/log-out.png" className="w-8" />
           </Link>
           <Link
             to="/home/profile"
@@ -83,7 +83,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("profile")}
           >
-            <img src="src/assets/user.png" className="w-8" />
+            <img src="/src/assets/user.png" className="w-8" />
           </Link>
         </div>
       </div>
