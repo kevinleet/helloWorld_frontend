@@ -7,7 +7,8 @@ import axios from "axios";
 
 const ChatList = () => {
   const [chats, setChats] = useState([]);
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser, currentChat, setCurrentChat } =
+    useContext(UserContext);
 
   useEffect(() => {
     if (currentUser) {
@@ -26,17 +27,21 @@ const ChatList = () => {
     }
   }, []);
 
+  //upon clicking individual chatitem, this needs to fetch all messages of a chat and render them to chatwindow.
+  const handleClick = (chatId) => {
+    setCurrentChat(chatId);
+  };
+
   return (
-    <div className="chat-list w-full">
-      <ul>
-        {chats?.map((chat) => (
-          <ChatItem
-            key={chat.users}
-            users={chat.users}
-            latestMessage={chat.latestMessage}
-          />
-        ))}
-      </ul>
+    <div className="chat-list w-full overflow-y-auto flex flex-col">
+      {chats?.map((chat) => (
+        <ChatItem
+          key={chat.users}
+          users={chat.users}
+          latestMessage={chat.latestMessage}
+          handleClick={handleClick}
+        />
+      ))}
     </div>
   );
 };
