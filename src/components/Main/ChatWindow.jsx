@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../globals";
 import { UserContext } from "../../App";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { FormControl, Input, Box, Button } from "@chakra-ui/react";
 import { io } from "socket.io-client";
 
@@ -15,6 +15,7 @@ const ChatWindow = () => {
   const [newMessage, setNewMessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
   const [room, setRoom] = useState("");
+  const messagesDisplay = useRef(null);
 
   const {
     isLoggedIn,
@@ -56,6 +57,11 @@ const ChatWindow = () => {
         setNewMessage("");
         await socket.emit("new message", data);
         setmessages([...messages, data]);
+
+        // if (messagesDisplay.current) {
+        //   messagesDisplay.current.scrollTop =
+        //     messagesDisplay.current.scrollHeight;
+        // }
       } catch (error) {
         console.log(error.message);
       }
@@ -65,10 +71,16 @@ const ChatWindow = () => {
   //load messages associated with the chatId
   const loadMessages = async () => {
     const { data } = await axios.get(`${BASE_URL}/messages/${currentChat}`);
-    console.log(data);
+    // console.log(data);
     setmessages(data);
-    console.log(messages);
+    // console.log(messages);
   };
+
+  useEffect(() => {
+    if (messagesDisplay.current) {
+      messagesDisplay.current.scrollTop = messagesDisplay.current.scrollHeight;
+    }
+  }, [messages, setmessages]);
 
   //when room is changed based on currentChat changing, emit a 'join chat' signal to tie current user to
   //a room with a name of the chatId
@@ -90,13 +102,26 @@ const ChatWindow = () => {
   return (
     <div className="w-full">
       <div className="h-5/6">
-        <div className="h-full overflow-y-auto">
+        <div
+          className="flex flex-col h-full overflow-y-auto"
+          ref={messagesDisplay}
+        >
           {messages
-            ? messages.map((message) => (
-                <h3 className="text-white" key={message._id}>
-                  {message.content}
-                </h3>
-              ))
+            ? messages.map((message) =>
+                message.sender._id == currentUser._id ? (
+                  <div key={message._id}>
+                    <p className="bg-indigo-600 text-white float-right p-2 m-2 border border-white max-w-[300px] whitespace-normal rounded-xl ">
+                      {message.content}
+                    </p>
+                  </div>
+                ) : (
+                  <div key={message._id}>
+                    <p className="bg-indigo-600 text-white float-left p-2 m-2 border border-white max-w-[300px] whitespace-normal rounded-xl">
+                      {message.content}
+                    </p>
+                  </div>
+                )
+              )
             : null}
         </div>
       </div>
