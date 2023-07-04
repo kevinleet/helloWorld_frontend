@@ -80,7 +80,7 @@ const AddFriend = () => {
     <div className="flex justify-start items-center flex-col p-5 w-full overflow-y-auto">
       {/* Render incoming friend requests */}
       {currentUser?.incomingrequests?.length > 0 ? (
-        <div className="mb-10 border border-4 border-green-500 p-4 rounded-lg">
+        <div className="mb-10 w-[400px] border border-4 border-green-500 p-4 rounded-lg">
           <h3 className="text-2xl text-center font-bold">
             Incoming Friend Requests
           </h3>
@@ -105,7 +105,7 @@ const AddFriend = () => {
       <div className="">
         {/* Search input field */}
         <input
-          className="px-5 block rounded-md border-0 py-1.5 px-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+          className="px-5 block w-[400px] rounded-md border-0 py-2 px-20 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
           placeholder="Search for users here..."
           value={input}
           type="text"
@@ -118,7 +118,7 @@ const AddFriend = () => {
           ? filteredUsers.map((filteredUser) => (
               <div
                 key={filteredUser._id}
-                className="flex flex-row px-10 justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl "
+                className="flex w-[400px] flex-row px-10 justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl "
               >
                 <div className="mx-5 text-white">
                   {filteredUser.displayname}
