@@ -91,13 +91,16 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/" element={<Navigate to="/home" replace />} />
-          <Route path="home/*" element={<Home />}>
-            <Route index element={<h1>Landing Page</h1>} />
+          <Route exact path="/home" element={<Home />}>
+            <Route index element={<Navigate to="/home/chat" replace />} />
             <Route exact path="chat" element={<ChatWindow />} />
             <Route exact path="addfriend" element={<AddFriend />} />
             <Route exact path="profile" element={<Profile />} />
           </Route>
-          {/* <Route path="/*" element={<h1>404</h1>} /> */}
+          <Route
+            path="/*"
+            element={<h1 className="text-3xl">404: Page Not Found</h1>}
+          />
         </Routes>
       </div>
 
