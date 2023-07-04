@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
 import Home from "./components/Home";
@@ -23,6 +23,10 @@ function App() {
   useEffect(() => {
     const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(isLoggedIn);
+
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
 
     const setCurrentUserFromStorage = async () => {
       if (isLoggedIn) {
@@ -88,6 +92,7 @@ function App() {
         <Routes>
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
+          <Route exact path="/" element={<Navigate to="/home" replace />} />
           <Route path="home/*" element={<Home />}>
             <Route index element={<h1>Landing Page</h1>} />
             <Route exact path="chat" element={<ChatWindow />} />
