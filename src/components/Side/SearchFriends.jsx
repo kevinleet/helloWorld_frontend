@@ -4,11 +4,24 @@ import axios from "axios";
 import FriendCard from "./FriendCard"
 
 const SearchFriends = () => {
-
-    // const [ friends, setFriends ] = useContext(UserContext)
-    // const { user, setUser } = useContext(UserContext)
-
-
+    const [friends, setFriends] = useState([]);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
+  
+    useEffect(() => {
+      if (currentUser) {
+        const getAllFriends = async () => {
+          try {
+            let response = await axios.get(
+              `${BASE_URL}/users/get/friends/${currentUser._id}`
+            )
+            setFriends(response.data)
+          } catch (error) {
+            console.log(error)
+          }
+        }
+        getAllFriends()
+      }
+    }, []);
 
 
     return (
@@ -24,11 +37,16 @@ const SearchFriends = () => {
 
             </div> : null } */}
 
-            {/* <ul className="friends-list">
-                {props.friend.results.map((friend) => (
-                   <FriendCard key={friend.id} icon={friend.icon} displayName={friend.displayName}/> 
-                ))}
-            </ul> */}
+            <div className="friends-list w-full">
+                <ul>
+                    {friends?.map((friend) => (
+                    <FriendCard
+                        key={friend.friendsList}
+                        friendsList={friend.friendList}
+                    />
+                    ))}
+                </ul>
+                </div>
         </div>
     )
 }
