@@ -25,7 +25,7 @@ const ChatList = () => {
       };
       getAllChats();
     }
-  }, []);
+  }, [currentUser]);
 
   //upon clicking individual chatitem, this needs to fetch all messages of a chat and render them to chatwindow.
   const handleClick = (chatId) => {
