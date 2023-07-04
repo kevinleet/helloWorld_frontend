@@ -100,8 +100,8 @@ const ChatWindow = () => {
   };
 
   return (
-    <div className="w-full">
-      <div className="h-5/6">
+    <div className="w-full py-2 flex flex-col flex-auto items-center justify-center">
+      <div className="h-[620px] px-2 w-full">
         <div
           className="flex flex-col h-full overflow-y-auto"
           ref={messagesDisplay}
@@ -125,7 +125,7 @@ const ChatWindow = () => {
             : null}
         </div>
       </div>
-      <form className=" h-1/6" onKeyDown={sendMessage}>
+      <form className="w-[500px] h-[50px] mt-5" onKeyDown={sendMessage}>
         <input
           type="text"
           className="w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-black"
