@@ -38,14 +38,15 @@ const ChatWindow = () => {
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
-      console.log(newMessageRecieved);
+      // console.log(newMessageRecieved);
       setmessages([...messages, newMessageRecieved]);
-      console.log(messages);
+      // console.log(messages);
     });
   });
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
+      event.preventDefault();
       try {
         const { data } = await axios.post(`${BASE_URL}/messages`, {
           sender: currentUser._id,
@@ -65,6 +66,8 @@ const ChatWindow = () => {
   const loadMessages = async () => {
     const { data } = await axios.get(`${BASE_URL}/messages/${currentChat}`);
     console.log(data);
+    setmessages(data);
+    console.log(messages);
   };
 
   //when room is changed based on currentChat changing, emit a 'join chat' signal to tie current user to
@@ -75,8 +78,8 @@ const ChatWindow = () => {
 
   useEffect(() => {
     setRoom(currentChat);
-    loadMessages();
-  }, [currentChat]);
+    currentChat != "" ? loadMessages() : null;
+  }, [currentChat, setCurrentChat]);
 
   const typingHandler = (event) => {
     setNewMessage(event.target.value);
@@ -87,10 +90,12 @@ const ChatWindow = () => {
   return (
     <div className="w-full">
       <div className="h-5/6">
-        <div className="h-full">
+        <div className="h-full overflow-y-auto">
           {messages
             ? messages.map((message) => (
-                <h3 key={message._id}>{message.content}</h3>
+                <h3 className="text-white" key={message._id}>
+                  {message.content}
+                </h3>
               ))
             : null}
         </div>
@@ -106,14 +111,6 @@ const ChatWindow = () => {
           onChange={typingHandler}
           value={newMessage}
         />
-        {/* <button
-          className="bg-blue-500 hover:bg-blue-700 rounded p-2"
-          onClick={() => {
-            setRoom("64a1f7e06fa2a665b03b0918");
-          }}
-        >
-          Join Room
-        </button> */}
       </form>
     </div>
   );

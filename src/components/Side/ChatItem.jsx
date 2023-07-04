@@ -1,5 +1,5 @@
 const ChatItem = (props) => {
-  console.log("props", props);
+  // console.log("props", props);
   return props.latestMessage ? (
     <div
       onClick={() => props.handleClick(props.latestMessage.chat)}
