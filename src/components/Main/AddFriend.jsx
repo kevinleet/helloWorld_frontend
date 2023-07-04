@@ -1,16 +1,16 @@
-import { UserContext } from "../../App";
-import { useContext, useEffect, useState } from "react";
-import { BASE_URL } from "../../globals";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { UserContext } from "../../App";
+import { BASE_URL } from "../../globals";
 
 const AddFriend = () => {
-  const { currentUser, setCurrentUser, users, setUsers } =
-    useContext(UserContext);
+  const { currentUser, setCurrentUser, users } = useContext(UserContext);
   const [filteredUsers, setFilteredUsers] = useState(null);
   const [input, setInput] = useState("");
 
   useEffect(() => {
     try {
+      // Filter users based on input and exclude the current user
       if (users) {
         const filteredResults = users.filter(
           (user) =>
@@ -34,10 +34,12 @@ const AddFriend = () => {
 
   const sendRequest = async (recipient) => {
     try {
+      // Send a friend request to the recipient
       let response = await axios.post(`${BASE_URL}/requests/create`, {
         sender: currentUser._id,
         recipient: recipient,
       });
+      // Update the current user's outgoing requests
       setCurrentUser((prevCurrentUser) => ({
         ...prevCurrentUser,
         outgoingrequests: [...prevCurrentUser.outgoingrequests, recipient],
@@ -49,7 +51,6 @@ const AddFriend = () => {
 
   const handleAcceptRequest = async (e) => {
     const sender = users.find((user) => user._id === e.currentTarget.id);
-    // const friend = users.find((user) => user._id === sender);
     if (sender) {
       acceptRequest(sender);
     }
@@ -57,10 +58,12 @@ const AddFriend = () => {
 
   const acceptRequest = async (sender) => {
     try {
+      // Accept a friend request from the sender
       let response = await axios.post(`${BASE_URL}/requests/accept`, {
         sender: sender._id,
         recipient: currentUser._id,
       });
+      // Update the current user's friends and incoming requests
       setCurrentUser((prevCurrentUser) => ({
         ...prevCurrentUser,
         friends: [...prevCurrentUser.friends, sender],
@@ -75,6 +78,7 @@ const AddFriend = () => {
 
   return (
     <div className="flex justify-start items-center flex-col p-5 w-full overflow-y-auto">
+      {/* Render incoming friend requests */}
       {currentUser?.incomingrequests?.length > 0 ? (
         <div className="mb-10 border border-4 border-green-500 p-4 rounded-lg">
           <h3 className="text-2xl text-center font-bold">
@@ -99,8 +103,9 @@ const AddFriend = () => {
       ) : null}
 
       <div className="">
+        {/* Search input field */}
         <input
-          className="px-5 block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+          className="px-5 block rounded-md border-0 py-1.5 px-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
           placeholder="Search for users here..."
           value={input}
           type="text"
@@ -108,16 +113,18 @@ const AddFriend = () => {
         ></input>
       </div>
       <div className="mt-5">
+        {/* Render filtered users */}
         {filteredUsers
           ? filteredUsers.map((filteredUser) => (
               <div
                 key={filteredUser._id}
-                className="flex flex-row justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl "
+                className="flex flex-row px-10 justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl "
               >
                 <div className="mx-5 text-white">
                   {filteredUser.displayname}
                 </div>
 
+                {/* Render different buttons based on friendship status */}
                 {currentUser?.friends?.filter(
                   (friend) => friend._id == filteredUser._id
                 ).length > 0 ? (
