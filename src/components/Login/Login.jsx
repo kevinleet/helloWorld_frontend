@@ -1,11 +1,12 @@
 import { UserContext } from "../../App";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../globals";
 import bcrypt from "bcryptjs";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } =
     useContext(UserContext);
   const initialState = {
@@ -32,6 +33,9 @@ const Login = () => {
     if (foundUser && validPassword) {
       setIsLoggedIn(true);
       setCurrentUser(foundUser);
+      sessionStorage.setItem("isLoggedIn", true);
+      sessionStorage.setItem("currentUser", formState.email);
+      navigate("/home");
     } else {
       alert("Login Failed! Please try again.");
     }
