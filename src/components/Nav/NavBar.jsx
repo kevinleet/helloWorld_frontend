@@ -15,12 +15,13 @@ const NavBar = () => {
   };
 
   function handleLogOut() {
+    sessionStorage.clear();
     setIsLoggedIn(false);
     setCurrentUser(null);
   }
 
   return (
-    <div className="flex flex-col justify-end items-center border border-red-500 w-1/12">
+    <div className="flex flex-col justify-end items-center w-1/12 bg-slate-900 rounded-lg">
       <div className="h-2/3 flex flex-col justify-between items-center mb-6">
         <div className="flex flex-col justify-center items-center">
           <Link

@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 
 const SideBar = () => {
   return (
-    <div className="flex justify-center items-center border border-green-500 w-3/12">
+    <div className="flex justify-center items-center w-3/12 rounded-lg bg-slate-800">
       <div className="side-bar">
         <SearchFriends />
         <ChatList />

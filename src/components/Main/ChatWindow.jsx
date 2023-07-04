@@ -86,7 +86,7 @@ const ChatWindow = () => {
     //   >
     <div className="w-full">
       <div className="h-5/6">
-        <div className="h-full border border-white">
+        <div className="h-full">
           {messages
             ? messages.map((message) => (
                 <h3 key={message._id}>{message.content}</h3>
@@ -94,7 +94,7 @@ const ChatWindow = () => {
             : null}
         </div>
       </div>
-      <form className="border h-1/6" onKeyDown={sendMessage}>
+      <form className=" h-1/6" onKeyDown={sendMessage}>
         <input
           varient="filled"
           bg="#E0E0E0"

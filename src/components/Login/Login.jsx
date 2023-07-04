@@ -32,6 +32,8 @@ const Login = () => {
     if (foundUser && validPassword) {
       setIsLoggedIn(true);
       setCurrentUser(foundUser);
+      sessionStorage.setItem("isLoggedIn", true);
+      sessionStorage.setItem("currentUser", formState.email);
     } else {
       alert("Login Failed! Please try again.");
     }
