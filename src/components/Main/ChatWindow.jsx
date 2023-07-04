@@ -3,8 +3,8 @@ import axios from "axios";
 import { BASE_URL } from "../../globals";
 import { UserContext } from "../../App";
 import { useContext, useState, useRef } from "react";
-import { FormControl, Input, Box, Button } from "@chakra-ui/react";
 import { io } from "socket.io-client";
+import { ChatsContext } from "../Home";
 
 const ENDPOINT = "http://localhost:3001";
 let socket;
@@ -16,6 +16,8 @@ const ChatWindow = () => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [room, setRoom] = useState("");
   const messagesDisplay = useRef(null);
+
+  const { chats, setChats } = useContext(ChatsContext);
 
   const {
     isLoggedIn,
@@ -54,6 +56,20 @@ const ChatWindow = () => {
           content: newMessage,
           chat: currentChat,
         });
+        const updatedChats = chats.map((chat) => {
+          if (chat._id === currentChat) {
+            const updatedLatestMessage = {
+              ...chat.latestMessage,
+              content: newMessage,
+            };
+            return {
+              ...chat,
+              latestMessage: updatedLatestMessage,
+            };
+          }
+          return chat;
+        });
+        setChats(updatedChats);
         setNewMessage("");
         await socket.emit("new message", data);
         setmessages([...messages, data]);

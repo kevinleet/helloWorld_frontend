@@ -13,7 +13,7 @@ import Profile from "./components/Main/Profile";
 // Creating a context to share user-related data between components
 export const UserContext = React.createContext(null);
 
-function App() {
+const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
   const [currentChat, setCurrentChat] = useState(""); // State to track current chat
   const [currentUser, setCurrentUser] = useState(null); // State to store current user data
@@ -135,6 +135,6 @@ function App() {
       </div>
     </UserContext.Provider>
   );
-}
+};
 
 export default App;
