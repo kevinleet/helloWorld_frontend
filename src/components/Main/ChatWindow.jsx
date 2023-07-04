@@ -16,8 +16,14 @@ const ChatWindow = () => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [room, setRoom] = useState("");
 
-  const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } =
-    useContext(UserContext);
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    currentUser,
+    setCurrentUser,
+    currentChat,
+    setCurrentChat,
+  } = useContext(UserContext);
 
   useEffect(() => {
     socket = io(`${ENDPOINT}`);
@@ -31,16 +37,21 @@ const ChatWindow = () => {
   }, []);
 
   useEffect(() => {
-    socket.emit("join chat", room);
-  }, [room, setRoom]);
+    socket.on("message recieved", (newMessageRecieved) => {
+      // console.log(newMessageRecieved);
+      setmessages([...messages, newMessageRecieved]);
+      // console.log(messages);
+    });
+  });
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
+      event.preventDefault();
       try {
         const { data } = await axios.post(`${BASE_URL}/messages`, {
           sender: currentUser._id,
           content: newMessage,
-          chat: "64a1f7e06fa2a665b03b0918",
+          chat: currentChat,
         });
         setNewMessage("");
         await socket.emit("new message", data);
@@ -51,13 +62,24 @@ const ChatWindow = () => {
     }
   };
 
+  //load messages associated with the chatId
+  const loadMessages = async () => {
+    const { data } = await axios.get(`${BASE_URL}/messages/${currentChat}`);
+    console.log(data);
+    setmessages(data);
+    console.log(messages);
+  };
+
+  //when room is changed based on currentChat changing, emit a 'join chat' signal to tie current user to
+  //a room with a name of the chatId
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
-      console.log(newMessageRecieved);
-      setmessages([...messages, newMessageRecieved]);
-      console.log(messages);
-    });
-  });
+    socket.emit("join chat", room);
+  }, [room, setRoom]);
+
+  useEffect(() => {
+    setRoom(currentChat);
+    currentChat != "" ? loadMessages() : null;
+  }, [currentChat, setCurrentChat]);
 
   const typingHandler = (event) => {
     setNewMessage(event.target.value);
@@ -66,49 +88,31 @@ const ChatWindow = () => {
   };
 
   return (
-    <Box
-      alignItems="center"
-      flexDir={"column"}
-      p={3}
-      bg={"white"}
-      w={{ base: "100%" }}
-      h={"100%"}
-    >
-      <Box
-        d="flex"
-        flexDir="column"
-        justifyContent={"flex-end"}
-        p={3}
-        w="100%"
-        h="100%"
-        bg="#E8E8E8"
-        overflowY="hidden"
-      >
-        <div>
+    <div className="w-full">
+      <div className="h-5/6">
+        <div className="h-full overflow-y-auto">
           {messages
             ? messages.map((message) => (
-                <h3 key={message._id}>{message.content}</h3>
+                <h3 className="text-white" key={message._id}>
+                  {message.content}
+                </h3>
               ))
             : null}
         </div>
-        <FormControl onKeyDown={sendMessage}>
-          <Input
-            varient="filled"
-            bg="#E0E0E0"
-            placeholder="Enter a message.."
-            onChange={typingHandler}
-            value={newMessage}
-          />
-        </FormControl>
-        <Button
-          onClick={() => {
-            setRoom("64a1f7e06fa2a665b03b0918");
-          }}
-        >
-          Join Room
-        </Button>
-      </Box>
-    </Box>
+      </div>
+      <form className=" h-1/6" onKeyDown={sendMessage}>
+        <input
+          type="text"
+          className="w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-black"
+          varient="filled"
+          bg="#E0E0E0"
+          color="black"
+          placeholder="Enter a message.."
+          onChange={typingHandler}
+          value={newMessage}
+        />
+      </form>
+    </div>
   );
 };
 

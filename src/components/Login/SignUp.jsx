@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
@@ -11,52 +11,51 @@ const SignUp = () => {
     password: "",
     confirmpassword: "",
   };
-  const [formState, setFormState] = useState(initialState);
+  const [formState, setFormState] = useState(initialState); // Initializing form state using useState hook
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
   const handleChange = (e) => {
-    setFormState({ ...formState, [e.target.id]: e.target.value });
+    setFormState({ ...formState, [e.target.id]: e.target.value }); // Updating form state when input values change
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Preventing default form submission behavior
 
     if (formState.password === formState.confirmpassword) {
       try {
-        await createUser();
+        await createUser(); // Creating a new user if passwords match
         alert("Account created. Please sign in!");
-        navigate("/login");
+        navigate("/login"); // Navigating to the login page after successful signup
       } catch (error) {
         console.log(error);
       }
     } else {
-      alert("Passwords do not match.");
+      alert("Passwords do not match."); // Showing an error message if passwords do not match
     }
   };
 
   const createUser = async () => {
-    let hashedPassword = await hashPassword();
-    console.log(hashedPassword);
+    let hashedPassword = await hashPassword(); // Hashing the password before sending it to the server
 
     let user = await axios.post(`${BASE_URL}/users/create`, {
       email: formState.email,
       displayname: formState.displayname,
       password: hashedPassword,
-    });
+    }); // Sending a POST request to create a new user
   };
 
   const hashPassword = async () => {
-    const saltRounds = 10;
+    const saltRounds = 10; // Number of salt rounds for password hashing
 
-    const hashedPassword = await bcrypt.hash(formState.password, saltRounds);
+    const hashedPassword = await bcrypt.hash(formState.password, saltRounds); // Hashing the password using bcrypt
 
-    console.log(hashedPassword);
-    return hashedPassword;
+    return hashedPassword; // Returning the hashed password
   };
 
   return (
     <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-700 bg-slate-800 max-w-2xl rounded-lg">
+      {/* Sign-up form */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-5 text-2xl font-bold leading-9 tracking-tight text-white text-center">
           Sign up for helloWorld below.
@@ -68,6 +67,7 @@ const SignUp = () => {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
+          {/* Email input */}
           <div>
             <label
               htmlFor="email"
@@ -89,6 +89,7 @@ const SignUp = () => {
             </div>
           </div>
 
+          {/* Display name input */}
           <div>
             <label
               htmlFor="email"
@@ -110,6 +111,7 @@ const SignUp = () => {
             </div>
           </div>
 
+          {/* Password input */}
           <div>
             <div className="flex items-center justify-between">
               <label
@@ -134,6 +136,7 @@ const SignUp = () => {
             </div>
           </div>
 
+          {/* Confirm password input */}
           <div>
             <div className="flex items-center justify-between">
               <label
@@ -158,6 +161,7 @@ const SignUp = () => {
             </div>
           </div>
 
+          {/* Sign up button */}
           <div>
             <button
               type="submit"
@@ -167,6 +171,7 @@ const SignUp = () => {
             </button>
           </div>
         </form>
+        {/* Link to the login page */}
         <p className="mt-10 text-center text-sm text-gray-500">
           <Link
             to="/login"

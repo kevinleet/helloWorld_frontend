@@ -15,12 +15,13 @@ const NavBar = () => {
   };
 
   function handleLogOut() {
+    sessionStorage.clear();
     setIsLoggedIn(false);
     setCurrentUser(null);
   }
 
   return (
-    <div className="flex flex-col justify-end items-center border border-red-500 w-1/12">
+    <div className="flex flex-col justify-end items-center w-1/12 bg-slate-900 rounded-lg">
       <div className="h-2/3 flex flex-col justify-between items-center mb-6">
         <div className="flex flex-col justify-center items-center">
           <Link
@@ -36,7 +37,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("chat")}
           >
-            <img src="src/assets/chat.png" className="w-8" />
+            <img src="/src/assets/chat.png" className="w-8" />
           </Link>
           <Link
             to="/home/addfriend"
@@ -51,7 +52,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("addfriend")}
           >
-            <img src="src/assets/group.png" className="w-8" />
+            <img src="/src/assets/group.png" className="w-8" />
           </Link>
         </div>
         <div className="flex flex-col justify-center items-center">
@@ -67,7 +68,7 @@ const NavBar = () => {
             focus-visible:outline-indigo-600"
             onClick={() => handleLogOut()}
           >
-            <img src="src/assets/log-out.png" className="w-8" />
+            <img src="/src/assets/log-out.png" className="w-8" />
           </Link>
           <Link
             to="/home/profile"
@@ -82,7 +83,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("profile")}
           >
-            <img src="src/assets/user.png" className="w-8" />
+            <img src="/src/assets/user.png" className="w-8" />
           </Link>
         </div>
       </div>

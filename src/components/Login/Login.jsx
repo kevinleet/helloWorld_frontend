@@ -1,37 +1,42 @@
-import { UserContext } from "../../App";
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "../../globals";
-import bcrypt from "bcryptjs";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../App"; // Importing UserContext from "../../App" to access user context data
+import { BASE_URL } from "../../globals"; // Importing BASE_URL from "../../globals" for API requests
+import bcrypt from "bcryptjs"; // Importing bcrypt for password hashing
+import axios from "axios"; // Importing axios for making API requests
+import LoginForm from "./LoginForm"; // Importing the LoginForm component
 
 const Login = () => {
+  const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } =
-    useContext(UserContext);
+    useContext(UserContext); // Accessing user context data
   const initialState = {
     email: "",
     password: "",
   };
-  const [formState, setFormState] = useState(initialState);
+  const [formState, setFormState] = useState(initialState); // Initializing form state with initial values
 
   const handleChange = (e) => {
-    setFormState({ ...formState, [e.target.id]: e.target.value });
+    setFormState({ ...formState, [e.target.id]: e.target.value }); // Updating form state when input values change
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let foundUser = await getUser();
+    let foundUser = await getUser(); // Fetching user data
     let validPassword;
     if (foundUser) {
       validPassword = await bcrypt.compare(
         formState.password,
         foundUser.password
-      );
+      ); // Comparing entered password with hashed password
     }
 
     if (foundUser && validPassword) {
-      setIsLoggedIn(true);
-      setCurrentUser(foundUser);
+      setIsLoggedIn(true); // Set isLoggedIn to true
+      setCurrentUser(foundUser); // Set the current user
+      sessionStorage.setItem("isLoggedIn", true); // Store isLoggedIn in session storage
+      sessionStorage.setItem("currentUser", formState.email); // Store the current user's email in session storage
+      navigate("/home"); // Navigate to the home page
     } else {
       alert("Login Failed! Please try again.");
     }
@@ -41,8 +46,8 @@ const Login = () => {
     try {
       const response = await axios.post(`${BASE_URL}/users/get/email`, {
         email: formState.email,
-      });
-      return response.data;
+      }); // Sending API request to fetch user data
+      return response.data; // Return the user data from the API response
     } catch (error) {
       console.error(error);
     }
@@ -60,61 +65,11 @@ const Login = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-white"
-            >
-              Email Address
-            </label>
-            <div className="mt-2">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                onChange={handleChange}
-                value={formState.email}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-white"
-              >
-                Password
-              </label>
-              <div className="text-sm"></div>
-            </div>
-            <div className="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                onChange={handleChange}
-                value={formState.password}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
-              />
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign In
-            </button>
-          </div>
-        </form>
+        <LoginForm
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+          formState={formState}
+        />
 
         <p className="mt-10 text-center text-sm text-gray-500">
           New to helloWorld?{" "}

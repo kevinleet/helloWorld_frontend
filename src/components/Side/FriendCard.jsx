@@ -1,10 +1,18 @@
 const FriendCard = (props) => {
+    console.log('props:', props)
     return (
-        <ul className="friends-list" id={props.first} key={props.first}>
-            {/* <img src={props.icon}/> */}
-            {/* we shouldnt use a unique image for each user because it could get messy, so we need to make a default image to go here */}
-            <h3>{props.displayName}</h3>
-        </ul>
+    <div class="flex overflow-x-auto">
+        <div class="flex-shrink-0">
+            <ul className="friends-list flex whitespace-nowrap" id={props.friendsList} key={props.friendsList}>
+                <li className='inline-block mr-4'>
+                    <div className='flex items-center'>
+                        <h3 className='bg-sky-400 mr-2'>{props.friendsList.content.displayname.charAt(0)}</h3>
+                        <p className=''>{props.friendsList.content.displayname}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
     )
 }
 

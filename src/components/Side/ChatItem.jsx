@@ -1,14 +1,16 @@
 const ChatItem = (props) => {
-  console.log("props", props);
-  return (
-    <ul className="text-white border mt-3" id={props.users} key={props.users}>
-      <h3>
-        <p>{props.latestMessage.sender.displayname}</p>
-      </h3>
-      <br />
-      <h5>{props.latestMessage.content}</h5>
-    </ul>
-  );
+  // console.log("props", props);
+  return props.latestMessage ? (
+    <div
+      onClick={() => props.handleClick(props.latestMessage.chat)}
+      className="text-white border mt-3 rounded-lg hover:text-black hover:bg-white transform hover:scale-120 hover:rounded-lg transition-all duration-300"
+      id={props.users}
+      key={props.users}
+    >
+      <h3 className="p-2">{props.latestMessage.sender.displayname}</h3>
+      <h5 className="p-2">{props.latestMessage.content}</h5>
+    </div>
+  ) : null;
 };
 
 export default ChatItem;

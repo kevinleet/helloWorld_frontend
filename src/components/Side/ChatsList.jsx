@@ -7,34 +7,41 @@ import axios from "axios";
 
 const ChatList = () => {
   const [chats, setChats] = useState([]);
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser, currentChat, setCurrentChat } =
+    useContext(UserContext);
 
   useEffect(() => {
-    try {
+    if (currentUser) {
       const getAllChats = async () => {
-        let response = await axios.get(
-          `${BASE_URL}/chats/userchats/${currentUser._id}`
-        );
-        setChats(response.data);
-        console.log("output", response.data);
+        try {
+          let response = await axios.get(
+            `${BASE_URL}/chats/userchats/${currentUser._id}`
+          );
+          setChats(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+        // console.log("output", response.data);
       };
-      // getAllChats();
-    } catch (error) {
-      console.log(error);
+      getAllChats();
     }
   }, []);
 
+  //upon clicking individual chatitem, this needs to fetch all messages of a chat and render them to chatwindow.
+  const handleClick = (chatId) => {
+    setCurrentChat(chatId);
+  };
+
   return (
-    <div className="chat-list w-full">
-      <ul>
-        {chats?.map((chat) => (
-          <ChatItem
-            key={chat.users}
-            users={chat.users}
-            latestMessage={chat.latestMessage}
-          />
-        ))}
-      </ul>
+    <div className="chat-list w-full overflow-y-auto flex flex-col">
+      {chats?.map((chat) => (
+        <ChatItem
+          key={chat.users}
+          users={chat.users}
+          latestMessage={chat.latestMessage}
+          handleClick={handleClick}
+        />
+      ))}
     </div>
   );
 };
