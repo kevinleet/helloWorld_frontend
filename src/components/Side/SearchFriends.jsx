@@ -8,22 +8,22 @@ const SearchFriends = () => {
   const [friends, setFriends] = useState([]);
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
-  useEffect(() => {
-    if (currentUser) {
-      console.log("current user", currentUser);
-      // const getAllFriends = async () => {
-      //   try {
-      //     let response = await axios.get(
-      //       `${BASE_URL}/users/get/friends/${currentUser._id}`
-      //     );
-      //     setFriends(response.data);
-      //   } catch (error) {
-      //     console.log(error);
-      //   }
-      // };
-      // getAllFriends();
-    }
-  }, [currentUser]);
+  // useEffect(() => {
+  //   if (currentUser) {
+  // console.log("current user", currentUser);
+  // const getAllFriends = async () => {
+  //   try {
+  //     let response = await axios.get(
+  //       `${BASE_URL}/users/get/friends/${currentUser._id}`
+  //     );
+  //     setFriends(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // getAllFriends();
+  // }
+  // }, [currentUser]);
 
   const handleFriendClick = (e) => {
     console.log(
@@ -40,19 +40,23 @@ const SearchFriends = () => {
             Search
           </button>
         </form>
-        <div className="mt-5 flex flex-row space-x-2 overflow-x-auto">
-          {currentUser?.friends?.map((friend) => (
-            <div key={friend._id}>
-              <button
-                onClick={handleFriendClick}
-                id={friend._id}
-                name={friend.displayname}
-                className="border border-2 w-10 h-10 rounded-full bg-green-500 hover:bg-green-400"
-              >
-                {friend?.displayname[0]}
-              </button>
-            </div>
-          ))}
+        <div className="mt-2 overflow-x-auto py-5">
+          <div className="flex flex-row space-x-2">
+            {currentUser?.friends
+              ?.sort((a, b) => a.displayname.localeCompare(b.displayname))
+              .map((friend) => (
+                <div key={friend._id}>
+                  <button
+                    onClick={handleFriendClick}
+                    id={friend._id}
+                    name={friend.displayname}
+                    className="border border-2 w-10 h-10 rounded-full bg-green-500 hover:bg-green-400"
+                  >
+                    {friend?.displayname[0]}
+                  </button>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
 
