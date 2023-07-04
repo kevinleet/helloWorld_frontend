@@ -1,29 +1,32 @@
-import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "./globals";
+import "./App.css";
 import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
 import Home from "./components/Home";
 import AddFriend from "./components/Main/AddFriend";
 import ChatWindow from "./components/Main/ChatWindow";
 import Profile from "./components/Main/Profile";
-import axios from "axios";
-import { BASE_URL } from "./globals";
 
+// Creating a context to share user-related data between components
 export const UserContext = React.createContext(null);
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentChat, setCurrentChat] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
-  const [users, setUsers] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [currentChat, setCurrentChat] = useState(""); // State to track current chat
+  const [currentUser, setCurrentUser] = useState(null); // State to store current user data
+  const [users, setUsers] = useState(null); // State to store all users data
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if the user is logged in
     const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(isLoggedIn);
 
+    // Fetch the current user from storage if logged in, otherwise navigate to login page
     const setCurrentUserFromStorage = async () => {
       if (isLoggedIn) {
         let currentUser = await getUser();
@@ -33,6 +36,7 @@ function App() {
       }
     };
 
+    // Fetch all users from the server
     const getAllUsers = async () => {
       try {
         let response = await axios.get(`${BASE_URL}/users/get/all`);
@@ -42,10 +46,12 @@ function App() {
       }
     };
 
+    // Call the functions to set the current user and fetch all users
     setCurrentUserFromStorage();
     getAllUsers();
   }, []);
 
+  // Check authentication status and navigate accordingly
   const checkAuthentication = () => {
     const storedUser = sessionStorage.getItem("currentUser");
     if (isLoggedIn && currentUser && storedUser) {
@@ -55,6 +61,7 @@ function App() {
     }
   };
 
+  // Clear session storage and reset states
   const handleClearSessionStorage = () => {
     sessionStorage.clear();
     setIsLoggedIn(false);
@@ -62,6 +69,7 @@ function App() {
     checkAuthentication();
   };
 
+  // Fetch the current user from the server based on the stored email
   const getUser = async () => {
     try {
       const response = await axios.post(`${BASE_URL}/users/get/email`, {
@@ -74,6 +82,7 @@ function App() {
   };
 
   return (
+    // Provide the user-related data through the UserContext.Provider
     <UserContext.Provider
       value={{
         isLoggedIn,
@@ -88,6 +97,7 @@ function App() {
     >
       <div className="flex justify-center items-center min-w-[1200px] min-h-[700px] border border-slate-900 rounded-lg bg-slate-900">
         <Routes>
+          {/* Define routes for different components */}
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/" element={<Navigate to="/home" replace />} />
@@ -104,6 +114,7 @@ function App() {
         </Routes>
       </div>
 
+      {/* Development-related buttons */}
       <div className="flex justify-center items-center space-x-2 mt-10">
         <p>For Development Use Only:</p>
         <button
