@@ -15,9 +15,11 @@ const Login = () => {
     password: "",
   };
   const [formState, setFormState] = useState(initialState); // Initializing form state with initial values
+  const [messsage, setMessage] = useState("");
 
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.id]: e.target.value }); // Updating form state when input values change
+    setMessage("");
   };
 
   const handleSubmit = async (e) => {
@@ -37,8 +39,10 @@ const Login = () => {
       sessionStorage.setItem("isLoggedIn", true); // Store isLoggedIn in session storage
       sessionStorage.setItem("currentUser", formState.email); // Store the current user's email in session storage
       navigate("/home"); // Navigate to the home page
+      // setMessage("");
     } else {
-      alert("Login Failed! Please try again.");
+      // alert("Login Failed! Please try again.");
+      setMessage("Invalid login credentials. Please try again.");
     }
   };
 
@@ -70,6 +74,10 @@ const Login = () => {
           onChange={handleChange}
           formState={formState}
         />
+
+        <p className="text-center mt-3 text-red-500 font-bold text-sm">
+          {messsage}
+        </p>
 
         <p className="mt-10 text-center text-sm text-gray-500">
           New to helloWorld?{" "}
