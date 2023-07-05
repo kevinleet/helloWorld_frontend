@@ -108,7 +108,7 @@ const App = () => {
             <Route exact path="chat" element={<ChatWindow />} />
             <Route exact path="addfriend" element={<AddFriend />} />
             <Route exact path="myprofile" element={<MyProfile />} />
-            <Route exact path="profile" element={<ProfileById />} />
+            <Route exact path="profile/:id" element={<ProfileById />} />
             {/* <Route exact path="settings" element={<Settings />} /> */}
           </Route>
           <Route
