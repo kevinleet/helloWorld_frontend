@@ -8,7 +8,8 @@ import SignUp from "./components/Login/SignUp";
 import Home from "./components/Home";
 import AddFriend from "./components/Main/AddFriend";
 import ChatWindow from "./components/Main/ChatWindow";
-import Profile from "./components/Main/Profile";
+import MyProfile from "./components/Main/MyProfile";
+import ProfileById from "./components/Main/ProfileById"
 
 // Creating a context to share user-related data between components
 export const UserContext = React.createContext(null);
@@ -105,7 +106,8 @@ const App = () => {
             <Route index element={<Navigate to="/home/chat" replace />} />
             <Route exact path="chat" element={<ChatWindow />} />
             <Route exact path="addfriend" element={<AddFriend />} />
-            <Route exact path="profile" element={<Profile />} />
+            <Route exact path="myprofile" element={<MyProfile />} />
+            <Route exact path="profile" element={<ProfileById />} />
             {/* <Route exact path="settings" element={<Settings />} /> */}
           </Route>
           <Route
