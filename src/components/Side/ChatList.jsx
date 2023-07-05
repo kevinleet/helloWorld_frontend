@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import ChatItem from "./ChatItem";
@@ -10,7 +10,8 @@ const ChatList = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { chats, setChats } = useContext(ChatsContext);
+  const { chats, setChats, selectedChat, setselectedChat } =
+    useContext(ChatsContext);
   const { currentUser, setCurrentUser, currentChat, setCurrentChat } =
     useContext(UserContext);
 
@@ -22,6 +23,7 @@ const ChatList = () => {
             `${BASE_URL}/chats/userchats/${currentUser._id}`
           );
           setChats(response.data);
+          console.log(response.data);
         } catch (error) {
           console.log(error);
         }
@@ -33,6 +35,8 @@ const ChatList = () => {
   // Upon clicking an individual chat item, this needs to fetch all messages of a chat and render them to ChatWindow.
   const handleClick = (chatId) => {
     setCurrentChat(chatId);
+    setselectedChat(chatId);
+    // console.log(chatId);
     if (location.pathname !== "/home/chat") {
       navigate("/home/chat");
     }
@@ -46,6 +50,7 @@ const ChatList = () => {
           users={chat.users}
           latestMessage={chat.latestMessage}
           handleClick={handleClick}
+          isSelected={selectedChat === chat._id}
         />
       ))}
     </div>

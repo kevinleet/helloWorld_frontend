@@ -7,9 +7,12 @@ export const ChatsContext = React.createContext(null);
 
 const Home = () => {
   const [chats, setChats] = useState([]);
+  const [selectedChat, setselectedChat] = useState(null);
 
   return (
-    <ChatsContext.Provider value={{ chats, setChats }}>
+    <ChatsContext.Provider
+      value={{ chats, setChats, selectedChat, setselectedChat }}
+    >
       <div className="flex flex-auto w-[1200px] h-[700px] bg-slate-900">
         <NavBar />
         <SideBar />
