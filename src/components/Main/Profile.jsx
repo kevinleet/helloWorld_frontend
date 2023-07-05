@@ -1,4 +1,5 @@
 import DeleteAccountModal from "../Modals/DeleteAccountModal";
+import UpdateDisplayNameModal from "../Modals/UpdateDisplayNameModal";
 import { UserContext } from "../../App";
 import { useContext, useState } from "react";
 import moment from 'moment'
@@ -10,16 +11,17 @@ import { useNavigate } from 'react-router-dom'
 const Profile = () => {
 
   const { currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isDisplayNameModalOpen, setIsDisplayNameModalOpen] = useState(false)
 
   const navigate = useNavigate()
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true)
+  const handleOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true)
   }
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false)
   }
 
   const handleDelete = async ({ currentUser }) => {
@@ -37,22 +39,52 @@ const Profile = () => {
     }
   }
 
+  const handleOpenDisplayNameModal = () => {
+    setIsDisplayNameModalOpen(true)
+  }
+
+  const handleCloseDisplayNameModal = () => {
+    setIsDisplayNameModalOpen(false)
+  }
+
+  const handleUpdate = async (newDisplayName) => {
+      let userToUpdate = currentUser.email
+      console.log(newDisplayName)
+  
+      try {
+        const updateDisplayName = await axios.put(`${BASE_URL}/users/update/${userToUpdate}`, {
+          newDisplayName: newDisplayName,
+        })
+        setCurrentUser((prevUser) => ({...prevUser, displayname: newDisplayName,}))
+        handleCloseDisplayNameModal()
+      } catch(error) {
+        console.log(error)
+      }
+    }
+
   return (
     <div className="flex flex-col items-center mt-12">
       <h1 className="text-white text-4xl">My Profile</h1>
       <div className="flex justify-center items-center mt-12 p-12 h-40 w-40 bg-blue-500 rounded-full">
         <h1 className="text-7xl">{currentUser.displayname.charAt(0).toUpperCase()}</h1>
       </div>
-      <div className="grid grid-cols-2 mt-12 text-2xl gap-x-8 gap-y-4">
+      <div className="grid grid-cols-2 items-center mt-12 text-2xl gap-x-8 gap-y-4">
         <h3 className="text-right">Display Name:</h3>
-        <p>{currentUser.displayname}</p>
+        <p className="flex items-center">{currentUser.displayname}<span className="text-sm ml-8 px-3 py-0.25 bg-blue-500 rounded-xl hover:bg-blue-400 hover:cursor-pointer" onClick={handleOpenDisplayNameModal}>Update</span></p>
         <h3 className="text-right">Email:</h3>
         <p>{currentUser.email}</p>
         <h3 className="text-right">Created:</h3>
         <p>{moment(currentUser.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
       </div>
-        <button className="bg-red-700 py-2 px-6 rounded-lg mt-20 hover:bg-red-900" onClick={handleOpenModal}>Delete Account</button>
-        <DeleteAccountModal isOpen={isModalOpen} onCancel={handleCloseModal} onConfirm={() => handleDelete({ currentUser })} />
+        <button className="bg-red-700 py-2 px-6 rounded-lg mt-20 hover:bg-red-900" onClick={handleOpenDeleteModal}>Delete Account</button>
+        <DeleteAccountModal 
+          isOpen={isDeleteModalOpen} 
+          onCancel={handleCloseDeleteModal} 
+          onConfirm={() => handleDelete({ currentUser })} />
+        <UpdateDisplayNameModal 
+          isOpen={isDisplayNameModalOpen} 
+          onCancel={handleCloseDisplayNameModal} 
+          onConfirm={handleUpdate} />
     </div>
   )
 }
