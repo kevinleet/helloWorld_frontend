@@ -31,6 +31,7 @@ const NavBar = () => {
               ${activePage === "chat" ? "bg-indigo-300" : "bg-indigo-600"} 
               bg-indigo-600 rounded-md shadow-sm 
               hover:bg-indigo-500 
+              transition-all duration-300
               focus-visible:outline 
               focus-visible:outline-2 
               focus-visible:outline-offset-2 
@@ -46,6 +47,7 @@ const NavBar = () => {
               ${activePage === "addfriend" ? "bg-indigo-300" : "bg-indigo-600"} 
               bg-indigo-600 rounded-md shadow-sm 
               hover:bg-indigo-500 
+              transition-all duration-300
               focus-visible:outline 
               focus-visible:outline-2 
               focus-visible:outline-offset-2 
@@ -62,6 +64,7 @@ const NavBar = () => {
             mb-4 p-6 
             bg-indigo-600 rounded-md shadow-sm 
             hover:bg-indigo-500 
+            transition-all duration-300
             focus-visible:outline 
             focus-visible:outline-2 
             focus-visible:outline-offset-2 
@@ -77,6 +80,7 @@ const NavBar = () => {
               ${activePage === "profile" ? "bg-indigo-300" : "bg-indigo-600"} 
               bg-indigo-600 rounded-md shadow-sm 
               hover:bg-indigo-500 
+              transition-all duration-300
               focus-visible:outline 
               focus-visible:outline-2 
               focus-visible:outline-offset-2 

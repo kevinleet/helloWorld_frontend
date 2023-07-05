@@ -123,29 +123,27 @@ const ChatWindow = () => {
           ref={messagesDisplay}
         >
           {messages
-            ? messages.map((message) =>
-                message.sender._id == currentUser._id ? (
-                  <div key={message._id}>
-                    <p className="bg-indigo-600 text-white float-right p-2 m-2 border border-white max-w-[300px] whitespace-normal rounded-xl ">
-                      {message.content}
-                    </p>
-                  </div>
-                ) : (
-                  <div key={message._id}>
-                    <p className="bg-indigo-600 text-white float-left p-2 m-2 border border-white max-w-[300px] whitespace-normal rounded-xl">
-                      {message.content}
-                    </p>
-                  </div>
-                )
-              )
+            ? messages.map((message) => (
+                <div key={message._id}>
+                  <p
+                    className={`${
+                      message.sender._id == currentUser._id
+                        ? "bg-indigo-600 text-gray-200 float-right"
+                        : "bg-purple-500 text-gray-200 float-left"
+                    } px-3 py-2 m-2 max-w-[300px] whitespace-pre-wrap rounded-xl`}
+                    style={{ wordBreak: "break-word" }}
+                  >
+                    {message.content}
+                  </p>
+                </div>
+              ))
             : null}
         </div>
       </div>
-      <form className="w-[500px] h-[50px] mt-5" onKeyDown={sendMessage}>
+      <form className="w-[600px] h-[50px] mt-5" onKeyDown={sendMessage}>
         <input
           type="text"
-          className="w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 placeholder:text-gray-400 bg-slate-500 text-gray-100"
-          // className="px-5 block rounded-md border-0 py-1.5 px-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white"
           varient="filled"
           bg="#E0E0E0"
           color="black"

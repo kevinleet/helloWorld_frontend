@@ -77,23 +77,23 @@ const AddFriend = () => {
   };
 
   return (
-    <div className="flex justify-start items-center flex-col p-5 w-full overflow-y-auto">
+    <div className="flex justify-start items-center flex-col p-5 w-full overflow-y-auto mb-5">
       {/* Render incoming friend requests */}
       {currentUser?.incomingrequests?.length > 0 ? (
-        <div className="mb-10 w-[400px] border border-4 border-green-500 p-4 rounded-lg">
-          <h3 className="text-2xl text-center font-bold">
+        <div className="mb-5 w-[400px] p-4 rounded-lg">
+          <h3 className="text-2xl text-center font-bold text-green-500">
             Incoming Friend Requests
           </h3>
           {currentUser?.incomingrequests.map((sender) => (
             <div
               key={sender._id}
-              className="flex flex-row justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl"
+              className="flex flex-row justify-between items-center border border-2 border-green-700 rounded-lg m-3 px-3 py-4 font-bold text-xl"
             >
-              <div className="mx-5 text-white">{sender.displayname}</div>
+              <div className="mx- text-white">{sender.displayname}</div>
               <button
                 id={sender._id}
                 onClick={handleAcceptRequest}
-                className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-sm"
+                className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-sm transition-all duration-300"
               >
                 Accept Friend Request
               </button>
@@ -105,22 +105,22 @@ const AddFriend = () => {
       <div className="">
         {/* Search input field */}
         <input
-          className="px-5 block w-[400px] rounded-md border-0 py-2 px-20 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+          className="px-5 block w-[350px] rounded-md border-0 py-2 px-20 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white"
           placeholder="Search for users here..."
           value={input}
           type="text"
           onChange={handleChange}
         ></input>
       </div>
-      <div className="mt-5">
+      <div className="mt-1">
         {/* Render filtered users */}
         {filteredUsers
           ? filteredUsers.map((filteredUser) => (
               <div
                 key={filteredUser._id}
-                className="flex w-[400px] flex-row px-10 justify-between items-center border rounded-lg m-3 px-3 py-4 font-bold text-xl "
+                className="flex w-[400px] flex-row px-10 justify-between items-center border border-gray-500 rounded-lg m-3 px-3 py-4 font-bold text-xl "
               >
-                <div className="mx-5 text-white">
+                <div className="mx-5 text-lg text-gray-200 tracking-wider">
                   {filteredUser.displayname}
                 </div>
 
@@ -130,10 +130,9 @@ const AddFriend = () => {
                 ).length > 0 ? (
                   <button
                     id={filteredUser._id}
-                    className="mx-5 p-2 border border-black rounded-lg bg-purple-500 text-sm"
-                    disabled
+                    className="mx-5 p-2 border border-black rounded-lg bg-purple-500 text-sm hover:bg-purple-400 transition-all duration-300"
                   >
-                    Currently Friends
+                    &#9734; Your Friend
                   </button>
                 ) : null}
 
@@ -154,7 +153,7 @@ const AddFriend = () => {
                 ).length > 0 ? (
                   <button
                     id={filteredUser._id}
-                    className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-sm"
+                    className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-sm transition-all duration-300"
                     onClick={handleAcceptRequest}
                   >
                     Accept Friend Request
@@ -181,7 +180,7 @@ const AddFriend = () => {
                     className={
                       currentUser?.outgoingrequests?.includes(filteredUser._id)
                         ? "mx-5 p-2 border border-black rounded-lg bg-yellow-500 text-sm"
-                        : "mx-5 p-2 border border-black rounded-lg bg-blue-500 hover:bg-blue-400 text-sm"
+                        : "mx-5 p-2 border border-black rounded-lg bg-blue-500 hover:bg-blue-400 text-sm transition-all duration-300"
                     }
                   >
                     {currentUser?.outgoingrequests?.includes(

@@ -1,14 +1,16 @@
-// import SearchFriends from "./SearchFriends"
+import { useContext, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 import ChatItem from "./ChatItem";
 import { UserContext } from "../../App";
-import { useContext, useEffect } from "react";
-import { BASE_URL } from "../../globals";
-import axios from "axios";
 import { ChatsContext } from "../Home";
+import { BASE_URL } from "../../globals";
 
 const ChatList = () => {
-  const { chats, setChats } = useContext(ChatsContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  const { chats, setChats } = useContext(ChatsContext);
   const { currentUser, setCurrentUser, currentChat, setCurrentChat } =
     useContext(UserContext);
 
@@ -20,19 +22,20 @@ const ChatList = () => {
             `${BASE_URL}/chats/userchats/${currentUser._id}`
           );
           setChats(response.data);
-          console.log(response.data);
         } catch (error) {
           console.log(error);
         }
-        // console.log("output", response.data);
       };
       getAllChats();
     }
   }, [currentUser]);
 
-  //upon clicking individual chatitem, this needs to fetch all messages of a chat and render them to chatwindow.
+  // Upon clicking an individual chat item, this needs to fetch all messages of a chat and render them to ChatWindow.
   const handleClick = (chatId) => {
     setCurrentChat(chatId);
+    if (location.pathname !== "/home/chat") {
+      navigate("/home/chat");
+    }
   };
 
   return (
