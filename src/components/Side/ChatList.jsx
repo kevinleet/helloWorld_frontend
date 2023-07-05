@@ -2,9 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import ChatItem from "./ChatItem";
-import { UserContext } from "../../App";
+import { UserContext, BASE_URL } from "../../App";
 import { ChatsContext } from "../Home";
-import { BASE_URL } from "../../globals";
 
 const ChatList = () => {
   const navigate = useNavigate();
@@ -20,10 +19,10 @@ const ChatList = () => {
       const getAllChats = async () => {
         try {
           let response = await axios.get(
-            `${BASE_URL}/chats/userchats/${currentUser._id}`
+            `${BASE_URL}/api/chats/userchats/${currentUser._id}`
           );
           setChats(response.data);
-          console.log(response.data);
+          // console.log(response.data);
         } catch (error) {
           console.log(error);
         }

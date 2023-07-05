@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../../App";
-import { BASE_URL } from "../../globals";
+import { BASE_URL } from "../../App";
 
 const AddFriend = () => {
   const { currentUser, setCurrentUser, users } = useContext(UserContext);
@@ -35,7 +35,7 @@ const AddFriend = () => {
   const sendRequest = async (recipient) => {
     try {
       // Send a friend request to the recipient
-      let response = await axios.post(`${BASE_URL}/requests/create`, {
+      let response = await axios.post(`${BASE_URL}/api/requests/create`, {
         sender: currentUser._id,
         recipient: recipient,
       });
@@ -59,7 +59,7 @@ const AddFriend = () => {
   const acceptRequest = async (sender) => {
     try {
       // Accept a friend request from the sender
-      let response = await axios.post(`${BASE_URL}/requests/accept`, {
+      let response = await axios.post(`${BASE_URL}/api/requests/accept`, {
         sender: sender._id,
         recipient: currentUser._id,
       });
