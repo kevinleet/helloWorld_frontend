@@ -50,7 +50,7 @@ const SearchFriends = () => {
                     onClick={handleFriendClick}
                     id={friend._id}
                     name={friend.displayname}
-                    className="border border-2 w-10 h-10 rounded-full bg-green-500 hover:bg-green-400"
+                    className="border border-2 w-10 h-10 rounded-full bg-blue-500 hover:bg-green-400"
                   >
                     {friend?.displayname[0]}
                   </button>

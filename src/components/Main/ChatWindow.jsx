@@ -3,8 +3,8 @@ import axios from "axios";
 import { BASE_URL } from "../../globals";
 import { UserContext } from "../../App";
 import { useContext, useState, useRef } from "react";
-import { FormControl, Input, Box, Button } from "@chakra-ui/react";
 import { io } from "socket.io-client";
+import { ChatsContext } from "../Home";
 
 const ENDPOINT = "http://localhost:3001";
 let socket;
@@ -16,6 +16,8 @@ const ChatWindow = () => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [room, setRoom] = useState("");
   const messagesDisplay = useRef(null);
+
+  const { chats, setChats } = useContext(ChatsContext);
 
   const {
     isLoggedIn,
@@ -54,6 +56,20 @@ const ChatWindow = () => {
           content: newMessage,
           chat: currentChat,
         });
+        const updatedChats = chats.map((chat) => {
+          if (chat._id === currentChat) {
+            const updatedLatestMessage = {
+              ...chat.latestMessage,
+              content: newMessage,
+            };
+            return {
+              ...chat,
+              latestMessage: updatedLatestMessage,
+            };
+          }
+          return chat;
+        });
+        setChats(updatedChats);
         setNewMessage("");
         await socket.emit("new message", data);
         setmessages([...messages, data]);
@@ -128,7 +144,8 @@ const ChatWindow = () => {
       <form className="w-[500px] h-[50px] mt-5" onKeyDown={sendMessage}>
         <input
           type="text"
-          className="w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-black"
+          className="w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 placeholder:text-gray-400 bg-slate-500 text-gray-100"
+          // className="px-5 block rounded-md border-0 py-1.5 px-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
           varient="filled"
           bg="#E0E0E0"
           color="black"

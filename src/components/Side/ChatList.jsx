@@ -1,12 +1,14 @@
 // import SearchFriends from "./SearchFriends"
 import ChatItem from "./ChatItem";
 import { UserContext } from "../../App";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { BASE_URL } from "../../globals";
 import axios from "axios";
+import { ChatsContext } from "../Home";
 
 const ChatList = () => {
-  const [chats, setChats] = useState([]);
+  const { chats, setChats } = useContext(ChatsContext);
+
   const { currentUser, setCurrentUser, currentChat, setCurrentChat } =
     useContext(UserContext);
 
@@ -18,6 +20,7 @@ const ChatList = () => {
             `${BASE_URL}/chats/userchats/${currentUser._id}`
           );
           setChats(response.data);
+          console.log(response.data);
         } catch (error) {
           console.log(error);
         }
@@ -36,7 +39,7 @@ const ChatList = () => {
     <div className="chat-list w-full overflow-y-auto flex flex-col">
       {chats?.map((chat) => (
         <ChatItem
-          key={chat.users}
+          key={chat._id}
           users={chat.users}
           latestMessage={chat.latestMessage}
           handleClick={handleClick}
