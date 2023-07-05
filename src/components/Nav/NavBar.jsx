@@ -22,14 +22,14 @@ const NavBar = () => {
 
   return (
     <div className="flex flex-col justify-end items-center w-1/12 bg-slate-900 rounded-lg">
-      <div className="h-2/3 flex flex-col justify-between items-center mb-6">
+      <div className="h-full flex flex-col justify-between items-center mt-5">
         <div className="flex flex-col justify-center items-center">
           <Link
             to="/home/chat"
             className={`
               mb-4 p-6 
               ${activePage === "chat" ? "bg-indigo-300" : "bg-indigo-600"} 
-              bg-indigo-600 rounded-md shadow-sm 
+              bg-indigo-600 rounded-lg shadow-sm 
               hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
@@ -45,7 +45,7 @@ const NavBar = () => {
             className={`
               mb-4 p-6 
               ${activePage === "addfriend" ? "bg-indigo-300" : "bg-indigo-600"} 
-              bg-indigo-600 rounded-md shadow-sm 
+              bg-indigo-600 rounded-lg shadow-sm 
               hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
@@ -56,29 +56,12 @@ const NavBar = () => {
           >
             <img src="/src/assets/group.png" className="w-8" />
           </Link>
-        </div>
-        <div className="flex flex-col justify-center items-center">
-          <Link
-            to="/login"
-            className="
-            mb-4 p-6 
-            bg-indigo-600 rounded-md shadow-sm 
-            hover:bg-indigo-500 
-            transition-all duration-300
-            focus-visible:outline 
-            focus-visible:outline-2 
-            focus-visible:outline-offset-2 
-            focus-visible:outline-indigo-600"
-            onClick={() => handleLogOut()}
-          >
-            <img src="/src/assets/log-out.png" className="w-8" />
-          </Link>
           <Link
             to="/home/profile"
             className={`
               mb-4 p-6 
               ${activePage === "profile" ? "bg-indigo-300" : "bg-indigo-600"} 
-              bg-indigo-600 rounded-md shadow-sm 
+              bg-indigo-600 rounded-lg shadow-sm 
               hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
@@ -88,6 +71,39 @@ const NavBar = () => {
             onClick={() => handleSelection("profile")}
           >
             <img src="/src/assets/user.png" className="w-8" />
+          </Link>
+          <Link
+            to="/home/settings"
+            className={`
+              mb-4 p-6 
+              ${activePage === "settings" ? "bg-indigo-300" : "bg-indigo-600"} 
+              bg-indigo-600 rounded-lg shadow-sm 
+              hover:bg-indigo-500 
+              transition-all duration-300
+              focus-visible:outline 
+              focus-visible:outline-2 
+              focus-visible:outline-offset-2 
+              focus-visible:outline-indigo-600`}
+            onClick={() => handleSelection("settings")}
+          >
+            <img src="/src/assets/settings.png" className="w-8" />
+          </Link>
+        </div>
+        <div className="flex flex-col justify-center items-center">
+          <Link
+            to="/login"
+            className="
+            mb-5 p-6 
+            bg-indigo-600 rounded-lg shadow-sm 
+            hover:bg-indigo-500 
+            transition-all duration-300
+            focus-visible:outline 
+            focus-visible:outline-2 
+            focus-visible:outline-offset-2 
+            focus-visible:outline-indigo-600"
+            onClick={() => handleLogOut()}
+          >
+            <img src="/src/assets/log-out.png" className="w-8" />
           </Link>
         </div>
       </div>

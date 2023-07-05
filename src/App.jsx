@@ -106,6 +106,7 @@ const App = () => {
             <Route exact path="chat" element={<ChatWindow />} />
             <Route exact path="addfriend" element={<AddFriend />} />
             <Route exact path="profile" element={<Profile />} />
+            {/* <Route exact path="settings" element={<Settings />} /> */}
           </Route>
           <Route
             path="/*"
