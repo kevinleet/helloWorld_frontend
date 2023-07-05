@@ -8,7 +8,7 @@ import { ChatsContext } from "../Home";
 
 const ENDPOINT = "http://localhost:3001";
 let socket;
-
+let selectedChatCompare;
 const ChatWindow = () => {
   const [messages, setmessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,8 @@ const ChatWindow = () => {
   const [room, setRoom] = useState("");
   const messagesDisplay = useRef(null);
 
-  const { chats, setChats } = useContext(ChatsContext);
+  const { chats, setChats, selectedChat, setselectedChat } =
+    useContext(ChatsContext);
 
   const {
     isLoggedIn,
@@ -41,8 +42,13 @@ const ChatWindow = () => {
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
-      // console.log(newMessageRecieved);
-      setmessages([...messages, newMessageRecieved]);
+      console.log(newMessageRecieved.chat);
+      console.log(selectedChatCompare);
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare == newMessageRecieved.chat._id
+      )
+        setmessages([...messages, newMessageRecieved]);
       // console.log(messages);
     });
   });
@@ -89,6 +95,8 @@ const ChatWindow = () => {
     const { data } = await axios.get(`${BASE_URL}/messages/${currentChat}`);
     // console.log(data);
     setmessages(data);
+    selectedChatCompare = selectedChat;
+
     // console.log(messages);
   };
 
@@ -133,7 +141,7 @@ const ChatWindow = () => {
                     } px-3 py-2 m-2 max-w-[300px] whitespace-pre-wrap rounded-xl`}
                     style={{ wordBreak: "break-word" }}
                   >
-                    {message.content}
+                    {message.sender.displayname}:{message.content}
                   </p>
                 </div>
               ))
