@@ -11,9 +11,7 @@
     "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.7.1",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
+    "@reach/tooltip": "^0.18.0",
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
