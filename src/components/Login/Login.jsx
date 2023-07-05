@@ -19,6 +19,7 @@ const Login = () => {
 
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.id]: e.target.value }); // Updating form state when input values change
+    setMessage("");
   };
 
   const handleSubmit = async (e) => {
