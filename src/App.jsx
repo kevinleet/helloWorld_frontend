@@ -9,6 +9,7 @@ import AddFriend from "./components/Main/AddFriend";
 import ChatWindow from "./components/Main/ChatWindow";
 import MyProfile from "./components/Main/MyProfile";
 import ProfileById from "./components/Main/ProfileById";
+import Settings from "./components/Main/Settings";
 // import { TEST } from "../config";
 
 // Creating a context to share user-related data between components
@@ -109,7 +110,7 @@ const App = () => {
             <Route exact path="addfriend" element={<AddFriend />} />
             <Route exact path="myprofile" element={<MyProfile />} />
             <Route exact path="profile/:id" element={<ProfileById />} />
-            {/* <Route exact path="settings" element={<Settings />} /> */}
+            <Route exact path="settings" element={<Settings />} />
           </Route>
           <Route
             path="/*"

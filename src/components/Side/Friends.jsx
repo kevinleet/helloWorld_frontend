@@ -39,20 +39,22 @@ const Friends = () => {
             {filteredFriends
               ?.sort((a, b) => a.displayname.localeCompare(b.displayname))
               .map((friend) => (
-                <div key={friend._id}>
+                <div key={friend._id} className="flex flex-col text-center">
                   <Tooltip
                     label={friend.displayname}
-                    className="text-lg rounded-lg bg-purple-500 font-bold text-gray-200 hover:bg-purple-400"
+                    className="text-lg rounded-lg bg-blue-500 dark:bg-purple-500 font-bold text-gray-200 hover:bg-purple-400"
                   >
                     <button
                       onClick={handleFriendClick}
                       id={friend._id}
                       name={friend.displayname}
-                      className="w-10 h-10 rounded-full bg-purple-500 text-gray-200 hover:bg-purple-400 transition-all duration-300"
+                      className="w-10 h-10 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200 hover:bg-purple-400 transition-all duration-300"
                     >
                       {friend?.displayname[0]}
                     </button>
+                   
                   </Tooltip>
+                  {friend?.displayname}
                 </div>
               ))}
           </div>
