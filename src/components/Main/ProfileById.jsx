@@ -8,7 +8,7 @@ import { BASE_URL } from "../../globals";
 import { useNavigate } from 'react-router-dom'
 
 
-const Profile = () => {
+const ProfileById = () => {
 
   const { currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -90,5 +90,4 @@ const Profile = () => {
   )
 }
 
-export default Profile;
-
+export default ProfileById;

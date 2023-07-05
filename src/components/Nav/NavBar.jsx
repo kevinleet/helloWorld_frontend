@@ -57,7 +57,7 @@ const NavBar = () => {
             <img src="/src/assets/group.png" className="w-8" />
           </Link>
           <Link
-            to="/home/profile"
+            to="/home/myprofile"
             className={`
               mb-4 p-6 
               ${activePage === "profile" ? "bg-indigo-300" : "bg-indigo-600"} 
