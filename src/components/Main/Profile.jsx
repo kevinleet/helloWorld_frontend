@@ -70,7 +70,7 @@ const Profile = () => {
       </div>
       <div className="grid grid-cols-2 items-center mt-12 text-2xl gap-x-8 gap-y-4">
         <h3 className="text-right">Display Name:</h3>
-        <p className="flex items-center">{currentUser.displayname}<span className="text-sm ml-8 px-3 py-0.25 bg-blue-500 rounded-xl hover:bg-blue-400 hover:cursor-pointer" onClick={handleOpenDisplayNameModal}>Update</span></p>
+        <p className="flex items-center">{currentUser.displayname}<span className="text-sm ml-8 px-3 py-0.25 rounded-xl shadow-sm ring-1 ring-inset ring-gray-500 hover:cursor-pointer hover:ring-blue-500" onClick={handleOpenDisplayNameModal}>Update</span></p>
         <h3 className="text-right">Email:</h3>
         <p>{currentUser.email}</p>
         <h3 className="text-right">Created:</h3>
@@ -90,3 +90,4 @@ const Profile = () => {
 }
 
 export default Profile;
+
