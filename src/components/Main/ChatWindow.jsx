@@ -30,7 +30,7 @@ const ChatWindow = () => {
   } = useContext(UserContext);
 
   useEffect(() => {
-    socket = io(`${ENDPOINT}`);
+    socket = io(`https://helloworldbackend-production.up.railway.app/`);
     socket.emit("setup", currentUser);
     socket.on("connected", () => setSocketConnected(true));
     //socket.on("connection", () => setSocketConnected(true));
