@@ -8,7 +8,7 @@ import { UserContext } from "../../App";
 const SignUp = () => {
   const navigate = useNavigate(); // Hook for programmatic navigation
 
-  const { users } = useContext(UserContext);
+  const { users, setIsLoggedIn, setCurrentUser } = useContext(UserContext);
 
   const initialState = {
     email: "",
@@ -19,6 +19,7 @@ const SignUp = () => {
   const [formState, setFormState] = useState(initialState); // Initializing form state using useState hook
 
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.id]: e.target.value }); // Updating form state when input values change
@@ -35,9 +36,19 @@ const SignUp = () => {
       setMessage("Account with that email already exists.");
     } else if (formState.password === formState.confirmpassword) {
       try {
-        await createUser(); // Creating a new user if passwords match
-        alert("Account created. Please sign in!");
-        navigate("/login"); // Navigating to the login page after successful signup
+        let newUser = await createUser(); // Creating a new user if passwords match
+        // alert("Account created. Please sign in!");
+        setSuccess(true);
+        setIsLoggedIn(true); // Set isLoggedIn to true
+        setCurrentUser(newUser); // Set the current user
+        sessionStorage.setItem("isLoggedIn", true); // Store isLoggedIn in session storage
+        sessionStorage.setItem("currentUser", formState.email); // Store the current user's email in session storage
+        setTimeout(() => {
+          navigate("/home"); // Navigate to the home page
+          window.location.reload(false);
+        }, 1000);
+
+        // navigate("/login"); // Navigating to the login page after successful signup
       } catch (error) {
         console.log(error);
       }
@@ -64,7 +75,24 @@ const SignUp = () => {
     return hashedPassword; // Returning the hashed password
   };
 
-  return (
+  return success ? (
+    <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-700 bg-slate-800 max-w-2xl rounded-lg text-center">
+      <div className="mt-10">
+        <h2 className="text-3xl font-bold">Account successfully created!</h2>
+        <div
+          className="mt-10 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            Loading...
+          </span>
+        </div>
+      </div>
+      <div className="mt-10">
+        <p className="text-lg">Signing in...</p>
+      </div>
+    </div>
+  ) : (
     <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-700 bg-slate-800 max-w-2xl rounded-lg">
       {/* Sign-up form */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
