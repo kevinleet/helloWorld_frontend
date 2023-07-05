@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../globals";
-import { UserContext } from "../../App";
+import { UserContext, BASE_URL } from "../../App";
 import { useContext, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import { ChatsContext } from "../Home";
@@ -69,7 +68,7 @@ const ChatWindow = () => {
     if (event.key === "Enter" && newMessage) {
       event.preventDefault();
       try {
-        const { data } = await axios.post(`${BASE_URL}/messages`, {
+        const { data } = await axios.post(`${BASE_URL}/api/messages`, {
           sender: currentUser._id,
           content: newMessage,
           chat: currentChat,
@@ -99,7 +98,7 @@ const ChatWindow = () => {
 
   //load messages associated with the chatId
   const loadMessages = async () => {
-    const { data } = await axios.get(`${BASE_URL}/messages/${currentChat}`);
+    const { data } = await axios.get(`${BASE_URL}/api/messages/${currentChat}`);
     // console.log(data);
     setmessages(data);
     selectedChatCompare = selectedChat;

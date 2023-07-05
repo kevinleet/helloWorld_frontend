@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "./globals";
 import "./App.css";
 import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
@@ -9,10 +8,12 @@ import Home from "./components/Home";
 import AddFriend from "./components/Main/AddFriend";
 import ChatWindow from "./components/Main/ChatWindow";
 import MyProfile from "./components/Main/MyProfile";
-import ProfileById from "./components/Main/ProfileById"
+import ProfileById from "./components/Main/ProfileById";
+// import { TEST } from "../config";
 
 // Creating a context to share user-related data between components
 export const UserContext = React.createContext(null);
+export const BASE_URL = import.meta.env.VITE_BASEURL;
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
@@ -40,7 +41,7 @@ const App = () => {
     // Fetch all users from the server
     const getAllUsers = async () => {
       try {
-        let response = await axios.get(`${BASE_URL}/users/get/all`);
+        let response = await axios.get(`${BASE_URL}/api/users/get/all`);
         setUsers(response.data);
       } catch (error) {
         console.log(error);
@@ -73,7 +74,7 @@ const App = () => {
   // Fetch the current user from the server based on the stored email
   const getUser = async () => {
     try {
-      const response = await axios.post(`${BASE_URL}/users/get/email`, {
+      const response = await axios.post(`${BASE_URL}/api/users/get/email`, {
         email: sessionStorage.getItem("currentUser"),
       });
       return response.data;

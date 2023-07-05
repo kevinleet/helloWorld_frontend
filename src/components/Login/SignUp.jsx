@@ -2,8 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
-import { BASE_URL } from "../../globals";
-import { UserContext } from "../../App";
+import { UserContext, BASE_URL } from "../../App";
 
 const SignUp = () => {
   const navigate = useNavigate(); // Hook for programmatic navigation
@@ -37,7 +36,6 @@ const SignUp = () => {
     } else if (formState.password === formState.confirmpassword) {
       try {
         let newUser = await createUser(); // Creating a new user if passwords match
-        // alert("Account created. Please sign in!");
         setSuccess(true);
         setIsLoggedIn(true); // Set isLoggedIn to true
         setCurrentUser(newUser); // Set the current user
@@ -46,9 +44,7 @@ const SignUp = () => {
         setTimeout(() => {
           navigate("/home"); // Navigate to the home page
           window.location.reload(false);
-        }, 1000);
-
-        // navigate("/login"); // Navigating to the login page after successful signup
+        }, 1500);
       } catch (error) {
         console.log(error);
       }
@@ -60,7 +56,7 @@ const SignUp = () => {
   const createUser = async () => {
     let hashedPassword = await hashPassword(); // Hashing the password before sending it to the server
 
-    let user = await axios.post(`${BASE_URL}/users/create`, {
+    let user = await axios.post(`${BASE_URL}/api/users/create`, {
       email: formState.email.toLowerCase(),
       displayname: formState.displayname,
       password: hashedPassword,

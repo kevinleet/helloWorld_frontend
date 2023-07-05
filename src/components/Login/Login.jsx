@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../App"; // Importing UserContext from "../../App" to access user context data
-import { BASE_URL } from "../../globals"; // Importing BASE_URL from "../../globals" for API requests
+import { UserContext, BASE_URL } from "../../App"; // Importing UserContext from "../../App" to access user context data
 import bcrypt from "bcryptjs"; // Importing bcrypt for password hashing
 import axios from "axios"; // Importing axios for making API requests
 import LoginForm from "./LoginForm"; // Importing the LoginForm component
@@ -48,7 +47,7 @@ const Login = () => {
 
   const getUser = async () => {
     try {
-      const response = await axios.post(`${BASE_URL}/users/get/email`, {
+      const response = await axios.post(`${BASE_URL}/api/users/get/email`, {
         email: formState.email,
       }); // Sending API request to fetch user data
       return response.data; // Return the user data from the API response
