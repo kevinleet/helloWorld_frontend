@@ -30,7 +30,7 @@ const ChatWindow = () => {
   } = useContext(UserContext);
 
   useEffect(() => {
-    socket = io(`https://helloworldbackend-production.up.railway.app/`);
+    socket = io(`${ENDPOINT}`);
     socket.emit("setup", currentUser);
     socket.on("connected", () => setSocketConnected(true));
     //socket.on("connection", () => setSocketConnected(true));
@@ -42,14 +42,26 @@ const ChatWindow = () => {
 
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved) => {
-      console.log(newMessageRecieved.chat);
-      console.log(selectedChatCompare);
-      if (
-        !selectedChatCompare ||
-        selectedChatCompare == newMessageRecieved.chat._id
-      )
-        setmessages([...messages, newMessageRecieved]);
+      // console.log(newMessageRecieved.chat);
+      // console.log(selectedChatCompare);
       // console.log(messages);
+      !selectedChatCompare || selectedChatCompare == newMessageRecieved.chat._id
+        ? setmessages([...messages, newMessageRecieved])
+        : null;
+      // console.log(messages);
+      const updatedChats = chats.map((chat) => {
+        if (chat._id === newMessageRecieved.chat._id) {
+          const updatedLatestMessage = {
+            ...chat.latestMessage,
+            content: newMessageRecieved.content,
+          };
+          return {
+            ...chat,
+            latestMessage: updatedLatestMessage,
+          };
+        }
+      });
+      setChats(updatedChats);
     });
   });
 
@@ -79,11 +91,6 @@ const ChatWindow = () => {
         setNewMessage("");
         await socket.emit("new message", data);
         setmessages([...messages, data]);
-
-        // if (messagesDisplay.current) {
-        //   messagesDisplay.current.scrollTop =
-        //     messagesDisplay.current.scrollHeight;
-        // }
       } catch (error) {
         console.log(error.message);
       }
