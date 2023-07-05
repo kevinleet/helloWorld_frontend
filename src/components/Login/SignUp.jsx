@@ -112,7 +112,7 @@ const SignUp = () => {
               <input
                 id="displayname"
                 name="displayname"
-                type="displayname"
+                type="text"
                 autoComplete="displayname"
                 required
                 onChange={handleChange}
