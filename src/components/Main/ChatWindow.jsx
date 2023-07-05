@@ -5,7 +5,6 @@ import { useContext, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import { ChatsContext } from "../Home";
 
-const ENDPOINT = "http://localhost:3001";
 let socket;
 let selectedChatCompare;
 const ChatWindow = () => {
@@ -29,7 +28,7 @@ const ChatWindow = () => {
   } = useContext(UserContext);
 
   useEffect(() => {
-    socket = io(`${ENDPOINT}`);
+    socket = io(`${BASE_URL}`);
     socket.emit("setup", currentUser);
     socket.on("connected", () => setSocketConnected(true));
     //socket.on("connection", () => setSocketConnected(true));
