@@ -118,26 +118,6 @@ const App = () => {
           />
         </Routes>
       </div>
-
-      {/* Development-related buttons */}
-      <div className="flex justify-center items-center space-x-2 mt-10">
-        <p>For Development Use Only:</p>
-        <button
-          onClick={() => {
-            setIsLoggedIn(!isLoggedIn);
-            checkAuthentication();
-          }}
-          className="border p-1"
-        >
-          isLoggedIn: {isLoggedIn ? "true" : "false"}
-        </button>
-        <p className="border p-1">
-          User: {currentUser?._id ? currentUser?.displayname : "null"}
-        </p>
-        <button onClick={handleClearSessionStorage} className="border p-1">
-          Clear Session Storage
-        </button>
-      </div>
     </UserContext.Provider>
   );
 };
