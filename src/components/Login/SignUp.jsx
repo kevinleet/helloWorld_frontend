@@ -72,7 +72,7 @@ const SignUp = () => {
   };
 
   return success ? (
-    <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-700 bg-slate-800 max-w-2xl rounded-lg text-center">
+    <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg text-center">
       <div className="mt-10">
         <h2 className="text-3xl font-bold">Account successfully created!</h2>
         <div
@@ -89,13 +89,13 @@ const SignUp = () => {
       </div>
     </div>
   ) : (
-    <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-700 bg-slate-800 max-w-2xl rounded-lg">
+    <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg">
       {/* Sign-up form */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-5 text-2xl font-bold leading-9 tracking-tight text-white text-center">
+        <h2 className="mt-5 text-2xl font-bold leading-9 tracking-tight text-black dark:text-white text-center">
           Sign up for helloWorld below.
         </h2>
-        <p className="mt-0 text-md tracking-tight text-white text-center">
+        <p className="mt-0 text-md tracking-tight text-black dark:text-white text-center">
           A smarter way to chat.
         </p>
       </div>
@@ -106,7 +106,7 @@ const SignUp = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium leading-6 text-white"
+              className="block text-sm font-medium leading-6 text-black dark:text-white"
             >
               Email Address
             </label>
@@ -119,7 +119,7 @@ const SignUp = () => {
                 required
                 onChange={handleChange}
                 value={formState.email}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-200 dark:bg-slate-500 text-black dark:text-white"
               />
             </div>
           </div>
@@ -128,7 +128,7 @@ const SignUp = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium leading-6 text-white"
+              className="block text-sm font-medium leading-6 text-black dark:text-white"
             >
               Display Name
             </label>
@@ -141,7 +141,7 @@ const SignUp = () => {
                 required
                 onChange={handleChange}
                 value={formState.displayname}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-200 dark:bg-slate-500 text-black dark:text-white"
               />
             </div>
           </div>
@@ -151,7 +151,7 @@ const SignUp = () => {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium leading-6 text-white"
+                className="block text-sm font-medium leading-6 text-black dark:text-white"
               >
                 Password
               </label>
@@ -166,7 +166,7 @@ const SignUp = () => {
                 required
                 onChange={handleChange}
                 value={formState.password}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-200 dark:bg-slate-500 text-black dark:text-white"
               />
             </div>
           </div>
@@ -176,7 +176,7 @@ const SignUp = () => {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium leading-6 text-white"
+                className="block text-sm font-medium leading-6 text-black dark:text-white"
               >
                 Confirm Password
               </label>
@@ -191,7 +191,7 @@ const SignUp = () => {
                 required
                 onChange={handleChange}
                 value={formState.confirmpassword}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-200 dark:bg-slate-500 text-black dark:text-white"
               />
             </div>
           </div>
@@ -200,7 +200,7 @@ const SignUp = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-black dark:text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
             >
               Sign Up
             </button>
