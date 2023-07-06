@@ -1,6 +1,28 @@
 import React, { useEffect, useState } from "react";
 
 const ChatItem = (props) => {
+  const getTimeAgo = (updatedAt) => {
+    const updatedDate = new Date(updatedAt);
+    const currentDate = new Date();
+    const timeDiff = currentDate - updatedDate;
+
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(timeDiff / (1000 * 60));
+    const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    if (seconds < 60) {
+      return "< 1 minute ago";
+    } else if (minutes < 60) {
+      return minutes + " minute" + (minutes !== 1 ? "s" : "") + " ago";
+    } else if (hours < 24) {
+      return hours + " hour" + (hours !== 1 ? "s" : "") + " ago";
+    } else {
+      return days + " day" + (days !== 1 ? "s" : "") + " ago";
+    }
+  };
+
+  console.log(props.latestMessage);
   return props.latestMessage ? (
     <div
       onClick={() => props.handleClick(props.latestMessage.chat)}
@@ -10,9 +32,16 @@ const ChatItem = (props) => {
       id={props.users}
       key={props.users}
     >
-      <h3 className="p-2">{props.latestMessage.chat}</h3>
-      <h3 className="p-2">{props.latestMessage.sender.displayname}</h3>
-      <h5 className="p-2">{props.latestMessage.content}</h5>
+      <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis whitespace-nowrap tracking-widest">
+        {props.latestMessage.sender.displayname}
+      </h3>
+
+      <h5 className="text-md  p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide">
+        {props.latestMessage.sender.displayname}: {props.latestMessage.content}
+      </h5>
+      <p className="text-sm  p-2">
+        {getTimeAgo(props.latestMessage.updatedAt)}
+      </p>
     </div>
   ) : null;
 };
