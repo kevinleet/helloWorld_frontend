@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { UserContext, BASE_URL } from "../../App";
-import { Link } from "react-router-dom";
+import { UserContext } from "../../App";
+import { BASE_URL } from "../../globals";
+import { Link } from 'react-router-dom'
 
 const AddFriend = () => {
   const { currentUser, setCurrentUser, users } = useContext(UserContext);
@@ -137,7 +138,9 @@ const AddFriend = () => {
                 className="flex w-[400px] flex-row px-10 justify-between items-center border border-gray-500 rounded-lg m-3 px-3 py-4 font-bold text-xl "
               >
                 <div className="mx-5 text-lg text-gray-200 tracking-wider">
-                  {filteredUser.displayname}
+                  <Link to={`/home/profile/${filteredUser._id}`}>
+                    {filteredUser.displayname}
+                  </Link>
                 </div>
 
                 {/* Render different buttons based on friendship status */}
