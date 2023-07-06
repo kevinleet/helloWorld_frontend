@@ -13,6 +13,7 @@ const MyProfile = () => {
   const [isDisplayNameModalOpen, setIsDisplayNameModalOpen] = useState(false);
 
   const navigate = useNavigate();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleOpenDeleteModal = () => {
     setIsDeleteModalOpen(true);
@@ -30,11 +31,13 @@ const MyProfile = () => {
       const deleteUser = await axios.delete(
         `${BASE_URL}/api/users/delete/${userEmail}`
       );
-      alert(`${userDeleted}'s account has been deleted.`);
       setIsLoggedIn(false);
       setCurrentUser(null);
-      navigate("/login");
-      window.location.reload(false)
+      setIsDeleting(true);
+      setTimeout(() => {
+        navigate("/login");
+        window.location.reload(false);
+      }, 1500);
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +73,21 @@ const MyProfile = () => {
     }
   };
 
-  return (
+  return isDeleting ? (
+    <div className="mt-auto mb-auto flex flex-1 h-40 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg text-center">
+      <div className="mt-0">
+        <h2 className="text-3xl font-bold">Deleting your account...</h2>
+        <div
+          className="mt-10 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            Loading...
+          </span>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className="flex flex-col items-center mt-12">
       <h1 className="text-white text-4xl">My Profile</h1>
       <div className="flex justify-center items-center mt-12 p-12 h-40 w-40 bg-blue-500 rounded-full">
