@@ -34,7 +34,7 @@ const ChatWindow = () => {
           displayname: message.sender.displayname,
           email: message.sender.email,
         });
-        console.log(otherUser);
+        // console.log(otherUser);
       }
     } catch (error) {
       console.log(error);

@@ -58,7 +58,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 border border-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg">
+    <div className="flex flex-1 flex-col justify-center px-6 pt-12 pb-6 lg:px-8 border border-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-black dark:text-white text-center">
           Welcome to helloWorld.
@@ -79,7 +79,7 @@ const Login = () => {
           {messsage}
         </p>
 
-        <p className="mt-10 text-center text-sm text-gray-800 dark:text-gray-500">
+        <p className="mt-5 text-center text-sm text-gray-800 dark:text-gray-500">
           New to helloWorld?{" "}
           <Link
             to="/signup"
@@ -89,10 +89,9 @@ const Login = () => {
           </Link>
         </p>
         <div className="mt-2 text-center">
-        <DarkMode/>
+          <DarkMode />
         </div>
       </div>
-      
     </div>
   );
 };

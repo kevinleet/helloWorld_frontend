@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const ChatItem = (props) => {
-  console.log(props.latestMessage);
+  // console.log(props.latestMessage);
   const getTimeAgo = (updatedAt) => {
     const updatedDate = new Date(updatedAt);
     const currentDate = new Date();
@@ -55,6 +55,9 @@ const ChatItem = (props) => {
       <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis whitespace-nowrap tracking-widest">
         {props.receiver}
       </h3>
+      <h5 className="text-md  p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide text-center">
+        No Messages
+      </h5>
     </div>
   );
 };
