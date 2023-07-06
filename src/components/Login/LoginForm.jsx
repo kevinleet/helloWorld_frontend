@@ -4,7 +4,7 @@ const LoginForm = ({ onSubmit, onChange, formState }) => {
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium leading-6 text-white"
+          className="block text-sm font-medium leading-6  text-black dark:text-white"
         >
           Email Address
         </label>
@@ -17,7 +17,7 @@ const LoginForm = ({ onSubmit, onChange, formState }) => {
             required
             onChange={onChange}
             value={formState.email}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-int ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-200 dark:bg-slate-500 text-black dark:text-white"
           />
         </div>
       </div>
@@ -26,7 +26,7 @@ const LoginForm = ({ onSubmit, onChange, formState }) => {
         <div className="flex items-center justify-between">
           <label
             htmlFor="password"
-            className="block text-sm font-medium leading-6 text-white"
+            className="block text-sm font-medium leading-6 text-black dark:text-white"
           >
             Password
           </label>
@@ -41,7 +41,7 @@ const LoginForm = ({ onSubmit, onChange, formState }) => {
             required
             onChange={onChange}
             value={formState.password}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-500 text-white"
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-200 dark:bg-slate-500 text-black dark:text-white"
           />
         </div>
       </div>
