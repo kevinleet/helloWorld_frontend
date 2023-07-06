@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { DarkModeSwitch } from "react-toggle-dark-mode"
+// import { DarkModeSwitch } from "react-toggle-dark-mode"
 import useDarkSide from "../../hooks/useDarkSide"
 
 const DarkMode = () => {
@@ -16,12 +16,12 @@ const DarkMode = () => {
  
     return (
         <>
-            <DarkModeSwitch
+            {/* <DarkModeSwitch
                 style={{ marginBottom: "2rem" }}
                 checked={darkSide}
                 onChange={toggleDarkMode}
                 size={30}
-            />
+            /> */}
         </>
     )
   
