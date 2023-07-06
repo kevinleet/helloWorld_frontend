@@ -6,7 +6,7 @@ import group from "../../assets/group.png";
 import user from "../../assets/user.png";
 import settings from "../../assets/settings.png";
 import logout from "../../assets/log-out.png";
-import DarkMode from "./DarkMode.jsx"
+import DarkMode from "./DarkMode.jsx";
 
 const NavBar = () => {
   const [activePage, setActivePage] = useState("chat");
@@ -34,7 +34,11 @@ const NavBar = () => {
             to="/home/chat"
             className={`
               mb-4 p-6 
-              ${activePage === "chat" ? "bg-indigo-300" : "bg-indigo-500 dark:bg-indigo-600"} 
+              ${
+                activePage === "chat"
+                  ? "bg-indigo-300"
+                  : "bg-indigo-500 dark:bg-indigo-600"
+              } 
               rounded-lg shadow-sm 
               hover:bg-indigo-400 dark:hover:bg-indigo-500 
               transition-all duration-300
@@ -50,7 +54,11 @@ const NavBar = () => {
             to="/home/addfriend"
             className={`
               mb-4 p-6 
-              ${activePage === "addfriend" ? "bg-indigo-300" : "bg-indigo-500 dark:bg-indigo-600"} 
+              ${
+                activePage === "addfriend"
+                  ? "bg-indigo-300"
+                  : "bg-indigo-500 dark:bg-indigo-600"
+              } 
               rounded-lg shadow-sm 
               hover:bg-indigo-400 dark:hover:bg-indigo-500
               transition-all duration-300
@@ -66,7 +74,11 @@ const NavBar = () => {
             to="/home/myprofile"
             className={`
               mb-4 p-6 
-              ${activePage === "profile" ? "bg-indigo-300" : "bg-indigo-500 dark:bg-indigo-600"} 
+              ${
+                activePage === "profile"
+                  ? "bg-indigo-300"
+                  : "bg-indigo-500 dark:bg-indigo-600"
+              } 
               rounded-lg shadow-sm 
               hover:bg-indigo-400 dark:hover:bg-indigo-500
               transition-all duration-300
@@ -78,7 +90,7 @@ const NavBar = () => {
           >
             <img src={user} className="w-8" />
           </Link>
-          <Link
+          {/* <Link
             to="/home/settings"
             className={`
               mb-4 p-6 
@@ -93,7 +105,7 @@ const NavBar = () => {
             onClick={() => handleSelection("settings")}
           >
             <img src={settings} className="w-8" />
-          </Link>
+          </Link> */}
         </div>
         <div className="flex flex-col justify-center items-center">
           <div className="mb-2">
