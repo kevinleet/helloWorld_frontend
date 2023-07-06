@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext, BASE_URL } from "../../App";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const AddFriend = () => {
   const { currentUser, setCurrentUser, users } = useContext(UserContext);
@@ -94,7 +94,10 @@ const AddFriend = () => {
     <div className="flex justify-start items-center flex-col p-5 w-full overflow-y-auto mb-5">
       {/* Render incoming friend requests */}
       {currentUser?.incomingrequests?.length > 0 ? (
-        <div className="mb-5 w-[400px] p-4 rounded-lg">
+        <div
+          className="mb-5 w-[5
+        00px] p-4 rounded-lg"
+        >
           <h3 className="text-2xl text-center font-bold text-green-500">
             Incoming Friend Requests
           </h3>
@@ -134,10 +137,10 @@ const AddFriend = () => {
           ? filteredUsers.map((filteredUser) => (
               <div
                 key={filteredUser._id}
-                className="flex w-[400px] flex-row px-10 justify-between items-center border border-gray-500 rounded-lg m-3 px-3 py-4 font-bold text-xl "
+                className="flex min-w-[400px] max-w-[600px] flex-row px-10 justify-between items-center border border-gray-500 rounded-lg m-3 px-3 py-4 font-bold text-xl "
               >
                 <div className="mx-5 text-lg text-gray-200 tracking-wider">
-                    {filteredUser.displayname}
+                  {filteredUser.displayname}
                 </div>
 
                 {/* Render different buttons based on friendship status */}

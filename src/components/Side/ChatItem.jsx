@@ -32,7 +32,7 @@ const ChatItem = (props) => {
       id={props.receiver}
       key={props.receiver}
     >
-      <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis whitespace-nowrap tracking-widest">
+      <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide">
         {props.receiver}
       </h3>
 
