@@ -1,6 +1,11 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
+import chat from "../../assets/chat.png";
+import group from "../../assets/group.png";
+import user from "../../assets/user.png";
+import settings from "../../assets/settings.png";
+import logout from "../../assets/log-out.png";
 
 const NavBar = () => {
   const [activePage, setActivePage] = useState("chat");
@@ -38,7 +43,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("chat")}
           >
-            <img src="/src/assets/chat.png" className="w-8" />
+            <img src={chat} className="w-8" />
           </Link>
           <Link
             to="/home/addfriend"
@@ -54,7 +59,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("addfriend")}
           >
-            <img src="/src/assets/group.png" className="w-8" />
+            <img src={group} className="w-8" />
           </Link>
           <Link
             to="/home/myprofile"
@@ -70,7 +75,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("profile")}
           >
-            <img src="/src/assets/user.png" className="w-8" />
+            <img src={user} className="w-8" />
           </Link>
           <Link
             to="/home/settings"
@@ -86,7 +91,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("settings")}
           >
-            <img src="/src/assets/settings.png" className="w-8" />
+            <img src={settings} className="w-8" />
           </Link>
         </div>
         <div className="flex flex-col justify-center items-center">
@@ -103,7 +108,7 @@ const NavBar = () => {
             focus-visible:outline-indigo-600"
             onClick={() => handleLogOut()}
           >
-            <img src="/src/assets/log-out.png" className="w-8" />
+            <img src={logout} className="w-8" />
           </Link>
         </div>
       </div>
