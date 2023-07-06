@@ -22,7 +22,7 @@ const ChatWindow = () => {
 
   useEffect(() => {
     try {
-      if (messages && currentUser) {
+      if (messages !== [] && currentUser) {
         // console.log(messages);
         let message = messages.find(
           (message) => message.sender?._id !== currentUser._id
