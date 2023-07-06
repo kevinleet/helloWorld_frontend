@@ -9,41 +9,46 @@ let socket;
 let selectedChatCompare;
 const ChatWindow = () => {
   const [messages, setmessages] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
   const [room, setRoom] = useState("");
   const messagesDisplay = useRef(null);
+  const [otherUser, setOtherUser] = useState({});
 
   const { chats, setChats, selectedChat, setselectedChat } =
     useContext(ChatsContext);
 
-  const {
-    isLoggedIn,
-    setIsLoggedIn,
-    currentUser,
-    setCurrentUser,
-    currentChat,
-    setCurrentChat,
-  } = useContext(UserContext);
+  const { currentUser, currentChat, setCurrentChat } = useContext(UserContext);
+
+  useEffect(() => {
+    try {
+      if (messages && currentUser) {
+        // console.log(messages);
+        let message = messages.find(
+          (message) => message.sender?._id !== currentUser._id
+        );
+        console.log(message);
+
+        // console.log(message);
+        setOtherUser({
+          displayname: message.sender.displayname,
+          email: message.sender.email,
+        });
+        console.log(otherUser);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [messages]);
 
   useEffect(() => {
     socket = io(`${BASE_URL}`);
     socket.emit("setup", currentUser);
     socket.on("connected", () => setSocketConnected(true));
-    //socket.on("connection", () => setSocketConnected(true));
-
-    // socket.on("message", (message) => {
-    //   setMessages((messages) => [...messages, message]);
-    // });
   }, []);
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
-      // console.log(newMessageReceived.chat);
-      // console.log(selectedChatCompare);
-      // console.log(messages);
-
       // only update messages if the incoming message received belongs to the selected chat.
       // Otherwise, dont and it will save to backend and render when that chat is selected.
       if (
@@ -52,7 +57,6 @@ const ChatWindow = () => {
       )
         setmessages([...messages, newMessageReceived]);
 
-      // console.log(messages);
       // update the chats in context - there's a better way to do this but that's a later problem.
       const updatedChats = chats.map((chat) => {
         if (chat._id === newMessageReceived.chat._id) {
@@ -113,8 +117,6 @@ const ChatWindow = () => {
     // console.log(data);
     setmessages(data);
     selectedChatCompare = selectedChat;
-
-    // console.log(messages);
   };
 
   useEffect(() => {
@@ -142,24 +144,46 @@ const ChatWindow = () => {
 
   return (
     <div className="w-full py-2 flex flex-col flex-auto items-center justify-center">
-      <div className="h-[620px] px-2 w-full">
+      {selectedChat ? (
+        <div className="w-full h-[40px] flex flex-row space-x-4 items-end px-4">
+          <h2 className="text-3xl">{otherUser.displayname}</h2>
+          <h4 className="text-md">{otherUser.email}</h4>
+        </div>
+      ) : null}
+      <div className="h-[580px] px-2 w-full">
         <div
           className="flex flex-col h-full overflow-y-auto"
           ref={messagesDisplay}
         >
           {messages
             ? messages.map((message) => (
-                <div key={message._id}>
+                <div key={message._id} className="flex flex-row">
+                  {message.sender._id !== currentUser._id && (
+                    <button
+                      disabled
+                      className="mt-3 w-8 h-8 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200"
+                    >
+                      {message.sender.displayname[0]}
+                    </button>
+                  )}
                   <p
                     className={`${
-                      message.sender._id == currentUser._id
-                        ? "bg-indigo-600 text-gray-200 float-right"
-                        : "bg-purple-500 text-gray-200 float-left"
+                      message.sender._id === currentUser._id
+                        ? "bg-indigo-600 text-gray-200 ml-auto"
+                        : "bg-purple-500 text-gray-200 mr-auto"
                     } px-3 py-2 m-2 max-w-[300px] whitespace-pre-wrap rounded-xl`}
                     style={{ wordBreak: "break-word" }}
                   >
-                    {message.sender.displayname}:{message.content}
+                    {message.content}
                   </p>
+                  {message.sender._id === currentUser._id && (
+                    <button
+                      disabled
+                      className="mt-3 w-8 h-8 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200"
+                    >
+                      {message.sender.displayname[0]}
+                    </button>
+                  )}
                 </div>
               ))
             : null}
