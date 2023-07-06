@@ -39,25 +39,33 @@ const ChatWindow = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
-      // console.log(newMessageRecieved.chat);
+    socket.on("message received", (newMessageReceived) => {
+      // console.log(newMessageReceived.chat);
       // console.log(selectedChatCompare);
       // console.log(messages);
-      !selectedChatCompare || selectedChatCompare == newMessageRecieved.chat._id
-        ? setmessages([...messages, newMessageRecieved])
-        : null;
+
+      // only update messages if the incoming message received belongs to the selected chat.
+      // Otherwise, dont and it will save to backend and render when that chat is selected.
+      if (
+        selectedChatCompare ||
+        selectedChatCompare == newMessageReceived.chat._id
+      )
+        setmessages([...messages, newMessageReceived]);
+
       // console.log(messages);
+      // update the chats in context - there's a better way to do this but that's a later problem.
       const updatedChats = chats.map((chat) => {
-        if (chat._id === newMessageRecieved.chat._id) {
+        if (chat._id === newMessageReceived.chat._id) {
           const updatedLatestMessage = {
             ...chat.latestMessage,
-            content: newMessageRecieved.content,
+            content: newMessageReceived.content,
           };
           return {
             ...chat,
             latestMessage: updatedLatestMessage,
           };
         }
+        return chat;
       });
       setChats(updatedChats);
     });
@@ -66,12 +74,14 @@ const ChatWindow = () => {
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
       event.preventDefault();
+      //send new message to be stored on backend
       try {
         const { data } = await axios.post(`${BASE_URL}/api/messages`, {
           sender: currentUser._id,
           content: newMessage,
           chat: currentChat,
         });
+        //update the currentChat to have the latest message
         const updatedChats = chats.map((chat) => {
           if (chat._id === currentChat) {
             const updatedLatestMessage = {
@@ -85,6 +95,8 @@ const ChatWindow = () => {
           }
           return chat;
         });
+
+        //update state and context variables
         setChats(updatedChats);
         setNewMessage("");
         await socket.emit("new message", data);
