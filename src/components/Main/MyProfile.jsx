@@ -34,6 +34,7 @@ const MyProfile = () => {
       setIsLoggedIn(false);
       setCurrentUser(null);
       navigate("/login");
+      window.location.reload(false)
     } catch (error) {
       console.log(error);
     }
