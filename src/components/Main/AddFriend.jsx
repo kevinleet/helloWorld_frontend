@@ -11,13 +11,15 @@ const AddFriend = () => {
   useEffect(() => {
     try {
       // Filter users based on input and exclude the current user
-      if (users) {
+      if (users && input) {
         const filteredResults = users.filter(
           (user) =>
             user.displayname.toLowerCase().includes(input.toLowerCase()) &&
             user.displayname != currentUser?.displayname
         );
         setFilteredUsers(filteredResults);
+      } else if (users && !input) {
+        setFilteredUsers(null);
       }
     } catch (error) {
       console.log(error);
@@ -76,6 +78,18 @@ const AddFriend = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (users) {
+      const filteredResults = users.filter(
+        (user) =>
+          user.displayname.toLowerCase().includes(input.toLowerCase()) &&
+          user.displayname != currentUser?.displayname
+      );
+      setFilteredUsers(filteredResults);
+    }
+  };
+
   return (
     <div className="flex justify-start items-center flex-col p-5 w-full overflow-y-auto mb-5">
       {/* Render incoming friend requests */}
@@ -104,13 +118,15 @@ const AddFriend = () => {
 
       <div className="">
         {/* Search input field */}
-        <input
-          className="px-5 block w-[350px] rounded-md border-0 py-2 px-20 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white"
-          placeholder="Search for users here..."
-          value={input}
-          type="text"
-          onChange={handleChange}
-        ></input>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="px-5 block w-[350px] rounded-md border-0 py-2 px-20 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white"
+            placeholder="Search for users here..."
+            value={input}
+            type="text"
+            onChange={handleChange}
+          ></input>
+        </form>
       </div>
       <div className="mt-1">
         {/* Render filtered users */}
@@ -121,21 +137,20 @@ const AddFriend = () => {
                 className="flex w-[400px] flex-row px-10 justify-between items-center border border-gray-500 rounded-lg m-3 px-3 py-4 font-bold text-xl "
               >
                 <div className="mx-5 text-lg text-gray-200 tracking-wider">
-                  <Link to={`/home/profile/${filteredUser._id}`}>
-                    {filteredUser.displayname}
-                  </Link>
+                  {filteredUser.displayname}
                 </div>
 
                 {/* Render different buttons based on friendship status */}
                 {currentUser?.friends?.filter(
                   (friend) => friend._id == filteredUser._id
                 ).length > 0 ? (
-                  <button
+                  <Link
                     id={filteredUser._id}
                     className="mx-5 p-2 border border-black rounded-lg bg-purple-500 text-sm hover:bg-purple-400 transition-all duration-300"
+                    to={`/home/profile/${filteredUser._id}`}
                   >
                     &#9734; Your Friend
-                  </button>
+                  </Link>
                 ) : null}
 
                 {currentUser?.outgoingrequests?.filter(
