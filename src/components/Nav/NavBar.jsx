@@ -6,6 +6,7 @@ import group from "../../assets/group.png";
 import user from "../../assets/user.png";
 import settings from "../../assets/settings.png";
 import logout from "../../assets/log-out.png";
+import DarkMode from "./DarkMode.jsx"
 
 const NavBar = () => {
   const [activePage, setActivePage] = useState("chat");
@@ -95,6 +96,9 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="flex flex-col justify-center items-center">
+          <div className="mb-2">
+            <DarkMode />
+          </div>
           <Link
             to="/login"
             className="
