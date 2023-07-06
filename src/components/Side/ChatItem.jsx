@@ -22,7 +22,6 @@ const ChatItem = (props) => {
     }
   };
 
-  console.log(props.latestMessage);
   return props.latestMessage ? (
     <div
       onClick={() => props.handleClick(props.latestMessage.chat)}

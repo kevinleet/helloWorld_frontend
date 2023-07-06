@@ -165,18 +165,20 @@ const ChatWindow = () => {
             : null}
         </div>
       </div>
-      <form className="w-[600px] h-[50px] mt-5" onKeyDown={sendMessage}>
-        <input
-          type="text"
-          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white"
-          varient="filled"
-          bg="#E0E0E0"
-          color="black"
-          placeholder="Enter a message.."
-          onChange={typingHandler}
-          value={newMessage}
-        />
-      </form>
+      {selectedChat ? (
+        <form className="w-[600px] h-[50px] mt-5" onKeyDown={sendMessage}>
+          <input
+            type="text"
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white"
+            varient="filled"
+            bg="#E0E0E0"
+            color="black"
+            placeholder="Enter a message.."
+            onChange={typingHandler}
+            value={newMessage}
+          />
+        </form>
+      ) : null}
     </div>
   );
 };
