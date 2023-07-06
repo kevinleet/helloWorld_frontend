@@ -1,5 +1,3 @@
-import DarkMode from "./DarkMode"
-
 const Settings = () => {
     return (
         <div>
