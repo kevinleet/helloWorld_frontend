@@ -110,7 +110,7 @@ const App = () => {
             <Route exact path="addfriend" element={<AddFriend />} />
             <Route exact path="myprofile" element={<MyProfile />} />
             <Route exact path="profile/:id" element={<ProfileById />} />
-            {/* <Route exact path="settings" element={<Settings />} /> */}
+            {<Route exact path="settings" element={<Settings />} />}
           </Route>
           <Route
             path="/*"
