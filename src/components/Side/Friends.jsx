@@ -8,33 +8,36 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Friends = () => {
-  const { setselectedChat } = useContext(ChatsContext)
-  const { currentUser, setCurrentChat } = useContext(UserContext)
+  const { chats, setChats, selectedChat, setselectedChat } =
+    useContext(ChatsContext);
+  const { currentUser, setCurrentChat } = useContext(UserContext);
   const [input, setInput] = useState("");
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   const createNewChat = async (id) => {
     const msg = await axios.post(`${BASE_URL}/api/messages`, {
       sender: currentUser._id,
-      content: 'Hello',
-    })
+      content: "new message",
+    });
     const res = await axios.post(`${BASE_URL}/api/chats`, {
       users: [currentUser._id, id],
-      latestMessage: msg.data._id
-    })
-      console.log(res.data)
-      return res.data._id
-  }
+    });
+    console.log(res.data);
+    return res.data._id;
+  };
 
-  const handleFriendClick = (e) => {
-    let chatId = createNewChat(e.currentTarget._id)
-    setCurrentChat(chatId)
-    setselectedChat(chatId)
-    console.log(chatId)
+  const handleFriendClick = async (e) => {
+    let chatId = await createNewChat(e.target.id);
+    setCurrentChat(chatId);
+    setselectedChat(chatId);
+    console.log(chatId);
     if (location.pathname !== "/home/chat") {
-      navigate("/home/chat")
+      navigate("/home/chat");
     }
-    console.log(`Now clicking on circular friend button: ${e.currentTarget.name}`)
+    console
+      .log
+      //`Now clicking on circular friend button: ${e.currentTarget.name}`
+      ();
   };
 
   const handleInputChange = (e) => {
@@ -76,7 +79,6 @@ const Friends = () => {
                     >
                       {friend?.displayname[0]}
                     </button>
-                   
                   </Tooltip>
                   {friend?.displayname}
                 </div>

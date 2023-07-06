@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const ChatItem = (props) => {
+  console.log(props.latestMessage);
   const getTimeAgo = (updatedAt) => {
     const updatedDate = new Date(updatedAt);
     const currentDate = new Date();
@@ -28,11 +29,11 @@ const ChatItem = (props) => {
       className={`${
         props.isSelected ? `text-black bg-white` : `text-white`
       } border mt-3 rounded-lg hover:text-black hover:bg-white transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
-      id={props.users}
-      key={props.users}
+      id={props.receiver}
+      key={props.receiver}
     >
       <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis whitespace-nowrap tracking-widest">
-        {props.latestMessage.sender.displayname}
+        {props.receiver}
       </h3>
 
       <h5 className="text-md  p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide">
@@ -42,7 +43,20 @@ const ChatItem = (props) => {
         {getTimeAgo(props.latestMessage.updatedAt)}
       </p>
     </div>
-  ) : null;
+  ) : (
+    <div
+      onClick={() => props.handleClick(props.chatid)}
+      className={`${
+        props.isSelected ? `text-black bg-white` : `text-white`
+      } border mt-3 rounded-lg hover:text-black hover:bg-white transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
+      id={props.receiver}
+      key={props.receiver}
+    >
+      <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis whitespace-nowrap tracking-widest">
+        {props.receiver}
+      </h3>
+    </div>
+  );
 };
 
 export default ChatItem;
