@@ -35,7 +35,7 @@ const NavBar = () => {
             className={`
               mb-4 p-6 
               ${activePage === "chat" ? "bg-indigo-300" : "bg-indigo-600"} 
-              bg-indigo-600 rounded-lg shadow-sm 
+              rounded-lg shadow-sm 
               hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
@@ -51,7 +51,7 @@ const NavBar = () => {
             className={`
               mb-4 p-6 
               ${activePage === "addfriend" ? "bg-indigo-300" : "bg-indigo-600"} 
-              bg-indigo-600 rounded-lg shadow-sm 
+              rounded-lg shadow-sm 
               hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
@@ -67,7 +67,7 @@ const NavBar = () => {
             className={`
               mb-4 p-6 
               ${activePage === "profile" ? "bg-indigo-300" : "bg-indigo-600"} 
-              bg-indigo-600 rounded-lg shadow-sm 
+              rounded-lg shadow-sm 
               hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
@@ -83,7 +83,7 @@ const NavBar = () => {
             className={`
               mb-4 p-6 
               ${activePage === "settings" ? "bg-indigo-300" : "bg-indigo-600"} 
-              bg-indigo-600 rounded-lg shadow-sm 
+              rounded-lg shadow-sm 
               hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
