@@ -79,7 +79,7 @@ const Login = () => {
           {messsage}
         </p>
 
-        <p className="mt-5 text-center text-sm text-gray-800 dark:text-gray-500">
+        <p className="mt-5 text-center text-sm text-gray-800 dark:text-gray-400">
           New to helloWorld?{" "}
           <Link
             to="/signup"

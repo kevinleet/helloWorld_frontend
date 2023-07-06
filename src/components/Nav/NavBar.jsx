@@ -27,21 +27,21 @@ const NavBar = () => {
   }
 
   return (
-    <div className="flex flex-col justify-end items-center w-1/12 bg-slate-900 rounded-lg">
+    <div className="flex flex-col justify-end items-center w-1/12 bg-slate-600 dark:bg-slate-900 rounded-lg">
       <div className="h-full flex flex-col justify-between items-center mt-5">
         <div className="flex flex-col justify-center items-center">
           <Link
             to="/home/chat"
             className={`
               mb-4 p-6 
-              ${activePage === "chat" ? "bg-indigo-300" : "bg-indigo-600"} 
+              ${activePage === "chat" ? "bg-indigo-300" : "bg-indigo-500 dark:bg-indigo-600"} 
               rounded-lg shadow-sm 
-              hover:bg-indigo-500 
+              hover:bg-indigo-400 dark:hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
               focus-visible:outline-2 
               focus-visible:outline-offset-2 
-              focus-visible:outline-indigo-600`}
+              focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("chat")}
           >
             <img src={chat} className="w-8" />
@@ -50,14 +50,14 @@ const NavBar = () => {
             to="/home/addfriend"
             className={`
               mb-4 p-6 
-              ${activePage === "addfriend" ? "bg-indigo-300" : "bg-indigo-600"} 
+              ${activePage === "addfriend" ? "bg-indigo-300" : "bg-indigo-500 dark:bg-indigo-600"} 
               rounded-lg shadow-sm 
-              hover:bg-indigo-500 
+              hover:bg-indigo-400 dark:hover:bg-indigo-500
               transition-all duration-300
               focus-visible:outline 
               focus-visible:outline-2 
               focus-visible:outline-offset-2 
-              focus-visible:outline-indigo-600`}
+              focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("addfriend")}
           >
             <img src={group} className="w-8" />
@@ -66,14 +66,14 @@ const NavBar = () => {
             to="/home/myprofile"
             className={`
               mb-4 p-6 
-              ${activePage === "profile" ? "bg-indigo-300" : "bg-indigo-600"} 
+              ${activePage === "profile" ? "bg-indigo-300" : "bg-indigo-500 dark:bg-indigo-600"} 
               rounded-lg shadow-sm 
-              hover:bg-indigo-500 
+              hover:bg-indigo-400 dark:hover:bg-indigo-500
               transition-all duration-300
               focus-visible:outline 
               focus-visible:outline-2 
               focus-visible:outline-offset-2 
-              focus-visible:outline-indigo-600`}
+              focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("profile")}
           >
             <img src={user} className="w-8" />
@@ -82,14 +82,14 @@ const NavBar = () => {
             to="/home/settings"
             className={`
               mb-4 p-6 
-              ${activePage === "settings" ? "bg-indigo-300" : "bg-indigo-600"} 
+              ${activePage === "settings" ? "bg-indigo-300" : "bg-indigo-500 dark:bg-indigo-600"} 
               rounded-lg shadow-sm 
-              hover:bg-indigo-500 
+              hover:bg-indigo-400 dark:hover:bg-indigo-500 
               transition-all duration-300
               focus-visible:outline 
               focus-visible:outline-2 
               focus-visible:outline-offset-2 
-              focus-visible:outline-indigo-600`}
+              focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-600`}
             onClick={() => handleSelection("settings")}
           >
             <img src={settings} className="w-8" />
@@ -103,13 +103,13 @@ const NavBar = () => {
             to="/login"
             className="
             mb-5 p-6 
-            bg-indigo-600 rounded-lg shadow-sm 
-            hover:bg-indigo-500 
+            bg-indigo-500 dark:bg-indigo-600 rounded-lg shadow-sm 
+            hover:bg-indigo-400 dark:hover:bg-indigo-500 
             transition-all duration-300
             focus-visible:outline 
             focus-visible:outline-2 
             focus-visible:outline-offset-2 
-            focus-visible:outline-indigo-600"
+            focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-600"
             onClick={() => handleLogOut()}
           >
             <img src={logout} className="w-8" />
