@@ -120,7 +120,7 @@ const AddFriend = () => {
         {/* Search input field */}
         <form onSubmit={handleSubmit}>
           <input
-            className="px-5 block w-[350px] rounded-md border-0 py-2 px-20 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white"
+            className="px-5 block w-[350px] rounded-md border-0 py-2 px-20  shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-900 dark:placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-200 dark:bg-slate-700 text-black dark:text-white"
             placeholder="Search for users here..."
             value={input}
             type="text"
