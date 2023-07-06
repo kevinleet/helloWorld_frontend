@@ -46,10 +46,15 @@ const ChatList = () => {
       {chats?.map((chat) => (
         <ChatItem
           key={chat._id}
-          users={chat.users}
+          receiver={chat.users.map((user) => {
+            if (user._id !== currentUser._id) {
+              return user.displayname;
+            }
+          })}
           latestMessage={chat.latestMessage}
           handleClick={handleClick}
           isSelected={selectedChat === chat._id}
+          chatid={chat._id}
         />
       ))}
     </div>
