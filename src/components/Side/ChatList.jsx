@@ -15,6 +15,7 @@ const ChatList = () => {
     useContext(UserContext);
 
   useEffect(() => {
+    console.log("getching");
     if (currentUser) {
       const getAllChats = async () => {
         try {
@@ -29,7 +30,7 @@ const ChatList = () => {
       };
       getAllChats();
     }
-  }, [currentUser]);
+  }, [currentUser, currentChat]);
 
   // Upon clicking an individual chat item, this needs to fetch all messages of a chat and render them to ChatWindow.
   const handleClick = (chatId) => {
