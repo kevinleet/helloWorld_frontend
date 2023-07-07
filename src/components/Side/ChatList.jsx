@@ -23,6 +23,7 @@ const ChatList = () => {
             `${BASE_URL}/api/chats/userchats/${currentUser._id}`
           );
           setChats(response.data);
+          setIsLoading(false);
           // console.log(response.data);
         } catch (error) {
           console.log(error);

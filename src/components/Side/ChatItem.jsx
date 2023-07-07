@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 const ChatItem = (props) => {
-  // console.log(props.latestMessage);
+  //console.log(props.latestMessage);
+  const { latestMessage, handleClick, isSelected, receiver, chatid } = props;
   const getTimeAgo = (updatedAt) => {
     const updatedDate = new Date(updatedAt);
     const currentDate = new Date();
@@ -23,43 +24,32 @@ const ChatItem = (props) => {
     }
   };
 
-  return props.latestMessage ? (
+  return (
     <div
-      onClick={() => props.handleClick(props.latestMessage.chat)}
+      onClick={() => handleClick(latestMessage ? latestMessage.chat : chatid)}
       className={`${
-        props.isSelected ? `text-black bg-white` : `text-white`
+        isSelected ? "text-black bg-white" : "text-white"
       } border mt-3 rounded-lg hover:text-black hover:bg-white transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
-      id={props.receiver}
-      key={props.receiver}
+      id={receiver}
+      key={receiver}
     >
       <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide">
-        {props.receiver}
+        {receiver}
       </h3>
 
-      <h5 className="text-md  p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide">
-        {props.latestMessage.sender.displayname}: {props.latestMessage.content}
-      </h5>
-      <p className="text-sm  p-2">
-        {getTimeAgo(props.latestMessage.updatedAt)}
-      </p>
-    </div>
-  ) : (
-    <div
-      onClick={() => props.handleClick(props.chatid)}
-      className={`${
-        props.isSelected ? `text-black bg-white` : `text-white`
-      } border mt-3 rounded-lg hover:text-black hover:bg-white transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
-      id={props.receiver}
-      key={props.receiver}
-    >
-      <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis whitespace-nowrap tracking-widest">
-        {props.receiver}
-      </h3>
-      <h5 className="text-md  p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide text-center">
-        No Messages
-      </h5>
+      {latestMessage ? (
+        <>
+          <h5 className="text-md p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide">
+            {latestMessage.sender.displayname}: {latestMessage.content}
+          </h5>
+          <p className="text-sm p-2">{getTimeAgo(latestMessage.updatedAt)}</p>
+        </>
+      ) : (
+        <h5 className="text-md p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide text-center">
+          No Messages
+        </h5>
+      )}
     </div>
   );
 };
-
 export default ChatItem;

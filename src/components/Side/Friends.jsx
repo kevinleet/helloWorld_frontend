@@ -15,14 +15,14 @@ const Friends = () => {
   let navigate = useNavigate();
 
   const createNewChat = async (id) => {
-    const msg = await axios.post(`${BASE_URL}/api/messages`, {
-      sender: currentUser._id,
-      content: "No Messages",
-    });
-    console.log(msg);
+    // const msg = await axios.post(`${BASE_URL}/api/messages`, {
+    //   sender: currentUser._id,
+    //   content: "No Messages",
+    // });
+    // console.log(msg);
     const res = await axios.post(`${BASE_URL}/api/chats`, {
       users: [currentUser._id, id],
-      latestMessage: msg.data._id,
+      //latestMessage: msg.data._id,
     });
 
     console.log(res.data);
