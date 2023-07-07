@@ -14,7 +14,7 @@
 
 helloWorld is a real-time chat application that leverages the power of AI to enhance user conversations. It provides an intuitive and seamless chatting experience with the added benefit of AI-generated responses. Whether you want to have a casual chat, seek assistance, or simply explore the capabilities of artificial intelligence, helloWorld is here to make your conversations more engaging and interactive.
 
-The goal of this project was to work together to build a full-stack collaberative app. Our goal was to make a real-time chat app that intergrates AI within personal private messages with peers. In the future, we would like to fix small bugs to make the user expirience mroe streamline, and fully intergrate AI into the app's capabilities. 
+The goal of this project was to work together to build a full-stack collaberative app. Our goal was to make a real-time chat app that intergrates AI within personal private messages with peers. In the future, we would like to fix small bugs to make the user expirience more streamline, and fully intergrate AI into the app's capabilities. 
 
 ## Features
 
