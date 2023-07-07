@@ -8,7 +8,6 @@ let socket;
 
 let selectedChatCompare;
 
-
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -51,12 +50,12 @@ const ChatWindow = () => {
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
       console.log(newMessageReceived);
-      console.log(selectedChat, newMessageReceived.chat._id);
+      console.log(selectedChatCompare, newMessageReceived.chat._id);
       // only update messages if the incoming message received belongs to the selected chat.
       // Otherwise, dont and it will save to backend and render when that chat is selected.
-      if (selectedChat === newMessageReceived.chat._id) {
-        console.log(selectedChat, newMessageReceived.chat._id);
-        setmessages([...messages, newMessageReceived]);
+      if (selectedChatCompare === newMessageReceived.chat._id) {
+        console.log(selectedChatCompare, newMessageReceived.chat._id);
+        setMessages([...messages, newMessageReceived]);
       }
 
       const updatedChats = chats.map((chat) => {
@@ -107,7 +106,6 @@ const ChatWindow = () => {
 
     setMessages(data);
     selectedChatCompare = selectedChat;
-
   };
 
   useEffect(() => {
@@ -121,7 +119,7 @@ const ChatWindow = () => {
   }, [room, setRoom]);
 
   useEffect(() => {
-    setmessages([]);
+    setMessages([]);
     setRoom(currentChat);
     currentChat !== "" ? loadMessages() : null;
   }, [currentChat, setCurrentChat]);
