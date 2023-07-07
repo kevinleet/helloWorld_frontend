@@ -43,6 +43,7 @@ const ChatItem = (props) => {
             {latestMessage.sender.displayname}: {latestMessage.content}
           </h5>
           <p className="text-sm p-2">{getTimeAgo(latestMessage.updatedAt)}</p>
+          <p>{chatid}</p>
         </>
       ) : (
         <h5 className="text-md p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide text-center">
