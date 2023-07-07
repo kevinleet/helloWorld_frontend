@@ -57,5 +57,5 @@ Your privacy and security are of utmost importance. helloWorld ensures that all 
 [GitHub](https://github.com/quark934)
 
 ### Kevin Li
-[Linkedin](link)
-[GitHub](link)
+[Linkedin](https://www.linkedin.com/in/kevinli617)
+[GitHub](https://github.com/kevinleet)
