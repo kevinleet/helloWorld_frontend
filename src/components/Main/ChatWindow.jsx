@@ -22,7 +22,7 @@ const ChatWindow = () => {
 
   useEffect(() => {
     try {
-      if (messages !== [] && currentUser) {
+      if (messages && currentUser) {
         // console.log(messages);
         let message = messages.find(
           (message) => message.sender?._id !== currentUser._id
@@ -60,13 +60,13 @@ const ChatWindow = () => {
       // update the chats in context - there's a better way to do this but that's a later problem.
       const updatedChats = chats.map((chat) => {
         if (chat._id === newMessageReceived.chat._id) {
-          const updatedLatestMessage = {
-            ...chat.latestMessage,
-            content: newMessageReceived.content,
-          };
+          // const updatedLatestMessage = {
+          //   ...chat.latestMessage,
+          //   content: newMessageReceived.content,
+          // };
           return {
             ...chat,
-            latestMessage: updatedLatestMessage,
+            latestMessage: newMessageReceived,
           };
         }
         return chat;
@@ -88,13 +88,13 @@ const ChatWindow = () => {
         //update the currentChat to have the latest message
         const updatedChats = chats.map((chat) => {
           if (chat._id === currentChat) {
-            const updatedLatestMessage = {
-              ...chat.latestMessage,
-              content: newMessage,
-            };
+            // const updatedLatestMessage = {
+            //   ...chat.latestMessage,
+            //   data
+            // };
             return {
               ...chat,
-              latestMessage: updatedLatestMessage,
+              latestMessage: data,
             };
           }
           return chat;
