@@ -133,7 +133,7 @@ const ChatWindow = () => {
           <h4 className="text-md">{otherUser.email}</h4>
         </div>
       ) : null}
-      <div className="h-[580px] px-2 w-full">
+      <div className="w-full lg:h-[580px] px-2">
         <div
           className="flex flex-col h-full overflow-y-auto"
           ref={messagesDisplay}
@@ -144,7 +144,7 @@ const ChatWindow = () => {
                   {message.sender._id !== currentUser._id && (
                     <button
                       disabled
-                      className="mt-3 w-8 h-8 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200"
+                      className="mt-3 w-6 h-6 text-xs lg:text-lg lg:w-8 lg:h-8 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200"
                     >
                       {message.sender.displayname[0]}
                     </button>
@@ -154,7 +154,7 @@ const ChatWindow = () => {
                       message.sender._id === currentUser._id
                         ? "bg-indigo-600 text-gray-200 ml-auto"
                         : "bg-purple-500 text-gray-200 mr-auto"
-                    } px-3 py-2 m-2 max-w-[300px] whitespace-pre-wrap rounded-xl`}
+                    } px-3 py-2 m-2 max-w-[200px] lg:max-w-[300px] whitespace-pre-wrap rounded-xl`}
                     style={{ wordBreak: "break-word" }}
                   >
                     {message.content}
@@ -162,7 +162,7 @@ const ChatWindow = () => {
                   {message.sender._id === currentUser._id && (
                     <button
                       disabled
-                      className="mt-3 w-8 h-8 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200"
+                      className="mt-3 w-6 h-6 text-xs lg:text-lg lg:w-8 lg:h-8 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200"
                     >
                       {message.sender.displayname[0]}
                     </button>
@@ -173,7 +173,7 @@ const ChatWindow = () => {
         </div>
       </div>
       {selectedChat && currentChat ? (
-        <form className="w-[600px] mt-5" onKeyDown={sendMessage}>
+        <form className="w-full lg:w-[600px] mt-5" onKeyDown={sendMessage}>
           <textarea
             ref={textareaRef}
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white resize-none"

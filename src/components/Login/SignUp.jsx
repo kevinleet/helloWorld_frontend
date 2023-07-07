@@ -72,7 +72,7 @@ const SignUp = () => {
   };
 
   return success ? (
-    <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg text-center">
+    <div className="flex flex-1 flex-col m-4 lg:h-[450px] justify-center borderborder-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg text-center">
       <div className="mt-10">
         <h2 className="text-3xl font-bold">Account successfully created!</h2>
         <div
@@ -85,14 +85,14 @@ const SignUp = () => {
         </div>
       </div>
       <div className="mt-10">
-        <p className="text-lg">Signing in...</p>
+        <p className="text-lg pb-5">Signing in...</p>
       </div>
     </div>
   ) : (
-    <div className="flex flex-1 flex-col justify-center px-6 py-6 lg:px-8 border border-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg">
+    <div className="flex flex-1 flex-col justify-center py-3 md:mx-6 md:my-6 lg:mx-6 lg:my-6 lg:py-6 lg:my-12 border border-slate-300 dark:border-slate-700 bg-slate-400 dark:bg-slate-800 max-w-2xl rounded-lg">
       {/* Sign-up form */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-5 text-2xl font-bold leading-9 tracking-tight text-black dark:text-white text-center">
+        <h2 className="mt-5 text-xl lg:text-2xl font-bold leading-9 tracking-tight text-black dark:text-white text-center">
           Sign up for helloWorld below.
         </h2>
         <p className="mt-0 text-md tracking-tight text-black dark:text-white text-center">
@@ -100,8 +100,8 @@ const SignUp = () => {
         </p>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={handleSubmit}>
+      <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm px-7">
+        <form className="space-y-3" onSubmit={handleSubmit}>
           {/* Email input */}
           <div>
             <label
@@ -200,7 +200,7 @@ const SignUp = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-black dark:text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
+              className="flex w-full justify-center mt-5 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-black dark:text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
             >
               Sign Up
             </button>
@@ -211,7 +211,7 @@ const SignUp = () => {
           </div>
         </form>
         {/* Link to the login page */}
-        <p className="mt-10 text-center text-sm text-gray-500">
+        <p className="mt-5 text-center text-sm text-gray-500">
           <Link
             to="/login"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"

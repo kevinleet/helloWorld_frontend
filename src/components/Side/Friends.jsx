@@ -57,12 +57,12 @@ const Friends = () => {
             type="text"
             id="search"
             placeholder="Search friends..."
-            className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white"
+            className="block w-full rounded-md border-0 text-sm py-1.5 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 lg:text-lg sm:leading-6 bg-slate-700 text-white"
             value={input}
             onChange={handleInputChange}
           />
         </form>
-        <div className="mt-2 overflow-x-auto py-5">
+        <div className="mt-0 overflow-x-auto py-3 lg:py-5">
           <div className="flex flex-row space-x-2">
             {filteredFriends
               ?.sort((a, b) => a.displayname.localeCompare(b.displayname))
