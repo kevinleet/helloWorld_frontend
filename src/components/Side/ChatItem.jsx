@@ -26,7 +26,8 @@ const ChatItem = (props) => {
 
   return (
     <div
-      onClick={() => handleClick(latestMessage ? latestMessage.chat : chatid)}
+      // onClick={() => handleClick(latestMessage ? latestMessage.chat : chatid)}
+      onClick={() => handleClick(chatid)}
       className={`${
         isSelected ? "text-black bg-white" : "text-white"
       } border mt-3 rounded-lg hover:text-black hover:bg-white transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
