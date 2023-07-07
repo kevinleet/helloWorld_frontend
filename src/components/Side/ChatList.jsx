@@ -43,20 +43,26 @@ const ChatList = () => {
 
   return (
     <div className="chat-list w-full overflow-y-auto flex flex-col">
-      {chats?.map((chat) => (
-        <ChatItem
-          key={chat._id}
-          receiver={chat.users.map((user) => {
-            if (user._id !== currentUser._id) {
-              return user.displayname;
-            }
-          })}
-          latestMessage={chat.latestMessage}
-          handleClick={handleClick}
-          isSelected={selectedChat === chat._id}
-          chatid={chat._id}
-        />
-      ))}
+      {chats
+        ?.sort((a, b) => {
+          const chat1 = new Date(a.latestMessage?.updatedAt).getTime() || 0;
+          const chat2 = new Date(b.latestMessage?.updatedAt).getTime() || 0;
+          return chat2 - chat1;
+        })
+        .map((chat) => (
+          <ChatItem
+            key={chat._id}
+            receiver={chat.users.map((user) => {
+              if (user._id !== currentUser._id) {
+                return user.displayname;
+              }
+            })}
+            latestMessage={chat.latestMessage}
+            handleClick={handleClick}
+            isSelected={selectedChat === chat._id}
+            chatid={chat._id}
+          />
+        ))}
     </div>
   );
 };

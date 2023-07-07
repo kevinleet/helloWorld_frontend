@@ -29,22 +29,26 @@ const ChatItem = (props) => {
       // onClick={() => handleClick(latestMessage ? latestMessage.chat : chatid)}
       onClick={() => handleClick(chatid)}
       className={`${
-        isSelected ? "text-black bg-white" : "text-white"
-      } border mt-3 rounded-lg hover:text-black hover:bg-white transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
+        isSelected ? "bg-white bg-opacity-10" : '"text-white"'
+      } border mt-3 rounded-lg  hover:bg-white hover:bg-opacity-10 transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
       id={receiver}
       key={receiver}
     >
-      <h3 className="p-2 text-2xl text-center font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide">
+      {/* <h3 className="p-2 text-2xl text-left text-base font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide"> */}
+      <span className="p-2 text-2xl text-left text-base font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide">
         {receiver}
-      </h3>
+      </span>
+      <span className="ml-auto float-right p-1 text-xs">
+        {getTimeAgo(latestMessage?.updatedAt)}
+      </span>
+
+      {/* <p className="text-sm p-2">{getTimeAgo(latestMessage.updatedAt)}</p> */}
 
       {latestMessage ? (
         <>
           <h5 className="text-md p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide">
             {latestMessage.sender.displayname}: {latestMessage.content}
           </h5>
-          <p className="text-sm p-2">{getTimeAgo(latestMessage.updatedAt)}</p>
-          <p>{chatid}</p>
         </>
       ) : (
         <h5 className="text-md p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide text-center">
