@@ -24,8 +24,6 @@ const Friends = () => {
       users: [currentUser._id, id],
       //latestMessage: msg.data._id,
     });
-
-    console.log(res.data);
     return res.data._id;
   };
 
@@ -33,7 +31,6 @@ const Friends = () => {
     let chatId = await createNewChat(e.target.id);
     setCurrentChat(chatId);
     setselectedChat(chatId);
-    console.log(chatId);
     if (location.pathname !== "/home/chat") {
       navigate("/home/chat");
     }
