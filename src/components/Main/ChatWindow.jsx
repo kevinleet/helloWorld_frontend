@@ -144,7 +144,7 @@ const ChatWindow = () => {
                   {message.sender._id !== currentUser._id && (
                     <button
                       disabled
-                      className="mt-3 w-8 h-8 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200"
+                      className="mt-3 w-8 h-8 rounded-full bg-blue-500 dark:bg-indigo-600 text-gray-200"
                     >
                       {message.sender.displayname[0]}
                     </button>
@@ -152,8 +152,8 @@ const ChatWindow = () => {
                   <p
                     className={`${
                       message.sender._id === currentUser._id
-                        ? "bg-indigo-600 text-gray-200 ml-auto"
-                        : "bg-purple-500 text-gray-200 mr-auto"
+                        ? "bg-neutral-700 text-gray-200 ml-auto"
+                        : "bg-indigo-600 text-gray-200 mr-auto"
                     } px-3 py-2 m-2 max-w-[300px] whitespace-pre-wrap rounded-xl`}
                     style={{ wordBreak: "break-word" }}
                   >
@@ -162,7 +162,7 @@ const ChatWindow = () => {
                   {message.sender._id === currentUser._id && (
                     <button
                       disabled
-                      className="mt-3 w-8 h-8 rounded-full bg-blue-500 dark:bg-purple-500 text-gray-200"
+                      className="mt-3 w-8 h-8 rounded-full bg-blue-500 dark:bg-neutral-500 text-gray-200"
                     >
                       {message.sender.displayname[0]}
                     </button>
