@@ -24,6 +24,7 @@ const NavBar = () => {
     sessionStorage.clear();
     setIsLoggedIn(false);
     setCurrentUser(null);
+    window.location.reload(false);
   }
 
   return (

@@ -30,10 +30,13 @@ const ChatWindow = () => {
         console.log(message);
 
         // console.log(message);
-        setOtherUser({
-          displayname: message.sender.displayname,
-          email: message.sender.email,
-        });
+        if (message) {
+          setOtherUser({
+            displayname: message.sender.displayname,
+            email: message.sender.email,
+          });
+        }
+
         // console.log(otherUser);
       }
     } catch (error) {
