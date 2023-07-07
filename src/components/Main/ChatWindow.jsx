@@ -128,12 +128,12 @@ const ChatWindow = () => {
   return (
     <div className="w-full py-2 flex flex-col flex-auto items-center justify-center">
       {selectedChat ? (
-        <div className="w-full h-[40px] flex flex-row space-x-4 items-end px-4">
-          <h2 className="text-3xl">{otherUser.displayname}</h2>
-          <h4 className="text-md">{otherUser.email}</h4>
+        <div className="w-full h-[40px] lg:h-[50px] flex flex-col lg:flex-row lg:space-x-4 items-start lg:items-end px-4">
+          <h2 className="text-md lg:text-3xl">{otherUser.displayname}</h2>
+          <h4 className="text-sm lg:text-md">{otherUser.email}</h4>
         </div>
       ) : null}
-      <div className="w-full lg:h-[580px] px-2">
+      <div className="w-full h-[300px] lg:h-[580px] mt-2 lg:mt-0 px-2">
         <div
           className="flex flex-col h-full overflow-y-auto"
           ref={messagesDisplay}
@@ -154,7 +154,7 @@ const ChatWindow = () => {
                       message.sender._id === currentUser._id
                         ? "bg-neutral-700 text-gray-200 ml-auto"
                         : "bg-indigo-600 text-gray-200 mr-auto"
-                    } px-3 py-2 m-2 max-w-[200px] lg:max-w-[300px] whitespace-pre-wrap rounded-xl`}
+                    } px-3 py-1 text-sm lg:text-lg lg:py-2 m-2 max-w-[200px] lg:max-w-[300px] whitespace-pre-wrap rounded-xl`}
                     style={{ wordBreak: "break-word" }}
                   >
                     {message.content}
@@ -176,8 +176,8 @@ const ChatWindow = () => {
         <form className="w-full lg:w-[600px] mt-5" onKeyDown={sendMessage}>
           <textarea
             ref={textareaRef}
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white resize-none"
-            style={{ minHeight: "50px" }}
+            className="block w-full text-xs lg:text-lg sm:min-h-[30px] lg:min-h-[50px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white resize-none"
+            // style={{ minHeight: "50px" }}
             varient="filled"
             bg="#E0E0E0"
             color="black"
