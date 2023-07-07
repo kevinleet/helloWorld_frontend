@@ -47,9 +47,6 @@ const ChatList = () => {
         ?.sort((a, b) => {
           const chat1 = new Date(a.latestMessage?.updatedAt).getTime() || 0;
           const chat2 = new Date(b.latestMessage?.updatedAt).getTime() || 0;
-          console.log("chat1", chat1);
-          console.log("chat2", chat2);
-          console.log(chat1 - chat2);
           return chat2 - chat1;
         })
         .map((chat) => (
