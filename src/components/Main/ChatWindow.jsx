@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import { ChatsContext } from "../Home";
 
 let socket;
-let selectedChatCompare;
+//let selectedChatCompare;
 const ChatWindow = () => {
   const [messages, setmessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -51,13 +51,14 @@ const ChatWindow = () => {
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
+      console.log(newMessageReceived);
+      console.log(selectedChat, newMessageReceived.chat._id);
       // only update messages if the incoming message received belongs to the selected chat.
       // Otherwise, dont and it will save to backend and render when that chat is selected.
-      if (
-        selectedChatCompare ||
-        selectedChatCompare == newMessageReceived.chat._id
-      )
+      if (selectedChat === newMessageReceived.chat._id) {
+        console.log(selectedChat, newMessageReceived.chat._id);
         setmessages([...messages, newMessageReceived]);
+      }
 
       // update the chats in context - there's a better way to do this but that's a later problem.
       const updatedChats = chats.map((chat) => {
@@ -118,7 +119,7 @@ const ChatWindow = () => {
     const { data } = await axios.get(`${BASE_URL}/api/messages/${currentChat}`);
     // console.log(data);
     setmessages(data);
-    selectedChatCompare = selectedChat;
+    //selectedChatCompare = selectedChat;
   };
 
   useEffect(() => {
@@ -134,6 +135,7 @@ const ChatWindow = () => {
   }, [room, setRoom]);
 
   useEffect(() => {
+    setmessages([]);
     setRoom(currentChat);
     currentChat != "" ? loadMessages() : null;
   }, [currentChat, setCurrentChat]);

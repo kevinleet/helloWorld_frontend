@@ -35,6 +35,7 @@ const ChatList = () => {
   const handleClick = (chatId) => {
     setCurrentChat(chatId);
     setselectedChat(chatId);
+    console.log(selectedChat, currentChat);
     // console.log(chatId);
     if (location.pathname !== "/home/chat") {
       navigate("/home/chat");
