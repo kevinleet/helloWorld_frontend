@@ -27,7 +27,6 @@ const ChatWindow = () => {
         let message = messages.find(
           (message) => message.sender?._id !== currentUser._id
         );
-        console.log(message);
 
         // console.log(message);
         if (message) {
