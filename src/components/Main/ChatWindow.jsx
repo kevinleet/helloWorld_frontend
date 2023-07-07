@@ -24,7 +24,7 @@ const ChatWindow = () => {
 
   useEffect(() => {
     try {
-      if (messages && currentUser) {
+      if (messages.length > 0 && currentUser) {
         let message = messages.find(
           (message) => message.sender?._id !== currentUser._id
         );
@@ -49,12 +49,9 @@ const ChatWindow = () => {
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
-      console.log(newMessageReceived);
-      console.log(selectedChatCompare, newMessageReceived.chat._id);
       // only update messages if the incoming message received belongs to the selected chat.
       // Otherwise, dont and it will save to backend and render when that chat is selected.
       if (selectedChatCompare === newMessageReceived.chat._id) {
-        console.log(selectedChatCompare, newMessageReceived.chat._id);
         setMessages([...messages, newMessageReceived]);
       }
 
@@ -141,7 +138,7 @@ const ChatWindow = () => {
           className="flex flex-col h-full overflow-y-auto"
           ref={messagesDisplay}
         >
-          {messages
+          {messages.length > 0 && currentChat
             ? messages.map((message) => (
                 <div key={message._id} className="flex flex-row">
                   {message.sender._id !== currentUser._id && (
@@ -175,7 +172,7 @@ const ChatWindow = () => {
             : null}
         </div>
       </div>
-      {selectedChat ? (
+      {selectedChat && currentChat ? (
         <form className="w-[600px] mt-5" onKeyDown={sendMessage}>
           <textarea
             ref={textareaRef}
