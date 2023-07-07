@@ -1,6 +1,6 @@
 const LoginForm = ({ onSubmit, onChange, formState }) => {
   return (
-    <form className="space-y-6" onSubmit={onSubmit}>
+    <form className="space-y-3" onSubmit={onSubmit}>
       <div>
         <label
           htmlFor="email"
@@ -8,7 +8,7 @@ const LoginForm = ({ onSubmit, onChange, formState }) => {
         >
           Email Address
         </label>
-        <div className="mt-2">
+        <div className="mt-1">
           <input
             id="email"
             name="email"
@@ -32,7 +32,7 @@ const LoginForm = ({ onSubmit, onChange, formState }) => {
           </label>
           <div className="text-sm"></div>
         </div>
-        <div className="mt-2">
+        <div className="mt-1">
           <input
             id="password"
             name="password"
@@ -49,7 +49,7 @@ const LoginForm = ({ onSubmit, onChange, formState }) => {
       <div>
         <button
           type="submit"
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
+          className="flex w-full justify-center rounded-md bg-indigo-600 mt-5 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
         >
           Sign In
         </button>

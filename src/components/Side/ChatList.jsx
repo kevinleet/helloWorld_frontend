@@ -42,7 +42,7 @@ const ChatList = () => {
   };
 
   return (
-    <div className="chat-list w-full overflow-y-auto flex flex-col">
+    <div className="chat-list hidden lg:block w-full overflow-y-auto flex flex-col">
       {chats
         ?.sort((a, b) => {
           const chat1 = new Date(a.latestMessage?.updatedAt).getTime() || 0;

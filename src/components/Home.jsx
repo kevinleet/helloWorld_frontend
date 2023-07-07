@@ -13,11 +13,11 @@ const Home = () => {
     <ChatsContext.Provider
       value={{ chats, setChats, selectedChat, setselectedChat }}
     >
-      <div className="flex flex-auto w-[1200px] h-[700px] bg-slate-600 dark:bg-slate-950">
+      <div className="flex flex-auto flex-col w-full lg:flex-row lg:w-[1200px] lg:h-[700px] bg-slate-600 dark:bg-slate-950">
         <NavBar />
         <SideBar />
 
-        <div className="flex justify-center w-8/12 bg-slate-600 dark:bg-slate-950 rounded-lg">
+        <div className="flex justify-center w-full lg:w-8/12 bg-slate-600 dark:bg-slate-950 rounded-lg">
           <Outlet context={[chats, setChats]} />
         </div>
       </div>

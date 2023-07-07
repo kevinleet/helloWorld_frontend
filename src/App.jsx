@@ -98,7 +98,7 @@ const App = () => {
         setUsers,
       }}
     >
-      <div className="flex justify-center items-center min-w-[1200px] min-h-[700px] border border-slate-600 dark:border-slate-900 rounded-lg bg-slate-600 dark:bg-slate-900">
+      <div className="flex justify-center items-center border border-slate-600 dark:border-slate-900 rounded-lg bg-slate-600 dark:bg-slate-900">
         <Routes>
           {/* Define routes for different components */}
           <Route exact path="/login" element={<Login />} />
