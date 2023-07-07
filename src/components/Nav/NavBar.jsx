@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import chat from "../../assets/chat.png";
@@ -10,6 +10,8 @@ import DarkMode from "./DarkMode.jsx";
 
 const NavBar = () => {
   const [activePage, setActivePage] = useState("chat");
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
   let navigate = useNavigate();
 
   const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } =
@@ -21,6 +23,11 @@ const NavBar = () => {
   };
 
   function handleLogOut() {
+    setIsLoggingOut(true);
+    setTimeout(() => {
+      setIsLoggingOut(false)
+      navigate("/login")
+    }, 1500);
     sessionStorage.clear();
     setIsLoggedIn(false);
     setCurrentUser(null);
@@ -112,8 +119,7 @@ const NavBar = () => {
           <div className="mb-2">
             <DarkMode />
           </div>
-          <Link
-            to="/login"
+          <button
             className="
             mb-5 p-6 
             bg-indigo-500 dark:bg-indigo-600 rounded-lg shadow-sm 
@@ -123,10 +129,21 @@ const NavBar = () => {
             focus-visible:outline-2 
             focus-visible:outline-offset-2 
             focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-600"
-            onClick={() => handleLogOut()}
+            onClick={handleLogOut}
           >
-            <img src={logout} className="w-8" />
-          </Link>
+
+            {isLoggingOut ? (
+              <div
+                className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" 
+                role="status">
+                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                  Loading...
+                </span>
+              </div>
+            ) : (
+              <img src={logout} className="w-8" />
+            )}
+          </button>
         </div>
       </div>
     </div>
