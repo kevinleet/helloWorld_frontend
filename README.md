@@ -5,7 +5,7 @@
 #### Josh Matthew | Theresa Kennelly | John Brooks | Kevin Li
 
 ![app login screenshot](PNGs/helloWorldLogIn.png)
-![app main page screenshot](PNGS/helloWorldHome.png)
+![app main page screenshot](PNGs/helloWorldHome.png)
 
 
 [helloWorld](https://helloworldfrontend-production.up.railway.app/login)
