@@ -21,7 +21,8 @@ const Friends = () => {
     // });
     // console.log(msg);
     const res = await axios.post(`${BASE_URL}/api/chats`, {
-      users: [currentUser._id, id],
+      user1: currentUser._id,
+      user2: id,
       //latestMessage: msg.data._id,
     });
     return res.data._id;
