@@ -15,6 +15,8 @@ import Settings from "./components/Main/Settings";
 // Creating a context to share user-related data between components
 export const UserContext = React.createContext(null);
 export const BASE_URL = import.meta.env.VITE_BASEURL;
+export const OPENAI_KEY = import.meta.env.VITE_OPENAIKEY;
+//console.log(BASE_URL, API_KEY);
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
