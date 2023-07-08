@@ -8,13 +8,6 @@ import { Configuration, OpenAIApi } from "openai";
 let socket;
 
 let selectedChatCompare;
-//console.log(API_KEY);
-//console.log(BASE_URL);
-const config = new Configuration({
-  apiKey: "", //process.env.OPEN_AI_KEY,
-});
-
-const openai = new OpenAIApi(config);
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
@@ -31,6 +24,12 @@ const ChatWindow = () => {
 
   const { currentUser, currentChat, setCurrentChat, chatGPT, setChatGPT } =
     useContext(UserContext);
+
+  const config = new Configuration({
+    apiKey: OPENAI_KEY,
+  });
+
+  const openai = new OpenAIApi(config);
 
   useEffect(() => {
     if (currentChat !== chatGPT._id) {
@@ -174,9 +173,9 @@ const ChatWindow = () => {
   };
 
   return (
-    <div className="w-full py-2 flex flex-col flex-auto items-center justify-center">
+    <div className="w-full flex flex-col flex-auto items-center justify-center">
       {selectedChat ? (
-        <div className="w-full h-[40px] lg:h-[50px] flex flex-col lg:flex-row lg:space-x-4 items-start lg:items-end px-4">
+        <div className="w-full min-h-[50px] lg:h-[50px] pb-2  flex flex-col lg:flex-row lg:space-x-4 items-start lg:items-end px-4">
           <h2 className="text-md lg:text-3xl">{otherUser.displayname}</h2>
           <h4 className="text-sm lg:text-md">{otherUser.email}</h4>
         </div>
@@ -222,12 +221,12 @@ const ChatWindow = () => {
       </div>
       {selectedChat && currentChat ? (
         <form
-          className="w-full lg:w-[600px] mt-5"
+          className="w-full lg:w-[600px] mt-0"
           onKeyDown={currentChat == chatGPT._id ? sendAIMessage : sendMessage}
         >
           <textarea
             ref={textareaRef}
-            className="block w-full text-xs lg:text-lg sm:min-h-[30px] lg:min-h-[50px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white resize-none"
+            className="border block w-full text-xs lg:text-lg sm:min-h-[30px] lg:min-h-[50px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white resize-none"
             // style={{ minHeight: "50px" }}
             varient="filled"
             bg="#E0E0E0"
