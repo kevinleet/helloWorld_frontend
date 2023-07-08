@@ -63,7 +63,7 @@ const Friends = () => {
           />
         </form>
         <div className="mt-0 overflow-x-auto py-3 lg:py-5">
-          <div className="flex flex-row space-x-2">
+          <div className="flex flex-row">
             {filteredFriends
               ?.sort((a, b) => a.displayname.localeCompare(b.displayname))
               .map((friend) => (
@@ -79,7 +79,7 @@ const Friends = () => {
                     onClick={handleFriendClick}
                     id={friend._id}
                     name={friend.displayname}
-                    className="w-10 h-10 rounded-full bg-blue-500 dark:bg-neutral-500 dark:hover:bg-neutral-400 ext-gray-200 hover:bg-purple-400 transition-all duration-300 "
+                    className="w-10 h-10 mx-2 rounded-full bg-blue-500 dark:bg-neutral-500 dark:hover:bg-neutral-400 ext-gray-200 hover:bg-purple-400 transition-all duration-300 "
                   >
                     {friend?.displayname[0]}
                   </button>
