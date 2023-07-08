@@ -29,7 +29,7 @@ const ChatList = () => {
             `${BASE_URL}/api/chats/userchats/${currentUser._id}`
           );
           setChats(response.data);
-          // console.log(response.data);
+          setChatGPT(await getGPTChat(currentUser));
         } catch (error) {
           console.log(error);
         }
@@ -38,11 +38,21 @@ const ChatList = () => {
     }
   }, [currentUser, currentChat]);
 
+  const getGPTChat = async (user) => {
+    try {
+      const { data } = await axios.get(
+        `${BASE_URL}/api/chats/chatgpt/${user._id}`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // Upon clicking an individual chat item, this needs to fetch all messages of a chat and render them to ChatWindow.
   const handleClick = (chatId) => {
     setCurrentChat(chatId);
     setselectedChat(chatId);
-    console.log(chatId);
     if (location.pathname !== "/home/chat") {
       navigate("/home/chat");
     }

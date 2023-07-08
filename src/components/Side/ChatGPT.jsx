@@ -36,7 +36,9 @@ const ChatGPT = (props) => {
 
   return (
     <div
-      onClick={() => handleClick(chatid)}
+      onClick={() => {
+        handleClick(chatid);
+      }}
       className={`${
         isSelected ? "bg-white bg-opacity-10" : '"text-white"'
       } border mt-3 rounded-lg  hover:bg-white hover:bg-opacity-10 transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
