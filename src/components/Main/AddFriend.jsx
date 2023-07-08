@@ -91,31 +91,33 @@ const AddFriend = () => {
   };
 
   return (
-    <div className="flex justify-start h-[400px] lg:h-full items-center flex-col p-5 w-full overflow-y-auto mb-5 mx-2 lg:mx-0">
+    <div className="flex justify-start lg:max-w-[600px] h-[400px] lg:h-full items-center flex-col p-5 w-full overflow-y-auto mb-5 mx-2 lg:mx-0">
       {/* Render incoming friend requests */}
       {currentUser?.incomingrequests?.length > 0 ? (
         <div
           className="mb-5 w-full lg:w-[5
         00px] p-4 rounded-lg"
         >
-          <h3 className="text-2xl text-center font-bold text-green-500">
+          <h3 className="text-lg lg:text-2xl text-center font-bold text-green-500">
             Incoming Friend Requests
           </h3>
-          {currentUser?.incomingrequests.map((sender) => (
-            <div
-              key={sender._id}
-              className="flex flex-row justify-between items-center border border-2 border-green-700 rounded-lg m-3 px-3 py-4 font-bold text-xl"
-            >
-              <div className="mx- text-white">{sender.displayname}</div>
-              <button
-                id={sender._id}
-                onClick={handleAcceptRequest}
-                className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-xs lg:text-sm transition-all duration-300"
+          {currentUser?.incomingrequests
+            .sort((a, b) => a.displayname.localeCompare(b.displayname)) // Sort alphabetically
+            .map((sender) => (
+              <div
+                key={sender._id}
+                className="w-full flex flex-row justify-between items-center border border-2 border-green-700 rounded-lg mt-1 lg:mt-3 px-3 py-4 font-bold text-xl"
               >
-                Accept Friend Request
-              </button>
-            </div>
-          ))}
+                <div className=" text-white">{sender.displayname}</div>
+                <button
+                  id={sender._id}
+                  onClick={handleAcceptRequest}
+                  className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-xs lg:text-sm transition-all duration-300"
+                >
+                  Accept Friend Request
+                </button>
+              </div>
+            ))}
         </div>
       ) : null}
 
@@ -134,86 +136,92 @@ const AddFriend = () => {
       <div className="mt-1 w-full lg:max-w-[500px] flex flex-col items-center justify-center">
         {/* Render filtered users */}
         {filteredUsers
-          ? filteredUsers.map((filteredUser) => (
-              <div
-                key={filteredUser._id}
-                className="flex flex-col max-w-[250px] lg:flex-row w-full space-y-2 lg:min-w-[400px] lg:max-w-[600px] flex-row px-10 justify-between items-center border border-gray-500 rounded-lg m-3 px-3 py-4 font-bold text-sm lg:text-xl "
-              >
-                <div className="mx-5 text-md lg:text-lg text-gray-200 tracking-wider">
-                  {filteredUser.displayname}
+          ? filteredUsers
+              .sort((a, b) => a.displayname.localeCompare(b.displayname)) // Sort alphabetically
+              .map((filteredUser) => (
+                <div
+                  key={filteredUser._id}
+                  className="flex flex-col max-w-[250px] lg:flex-row w-full space-y-2 lg:min-w-[400px] lg:max-w-[600px] flex-row px-10 justify-between items-center border border-gray-500 rounded-lg m-3 px-3 py-4 font-bold text-sm lg:text-xl "
+                >
+                  <div className="mx-5 text-md lg:text-lg text-gray-200 tracking-wider">
+                    {filteredUser.displayname}
+                  </div>
+
+                  {/* Render different buttons based on friendship status */}
+                  {currentUser?.friends?.filter(
+                    (friend) => friend._id == filteredUser._id
+                  ).length > 0 ? (
+                    <Link
+                      id={filteredUser._id}
+                      className="mx-5 p-2 border border-black rounded-lg bg-purple-500 text-xs lg:text-sm hover:bg-purple-400 transition-all duration-300"
+                      to={`/home/profile/${filteredUser._id}`}
+                    >
+                      &#9734; Your Friend
+                    </Link>
+                  ) : null}
+
+                  {currentUser?.outgoingrequests?.filter(
+                    (recipient) => recipient._id == filteredUser._id
+                  ).length > 0 ? (
+                    <button
+                      id={filteredUser._id}
+                      className="mx-5 p-2 border border-black rounded-lg bg-yellow-500 text-xs lg:text-sm"
+                      disabled
+                    >
+                      Pending Request
+                    </button>
+                  ) : null}
+
+                  {currentUser?.incomingrequests?.filter(
+                    (sender) => sender._id == filteredUser._id
+                  ).length > 0 ? (
+                    <button
+                      id={filteredUser._id}
+                      className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-xs lg:text-sm transition-all duration-300"
+                      onClick={handleAcceptRequest}
+                    >
+                      Accept Friend Request
+                    </button>
+                  ) : null}
+
+                  {!currentUser?.friends?.filter(
+                    (friend) => friend._id == filteredUser._id
+                  ).length > 0 &&
+                  !currentUser?.outgoingrequests?.filter(
+                    (recipient) => recipient._id == filteredUser._id
+                  ).length > 0 &&
+                  !currentUser?.incomingrequests?.filter(
+                    (sender) => sender._id == filteredUser._id
+                  ).length > 0 ? (
+                    <button
+                      id={filteredUser._id}
+                      onClick={handleSendRequest}
+                      disabled={
+                        currentUser?.outgoingrequests?.includes(
+                          filteredUser._id
+                        )
+                          ? true
+                          : false
+                      }
+                      className={
+                        currentUser?.outgoingrequests?.includes(
+                          filteredUser._id
+                        )
+                          ? "mx-5 p-2 border border-black rounded-lg bg-yellow-500 text-xs lg:text-sm"
+                          : "mx-5 p-2 border border-black rounded-lg bg-blue-500 hover:bg-blue-400 text-xs lg:text-sm transition-all duration-300"
+                      }
+                    >
+                      {currentUser?.outgoingrequests?.includes(
+                        filteredUser._id
+                      ) ? (
+                        <>Request Pending</>
+                      ) : (
+                        <>Send Friend Request</>
+                      )}
+                    </button>
+                  ) : null}
                 </div>
-
-                {/* Render different buttons based on friendship status */}
-                {currentUser?.friends?.filter(
-                  (friend) => friend._id == filteredUser._id
-                ).length > 0 ? (
-                  <Link
-                    id={filteredUser._id}
-                    className="mx-5 p-2 border border-black rounded-lg bg-purple-500 text-xs lg:text-sm hover:bg-purple-400 transition-all duration-300"
-                    to={`/home/profile/${filteredUser._id}`}
-                  >
-                    &#9734; Your Friend
-                  </Link>
-                ) : null}
-
-                {currentUser?.outgoingrequests?.filter(
-                  (recipient) => recipient._id == filteredUser._id
-                ).length > 0 ? (
-                  <button
-                    id={filteredUser._id}
-                    className="mx-5 p-2 border border-black rounded-lg bg-yellow-500 text-xs lg:text-sm"
-                    disabled
-                  >
-                    Pending Request
-                  </button>
-                ) : null}
-
-                {currentUser?.incomingrequests?.filter(
-                  (sender) => sender._id == filteredUser._id
-                ).length > 0 ? (
-                  <button
-                    id={filteredUser._id}
-                    className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-xs lg:text-sm transition-all duration-300"
-                    onClick={handleAcceptRequest}
-                  >
-                    Accept Friend Request
-                  </button>
-                ) : null}
-
-                {!currentUser?.friends?.filter(
-                  (friend) => friend._id == filteredUser._id
-                ).length > 0 &&
-                !currentUser?.outgoingrequests?.filter(
-                  (recipient) => recipient._id == filteredUser._id
-                ).length > 0 &&
-                !currentUser?.incomingrequests?.filter(
-                  (sender) => sender._id == filteredUser._id
-                ).length > 0 ? (
-                  <button
-                    id={filteredUser._id}
-                    onClick={handleSendRequest}
-                    disabled={
-                      currentUser?.outgoingrequests?.includes(filteredUser._id)
-                        ? true
-                        : false
-                    }
-                    className={
-                      currentUser?.outgoingrequests?.includes(filteredUser._id)
-                        ? "mx-5 p-2 border border-black rounded-lg bg-yellow-500 text-xs lg:text-sm"
-                        : "mx-5 p-2 border border-black rounded-lg bg-blue-500 hover:bg-blue-400 text-xs lg:text-sm transition-all duration-300"
-                    }
-                  >
-                    {currentUser?.outgoingrequests?.includes(
-                      filteredUser._id
-                    ) ? (
-                      <>Request Pending</>
-                    ) : (
-                      <>Send Friend Request</>
-                    )}
-                  </button>
-                ) : null}
-              </div>
-            ))
+              ))
           : null}
       </div>
     </div>
