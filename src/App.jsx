@@ -21,6 +21,7 @@ const App = () => {
   const [currentChat, setCurrentChat] = useState(""); // State to track current chat
   const [currentUser, setCurrentUser] = useState(null); // State to store current user data
   const [users, setUsers] = useState(null); // State to store all users data
+  const [chatGPT, setChatGPT] = useState(""); //State to store the user's chat_id of their personal ChatGPT chat
 
   const navigate = useNavigate();
 
@@ -96,6 +97,8 @@ const App = () => {
         setCurrentChat,
         users,
         setUsers,
+        chatGPT,
+        setChatGPT,
       }}
     >
       <div className="flex justify-center items-center border border-slate-600 dark:border-slate-900 rounded-lg bg-slate-600 dark:bg-slate-900">

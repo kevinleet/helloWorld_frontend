@@ -7,7 +7,8 @@ import { UserContext, BASE_URL } from "../../App";
 const SignUp = () => {
   const navigate = useNavigate(); // Hook for programmatic navigation
 
-  const { users, setIsLoggedIn, setCurrentUser } = useContext(UserContext);
+  const { users, setIsLoggedIn, setCurrentUser, setChatGPT } =
+    useContext(UserContext);
 
   const initialState = {
     email: "",
@@ -61,6 +62,12 @@ const SignUp = () => {
       displayname: formState.displayname,
       password: hashedPassword,
     }); // Sending a POST request to create a new user
+    //adding this seems to cause a temp crash
+    const chatgpt_chat = await axios.post(`${BASE_URL}/api/chats/chatgpt`, {
+      user1: user.data._id,
+    });
+    setChatGPT(chatgpt_chat.data);
+    console.log(chatgpt_chat.data._id);
   };
 
   const hashPassword = async () => {
