@@ -108,11 +108,13 @@ const AddFriend = () => {
                 key={sender._id}
                 className="w-full flex flex-row justify-between items-center border border-2 border-green-700 rounded-lg mt-1 lg:mt-3 px-3 py-4 font-bold text-xl"
               >
-                <div className=" text-white">{sender.displayname}</div>
+                <div className="text-sm lg:text-xl text-white">
+                  {sender.displayname}
+                </div>
                 <button
                   id={sender._id}
                   onClick={handleAcceptRequest}
-                  className="mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-xs lg:text-sm transition-all duration-300"
+                  className="mx-2 lg:mx-5 p-2 border border-black rounded-lg bg-green-500 hover:bg-green-400 text-xs lg:text-sm transition-all duration-300"
                 >
                   Accept Friend Request
                 </button>
