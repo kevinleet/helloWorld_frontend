@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import axios from "axios";
-import { UserContext, BASE_URL } from "../../App";
+import { UserContext, BASE_URL, OPENAI_KEY } from "../../App";
 import { ChatsContext } from "../Home";
 import { io } from "socket.io-client";
 import { Configuration, OpenAIApi } from "openai";
@@ -8,9 +8,10 @@ import { Configuration, OpenAIApi } from "openai";
 let socket;
 
 let selectedChatCompare;
-
+//console.log(API_KEY);
+//console.log(BASE_URL);
 const config = new Configuration({
-  apiKey: "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",
+  apiKey: "", //process.env.OPEN_AI_KEY,
 });
 
 const openai = new OpenAIApi(config);
@@ -20,6 +21,7 @@ const ChatWindow = () => {
   const [newMessage, setNewMessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
   const [room, setRoom] = useState("");
+  const [openAILoading, setOpenAILoading] = useState(false);
   const messagesDisplay = useRef(null);
   const [otherUser, setOtherUser] = useState({});
   const textareaRef = useRef(null);
@@ -31,21 +33,23 @@ const ChatWindow = () => {
     useContext(UserContext);
 
   useEffect(() => {
-    try {
-      if (messages.length > 0 && currentUser) {
-        let message = messages.find(
-          (message) => message.sender?._id !== currentUser._id
-        );
+    if (currentChat !== chatGPT._id) {
+      try {
+        if (messages.length > 0 && currentUser) {
+          let message = messages.find(
+            (message) => message.sender?._id !== currentUser._id
+          );
 
-        if (message) {
-          setOtherUser({
-            displayname: message.sender.displayname,
-            email: message.sender.email,
-          });
+          if (message) {
+            setOtherUser({
+              displayname: message.sender.displayname,
+              email: message.sender.email,
+            });
+          }
         }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   }, [messages]);
 
@@ -106,6 +110,21 @@ const ChatWindow = () => {
     }
   };
 
+  const runPrompt = async (data) => {
+    const response_ai = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: data.content,
+      max_tokens: 2048,
+      temperature: 1,
+    });
+
+    console.log(response_ai);
+    const data_ai = await axios.post(`${BASE_URL}/api/messages`, {
+      content: response_ai.data.choices[0].text,
+      chat: currentChat,
+    });
+    setMessages([...messages, data, data_ai.data]);
+  };
   const sendAIMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
       event.preventDefault();
@@ -118,25 +137,7 @@ const ChatWindow = () => {
         setNewMessage("");
         setMessages([...messages, data]);
 
-        const runPrompt = async () => {
-          const prompt = data.content;
-
-          const response_ai = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: prompt,
-            max_tokens: 2048,
-            temperature: 1,
-          });
-
-          console.log(response_ai);
-          const data_ai = await axios.post(`${BASE_URL}/api/messages`, {
-            content: response_ai.data.choices[0].text,
-            chat: currentChat,
-          });
-          setMessages([...messages, data_ai]);
-        };
-
-        await runPrompt();
+        await runPrompt(data);
 
         setChatGPT({ ...chatGPT, latestMessage: data });
       } catch (error) {
