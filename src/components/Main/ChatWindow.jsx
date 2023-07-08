@@ -3,10 +3,17 @@ import axios from "axios";
 import { UserContext, BASE_URL } from "../../App";
 import { ChatsContext } from "../Home";
 import { io } from "socket.io-client";
+import { Configuration, OpenAIApi } from "openai";
 
 let socket;
 
 let selectedChatCompare;
+
+const config = new Configuration({
+  apiKey: "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",
+});
+
+const openai = new OpenAIApi(config);
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
@@ -20,7 +27,8 @@ const ChatWindow = () => {
   const { chats, setChats, selectedChat, setselectedChat } =
     useContext(ChatsContext);
 
-  const { currentUser, currentChat, setCurrentChat } = useContext(UserContext);
+  const { currentUser, currentChat, setCurrentChat, chatGPT, setChatGPT } =
+    useContext(UserContext);
 
   useEffect(() => {
     try {
@@ -98,6 +106,45 @@ const ChatWindow = () => {
     }
   };
 
+  const sendAIMessage = async (event) => {
+    if (event.key === "Enter" && newMessage) {
+      event.preventDefault();
+      try {
+        const { data } = await axios.post(`${BASE_URL}/api/messages`, {
+          sender: currentUser._id,
+          content: newMessage,
+          chat: currentChat,
+        });
+        setNewMessage("");
+        setMessages([...messages, data]);
+
+        const runPrompt = async () => {
+          const prompt = data.content;
+
+          const response_ai = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: prompt,
+            max_tokens: 2048,
+            temperature: 1,
+          });
+
+          console.log(response_ai);
+          const data_ai = await axios.post(`${BASE_URL}/api/messages`, {
+            content: response_ai.data.choices[0].text,
+            chat: currentChat,
+          });
+          setMessages([...messages, data_ai]);
+        };
+
+        await runPrompt();
+
+        setChatGPT({ ...chatGPT, latestMessage: data });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  };
+
   const loadMessages = async () => {
     const { data } = await axios.get(`${BASE_URL}/api/messages/${currentChat}`);
 
@@ -141,17 +188,17 @@ const ChatWindow = () => {
           {messages.length > 0 && currentChat
             ? messages.map((message) => (
                 <div key={message._id} className="flex flex-row">
-                  {message.sender._id !== currentUser._id && (
+                  {message.sender?._id !== currentUser._id && (
                     <button
                       disabled
                       className="mt-3 w-6 h-6 text-xs lg:text-lg lg:w-8 lg:h-8 rounded-full bg-blue-500 dark:bg-indigo-600 text-gray-200"
                     >
-                      {message.sender.displayname[0]}
+                      {message.sender?.displayname[0]}
                     </button>
                   )}
                   <p
                     className={`${
-                      message.sender._id === currentUser._id
+                      message.sender?._id === currentUser._id
                         ? "bg-neutral-700 text-gray-200 ml-auto"
                         : "bg-indigo-600 text-gray-200 mr-auto"
                     } px-3 py-1 text-sm lg:text-lg lg:py-2 m-2 max-w-[200px] lg:max-w-[300px] whitespace-pre-wrap rounded-xl`}
@@ -159,12 +206,12 @@ const ChatWindow = () => {
                   >
                     {message.content}
                   </p>
-                  {message.sender._id === currentUser._id && (
+                  {message.sender?._id === currentUser._id && (
                     <button
                       disabled
                       className="mt-3 w-6 h-6 text-xs lg:text-lg lg:w-8 lg:h-8 rounded-full bg-blue-500 dark:bg-neutral-500 text-gray-200"
                     >
-                      {message.sender.displayname[0]}
+                      {message.sender?.displayname[0]}
                     </button>
                   )}
                 </div>
@@ -173,7 +220,10 @@ const ChatWindow = () => {
         </div>
       </div>
       {selectedChat && currentChat ? (
-        <form className="w-full lg:w-[600px] mt-5" onKeyDown={sendMessage}>
+        <form
+          className="w-full lg:w-[600px] mt-5"
+          onKeyDown={currentChat == chatGPT._id ? sendAIMessage : sendMessage}
+        >
           <textarea
             ref={textareaRef}
             className="block w-full text-xs lg:text-lg sm:min-h-[30px] lg:min-h-[50px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-slate-700 text-white resize-none"

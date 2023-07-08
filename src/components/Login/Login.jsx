@@ -8,7 +8,7 @@ import DarkMode from "../Nav/DarkMode";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } =
+  const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser, setChatGPT } =
     useContext(UserContext); // Accessing user context data
   const initialState = {
     email: "",
@@ -36,10 +36,12 @@ const Login = () => {
     if (foundUser && validPassword) {
       setIsLoggedIn(true); // Set isLoggedIn to true
       setCurrentUser(foundUser); // Set the current user
+
       sessionStorage.setItem("isLoggedIn", true); // Store isLoggedIn in session storage
       sessionStorage.setItem("currentUser", formState.email); // Store the current user's email in session storage
       navigate("/home"); // Navigate to the home page
       // setMessage("");
+      setChatGPT(await getGPTChat(foundUser));
     } else {
       // alert("Login Failed! Please try again.");
       setMessage("Invalid login credentials. Please try again.");
@@ -52,6 +54,18 @@ const Login = () => {
         email: formState.email,
       }); // Sending API request to fetch user data
       return response.data; // Return the user data from the API response
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getGPTChat = async (user) => {
+    try {
+      const { data } = await axios.get(
+        `${BASE_URL}/api/chats/chatgpt/${user._id}`
+      );
+      console.log(data);
+      return data;
     } catch (error) {
       console.error(error);
     }

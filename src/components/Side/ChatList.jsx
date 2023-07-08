@@ -4,6 +4,7 @@ import axios from "axios";
 import ChatItem from "./ChatItem";
 import { UserContext, BASE_URL } from "../../App";
 import { ChatsContext } from "../Home";
+import ChatGPT from "./ChatGPT";
 
 const ChatList = () => {
   const navigate = useNavigate();
@@ -11,8 +12,14 @@ const ChatList = () => {
 
   const { chats, setChats, selectedChat, setselectedChat } =
     useContext(ChatsContext);
-  const { currentUser, setCurrentUser, currentChat, setCurrentChat } =
-    useContext(UserContext);
+  const {
+    currentUser,
+    setCurrentUser,
+    currentChat,
+    setCurrentChat,
+    chatGPT,
+    setChatGPT,
+  } = useContext(UserContext);
 
   useEffect(() => {
     if (currentUser) {
@@ -35,7 +42,7 @@ const ChatList = () => {
   const handleClick = (chatId) => {
     setCurrentChat(chatId);
     setselectedChat(chatId);
-    // console.log(chatId);
+    console.log(chatId);
     if (location.pathname !== "/home/chat") {
       navigate("/home/chat");
     }
@@ -43,12 +50,18 @@ const ChatList = () => {
 
   return (
     <div className="chat-list hidden lg:block w-full overflow-y-auto flex flex-col">
+      <ChatGPT
+        isSelected={true}
+        chatid={chatGPT._id}
+        handleClick={handleClick}
+      ></ChatGPT>
       {chats
         ?.sort((a, b) => {
           const chat1 = new Date(a.latestMessage?.updatedAt).getTime() || 0;
           const chat2 = new Date(b.latestMessage?.updatedAt).getTime() || 0;
           return chat2 - chat1;
         })
+        .filter((chat) => chat.isChatGPT != true)
         .map((chat) => (
           <ChatItem
             key={chat._id}

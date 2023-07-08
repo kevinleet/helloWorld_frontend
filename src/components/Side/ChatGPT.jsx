@@ -1,43 +1,53 @@
 import { Configuration, OpenAIApi } from "openai";
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../../App";
 
-const config = new Configuration({
-  apiKey: "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",
-});
+// const config = new Configuration({
+//   apiKey: "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",
+// });
 
-const openai = new OpenAIApi(config);
+// const openai = new OpenAIApi(config);
 
-const runPrompt = async () => {
-  const prompt = "explain what useEffect() does";
+// const runPrompt = async () => {
+//   const prompt = "explain what useEffect() does";
 
-  const response = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: prompt,
-    max_tokens: 2048,
-    temperature: 1,
-  });
+//   const response = await openai.createCompletion({
+//     model: "text-davinci-003",
+//     prompt: prompt,
+//     max_tokens: 2048,
+//     temperature: 1,
+//   });
 
-  console.log(response.data);
-};
+//   console.log(response.data);
+// };
 
-runPrompt();
+// runPrompt();
 
-const ChatGPT = () => {
+const ChatGPT = (props) => {
+  const { latestMessage, handleClick, isSelected, receiver, chatid } = props;
+  const {
+    currentUser,
+    setCurrentUser,
+    currentChat,
+    setCurrentChat,
+    chatGPT_id,
+    setChatGPT_id,
+  } = useContext(UserContext);
+
   return (
     <div
       onClick={() => handleClick(chatid)}
       className={`${
         isSelected ? "bg-white bg-opacity-10" : '"text-white"'
       } border mt-3 rounded-lg  hover:bg-white hover:bg-opacity-10 transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
-      id={receiver}
-      key={receiver}
+      id="chatgpt"
     >
       {/* <h3 className="p-2 text-2xl text-left text-base font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide"> */}
       <span className="p-2 text-2xl text-left text-base font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide">
-        {receiver}
+        ChatGPT
       </span>
       <span className="ml-auto float-right p-1 text-xs">
-        {getTimeAgo(latestMessage?.updatedAt)}
+        {/* {getTimeAgo(latestMessage?.updatedAt)} */}
       </span>
 
       {/* <p className="text-sm p-2">{getTimeAgo(latestMessage.updatedAt)}</p> */}
