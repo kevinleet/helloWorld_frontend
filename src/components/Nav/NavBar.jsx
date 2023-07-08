@@ -25,13 +25,11 @@ const NavBar = () => {
   function handleLogOut() {
     setIsLoggingOut(true);
     setTimeout(() => {
-      setIsLoggingOut(false);
+      sessionStorage.clear();
+      setCurrentUser(null);
       navigate("/login");
-    }, 1500);
-    sessionStorage.clear();
-    setIsLoggedIn(false);
-    setCurrentUser(null);
-    window.location.reload(false);
+      window.location.reload(false);
+    }, 1000);
   }
 
   return (

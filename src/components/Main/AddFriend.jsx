@@ -55,6 +55,7 @@ const AddFriend = () => {
     const sender = users.find((user) => user._id === e.currentTarget.id);
     if (sender) {
       acceptRequest(sender);
+      window.location.reload(false);
     }
   };
 
