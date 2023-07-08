@@ -1,5 +1,6 @@
 import DeleteAccountModal from "../Modals/DeleteAccountModal";
 import UpdateDisplayNameModal from "../Modals/UpdateDisplayNameModal";
+import UpdateEmailModal from "../Modals/UpdateEmailModal";
 import { UserContext, BASE_URL } from "../../App";
 import { useContext, useState } from "react";
 import moment from "moment";
@@ -11,6 +12,7 @@ const MyProfile = () => {
     useContext(UserContext);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDisplayNameModalOpen, setIsDisplayNameModalOpen] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false)
 
   const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,11 +27,11 @@ const MyProfile = () => {
 
   const handleDelete = async ({ currentUser }) => {
     let userDeleted = currentUser.displayname;
-    let userEmail = currentUser.email;
+    let userId = currentUser._id;
 
     try {
       const deleteUser = await axios.delete(
-        `${BASE_URL}/api/users/delete/${userEmail}`
+        `${BASE_URL}/api/users/delete/${userId}`
       );
       setIsLoggedIn(false);
       setCurrentUser(null);
@@ -51,13 +53,12 @@ const MyProfile = () => {
     setIsDisplayNameModalOpen(false);
   };
 
-  const handleUpdate = async (newDisplayName) => {
-    let userToUpdate = currentUser.email;
-    console.log(newDisplayName);
+  const handleDisplayNameUpdate = async (newDisplayName) => {
+    let userToUpdate = currentUser._id;
 
     try {
       const updateDisplayName = await axios.put(
-        `${BASE_URL}/api/users/update/${userToUpdate}`,
+        `${BASE_URL}/api/users/update/displayname/${userToUpdate}`,
         {
           newDisplayName: newDisplayName,
         }
@@ -67,7 +68,32 @@ const MyProfile = () => {
         displayname: newDisplayName,
       }));
       handleCloseDisplayNameModal();
-      window.location.reload(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleOpenEmailModal = () => {
+    setIsEmailModalOpen(true)
+  }
+
+  const handleCloseEmailModal = () => {
+    setIsEmailModalOpen(false)
+  }
+
+  const handleEmailUpdate = async (newEmail) => {
+    let emailToUpdate = currentUser._id;
+
+    try {
+      const updateEmail = await axios.put(
+        `${BASE_URL}/api/users/update/${emailToUpdate}`,
+        { newEmail: newEmail, }
+        );
+        setCurrentUser((prevUser) => ({
+          ...prevUser,
+          email: newEmail,
+        }));
+      handleCloseEmailModal();
     } catch (error) {
       console.log(error);
     }
@@ -95,21 +121,31 @@ const MyProfile = () => {
           {currentUser?.displayname.charAt(0).toUpperCase()}
         </h1>
       </div>
-      <div className="w-full px-5 lg:px-10 grid grid-cols-1 lg:grid-cols-2 items-center mt-5 lg:mt-12 text-md lg:text-2xl gap-x-3 gap-y-2 lg:gap-x-8 lg:gap-y-4">
+      <div className="w-full px-5 lg:px-10 grid grid-cols-1 lg:grid-cols-3 items-center mt-5 lg:mt-12 text-md lg:text-2xl gap-x-3 gap-y-2 lg:gap-x-8 lg:gap-y-4">
         <h3 className="font-bold lg:text-right">Display Name:</h3>
         <p className="flex items-center">
           {currentUser?.displayname}
+        </p>
+        <div className="flex sm:justify-start lg:justify-center items-center">
           <span
-            className="text-sm ml-8 px-3 py-0.25 rounded-xl shadow-sm ring-1 ring-inset ring-gray-500 hover:cursor-pointer hover:ring-blue-500"
+            className="text-sm text-center px-6 py-0.25 rounded-xl shadow-sm ring-1 ring-inset ring-gray-500 hover:cursor-pointer hover:ring-blue-500"
             onClick={handleOpenDisplayNameModal}
-          >
+            >
             Update
           </span>
-        </p>
+        </div>
         <h3 className="font-bold lg:text-right">Email:</h3>
         <p className="">{currentUser?.email}</p>
+        <div className="flex sm:justify-start lg:justify-center items-center">
+          <span
+            className="text-sm text-center px-6 py-0.25 rounded-xl shadow-sm ring-1 ring-inset ring-gray-500 hover:cursor-pointer hover:ring-blue-500"
+            onClick={handleOpenEmailModal}
+            >
+            Update
+          </span>
+        </div>
         <h3 className="font-bold lg:text-right">Created:</h3>
-        <p>
+        <p className="whitespace-nowrap">
           {moment(currentUser?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
         </p>
       </div>
@@ -127,7 +163,12 @@ const MyProfile = () => {
       <UpdateDisplayNameModal
         isOpen={isDisplayNameModalOpen}
         onCancel={handleCloseDisplayNameModal}
-        onConfirm={handleUpdate}
+        onConfirm={handleDisplayNameUpdate}
+      />
+      <UpdateEmailModal
+        isOpen={isEmailModalOpen}
+        onCancel={handleCloseEmailModal}
+        onConfirm={handleEmailUpdate}
       />
     </div>
   );
