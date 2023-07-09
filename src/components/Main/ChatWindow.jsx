@@ -4,6 +4,8 @@ import { UserContext, BASE_URL, OPENAI_KEY } from "../../App";
 import { ChatsContext } from "../Home";
 import { io } from "socket.io-client";
 import { Configuration, OpenAIApi } from "openai";
+//import Typing from "react-typing-animation";
+import { TypeAnimation } from "react-type-animation";
 
 let socket;
 
@@ -32,13 +34,12 @@ const ChatWindow = () => {
   const openai = new OpenAIApi(config);
 
   useEffect(() => {
-    if (currentChat !== chatGPT._id) {
-      try {
+    try {
+      if (currentChat !== chatGPT._id) {
         if (messages.length > 0 && currentUser) {
           let message = messages.find(
             (message) => message.sender?._id !== currentUser._id
           );
-
           if (message) {
             setOtherUser({
               displayname: message.sender.displayname,
@@ -46,11 +47,16 @@ const ChatWindow = () => {
             });
           }
         }
-      } catch (error) {
-        console.log(error);
+      } else if (currentChat == chatGPT._id) {
+        setOtherUser({
+          displayname: "AmAI 3.0",
+          email: "-your personal AI Assistant",
+        });
       }
+    } catch (error) {
+      console.log(error);
     }
-  }, [messages]);
+  }, [messages, currentChat, selectedChat]);
 
   useEffect(() => {
     socket = io(`${BASE_URL}`);
@@ -122,6 +128,7 @@ const ChatWindow = () => {
       content: response_ai.data.choices[0].text,
       chat: currentChat,
     });
+    //in order for sent prompt to stay on screen, we needed to pass 'data' again
     setMessages([...messages, data, data_ai.data]);
   };
   const sendAIMessage = async (event) => {
@@ -186,7 +193,7 @@ const ChatWindow = () => {
           ref={messagesDisplay}
         >
           {messages.length > 0 && currentChat
-            ? messages.map((message) => (
+            ? messages.map((message, index) => (
                 <div key={message._id} className="flex flex-row">
                   {message.sender?._id !== currentUser._id && (
                     <button
@@ -204,7 +211,13 @@ const ChatWindow = () => {
                     } px-3 py-1 text-sm lg:text-lg lg:py-2 m-2 max-w-[200px] lg:max-w-[300px] whitespace-pre-wrap rounded-xl`}
                     style={{ wordBreak: "break-word" }}
                   >
-                    {message.content}
+                    {currentChat == chatGPT._id &&
+                    message.sender?._id !== currentUser._id &&
+                    index === messages.length - 1 ? (
+                      <TypeAnimation sequence={[message.content]} />
+                    ) : (
+                      <p>{message.content}</p>
+                    )}
                   </p>
                   {message.sender?._id === currentUser._id && (
                     <button
