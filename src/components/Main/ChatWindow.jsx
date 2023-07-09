@@ -42,8 +42,8 @@ const ChatWindow = () => {
           );
           if (message) {
             setOtherUser({
-              displayname: message.sender.displayname,
-              email: message.sender.email,
+              displayname: message.sender?.displayname,
+              email: message.sender?.email,
             });
           }
         }
@@ -123,7 +123,6 @@ const ChatWindow = () => {
       temperature: 1,
     });
 
-    console.log(response_ai);
     const data_ai = await axios.post(`${BASE_URL}/api/messages`, {
       content: response_ai.data.choices[0].text,
       chat: currentChat,
@@ -216,7 +215,7 @@ const ChatWindow = () => {
                     index === messages.length - 1 ? (
                       <TypeAnimation sequence={[message.content]} />
                     ) : (
-                      <p>{message.content}</p>
+                      <span>{message.content}</span>
                     )}
                   </p>
                   {message.sender?._id === currentUser._id && (
