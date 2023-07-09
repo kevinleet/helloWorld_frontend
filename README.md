@@ -21,7 +21,7 @@ The goal of this project was to work together to build a full-stack collaberativ
 ### Real-Time Chatting:
 Connect with friends, colleagues, or new acquaintances instantly using helloWorld's real-time chat functionality. Experience smooth and responsive communication with minimal latency.
 
-### AI-Powered Responses (currently in development): 
+### AI-Powered Responses: 
 helloWorld integrates cutting-edge AI technology to provide automated responses that adapt to the context of the conversation. Choose at any time to respond to you colleague's messages with an AI Generated Response! Enjoy dynamic and intelligent interactions, making your chats more interesting and interactive.
 
 ### User-Friendly Interface: 
