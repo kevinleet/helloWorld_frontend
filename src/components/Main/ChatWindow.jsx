@@ -50,7 +50,7 @@ const ChatWindow = () => {
       } else if (currentChat == chatGPT._id) {
         setOtherUser({
           displayname: "helloWorld.ai",
-          email: "-your personal AI Assistant",
+          email: "",
         });
       }
     } catch (error) {

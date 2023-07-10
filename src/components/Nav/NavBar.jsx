@@ -76,7 +76,7 @@ const NavBar = () => {
               focus-visible:outline-indigo-500 dark:focus-visible:outline-indigo-600`}
           onClick={() => {
             handleSelection("addfriend");
-            window.location.reload(false);
+            //window.location.reload(false);
           }}
         >
           <img src={group} className="w-8" />
