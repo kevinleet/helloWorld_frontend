@@ -33,6 +33,7 @@ const ChatWindow = () => {
 
   const openai = new OpenAIApi(config);
 
+  //display other user's name
   useEffect(() => {
     try {
       if (currentChat !== chatGPT._id) {
@@ -58,12 +59,14 @@ const ChatWindow = () => {
     }
   }, [messages, currentChat, selectedChat]);
 
+  //set up the Socket.io connection with backend
   useEffect(() => {
     socket = io(`${BASE_URL}`);
     socket.emit("setup", currentUser);
     socket.on("connected", () => setSocketConnected(true));
   }, []);
 
+  //Message Receive Functionality (Socket.io)
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
       // only update messages if the incoming message received belongs to the selected chat.
@@ -85,6 +88,7 @@ const ChatWindow = () => {
     });
   });
 
+  //Send message functionality (Socket.io and Server)
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
       event.preventDefault();
@@ -115,6 +119,7 @@ const ChatWindow = () => {
     }
   };
 
+  //OpenAI Prompt API
   const runPrompt = async (data) => {
     const response_ai = await openai.createCompletion({
       model: "text-davinci-003",
@@ -130,6 +135,7 @@ const ChatWindow = () => {
     //in order for sent prompt to stay on screen, we needed to pass 'data' again
     setMessages([...messages, data, data_ai.data]);
   };
+  //Send a message to OpenAI API
   const sendAIMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
       event.preventDefault();
@@ -151,6 +157,7 @@ const ChatWindow = () => {
     }
   };
 
+  //Load saved chat messages from the server
   const loadMessages = async () => {
     const { data } = await axios.get(`${BASE_URL}/api/messages/${currentChat}`);
 
@@ -158,22 +165,26 @@ const ChatWindow = () => {
     selectedChatCompare = selectedChat;
   };
 
+  //auto-scroll the chat to the bottom when a new message is added
   useEffect(() => {
     if (messagesDisplay.current) {
       messagesDisplay.current.scrollTop = messagesDisplay.current.scrollHeight;
     }
   }, [messages, setMessages]);
 
+  //Joins the client socket to a chat room useEffect()
   useEffect(() => {
     socket.emit("join chat", room);
   }, [room, setRoom]);
 
+  //If selected chat changes, change the Room for Socket.io
   useEffect(() => {
     setMessages([]);
     setRoom(currentChat);
     currentChat !== "" ? loadMessages() : null;
   }, [currentChat, setCurrentChat]);
 
+  //User input update the messafe in chat
   const typingHandler = (event) => {
     setNewMessage(event.target.value);
   };
