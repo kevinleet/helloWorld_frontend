@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const ChatItem = (props) => {
   //console.log(props.latestMessage);
   const { latestMessage, handleClick, isSelected, receiver, chatid } = props;
+  //convert time to a number
   const getTimeAgo = (updatedAt) => {
     const updatedDate = new Date(updatedAt);
     const currentDate = new Date();

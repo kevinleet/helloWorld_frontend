@@ -21,6 +21,7 @@ const ChatList = () => {
     setChatGPT,
   } = useContext(UserContext);
 
+  //Load all chats from a user based on current user and get's their designated ChatGPT chat
   useEffect(() => {
     if (currentUser) {
       const getAllChats = async () => {
@@ -38,6 +39,7 @@ const ChatList = () => {
     }
   }, [currentUser, currentChat]);
 
+  //get's the current user's ChatGPT
   const getGPTChat = async (user) => {
     try {
       const { data } = await axios.get(
