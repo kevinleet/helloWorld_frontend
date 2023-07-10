@@ -61,7 +61,7 @@ const ChatList = () => {
   return (
     <div className="chat-list hidden lg:block w-full overflow-y-auto flex flex-col">
       <ChatGPT
-        isSelected={true}
+        isSelected={selectedChat === chatGPT._id}
         chatid={chatGPT._id}
         handleClick={handleClick}
       ></ChatGPT>

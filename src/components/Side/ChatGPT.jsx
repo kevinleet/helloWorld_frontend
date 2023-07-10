@@ -41,12 +41,12 @@ const ChatGPT = (props) => {
       }}
       className={`${
         isSelected ? "bg-white bg-opacity-10" : '"text-white"'
-      } border mt-3 rounded-lg  hover:bg-white hover:bg-opacity-10 transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
+      } border border-indigo-600 mt-3 rounded-lg  hover:bg-white hover:bg-opacity-10 transform hover:scale-120 hover:rounded-lg transition-all duration-300`}
       id="chatgpt"
     >
       {/* <h3 className="p-2 text-2xl text-left text-base font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide"> */}
       <span className="p-2 text-2xl text-left text-base font-bold overflow-ellipsis overflow-hidden whitespace-nowrap tracking-wide">
-        ChatGPT
+        helloWorld.ai
       </span>
       <span className="ml-auto float-right p-1 text-xs">
         {/* {getTimeAgo(latestMessage?.updatedAt)} */}
@@ -62,7 +62,7 @@ const ChatGPT = (props) => {
         </>
       ) : (
         <h5 className="text-md p-2 overflow-hidden overflow-ellipsis whitespace-nowrap tracking-wide text-center">
-          No Messages
+          Your Personal AI Assistant
         </h5>
       )}
     </div>
