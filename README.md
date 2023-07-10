@@ -2,7 +2,7 @@
 
 ## A Smarter way to Chat.
 
-#### Josh Matthew | Theresa Kennelly | John Brooks | Kevin Li
+#### Josh Mathew | Theresa Kennelly | John Brooks | Kevin Li
 
 ![app login screenshot](PNGs/helloWorldLogIn.png)
 ![app main page screenshot](PNGs/helloWorldHome.png)
@@ -14,7 +14,7 @@
 
 helloWorld is a real-time chat application that leverages the power of AI to enhance user conversations. It provides an intuitive and seamless chatting experience with the added benefit of AI-generated responses. Whether you want to have a casual chat, seek assistance, or simply explore the capabilities of artificial intelligence, helloWorld is here to make your conversations more engaging and interactive.
 
-The goal of this project was to work together to build a full-stack collaberative app. Our goal was to make a real-time chat app that intergrates AI within personal private messages with peers. In the future, we would like to fix small bugs to make the user expirience more streamline, and fully intergrate AI into the app's capabilities. 
+The goal of this project was to work together to build a full-stack collaborative app. Our goal was to make a real-time chat app that integrates AI within personal private messages with peers. In the future, we would like to fix small bugs to make the user experience more streamline, and fully integrate AI into the app's capabilities. 
 
 ## Features
 
@@ -35,6 +35,8 @@ Your privacy and security are of utmost importance. helloWorld ensures that all 
 - JS: Used in the backend to create API and dataBase functionality and communication with the frontend.
 - React: Used to build the frontend and create a enjoyable user expirience.
 - tailwindCSS: Used within the frontend ReactApp for cohesive and easy-to-edit styling.
+- socket.io: Used to create real-time chat capabilities.
+- OpenAI: Used to integrate AI into the chatting expirience. 
 - Railway: Used to deploy final project.
 
 ## Wireframe, ERD and CHD
@@ -46,7 +48,7 @@ Your privacy and security are of utmost importance. helloWorld ensures that all 
 [TrelloBoard](https://trello.com/b/ARG2PWMG/helloworld)
 
 ## Contributions
-### Josh Matthew
+### Josh Mathew
 [Linkedin](https://www.linkedin.com/in/joshua-mathew41/)
 [GitHub](https://github.com/jsm4228)
 
