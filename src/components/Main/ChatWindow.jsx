@@ -49,7 +49,7 @@ const ChatWindow = () => {
         }
       } else if (currentChat == chatGPT._id) {
         setOtherUser({
-          displayname: "AmAI 3.0",
+          displayname: "helloWorld.ai",
           email: "-your personal AI Assistant",
         });
       }
